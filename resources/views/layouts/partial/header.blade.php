@@ -1,13 +1,12 @@
 <div class="header">
             <div class="header-left">
                 <a href="admin-dashboard.html" class="logo">
-                    <img src="images/logo.png" width="40" height="40" alt>
+                    <img src="{{asset('frontend/images/logo.png')}}" width="40" height="40" alt>
                 </a>
                 <a href="admin-dashboard.html" class="logo2">
-                    <img src="images/logo2.png" width="40" height="40" alt>
+                    <img src="{{asset('frontend/images/logo2.png')}}" width="40" height="40" alt>
                 </a>
             </div>
-
             <a id="toggle_btn" href="javascript:void(0);">
                 <span class="bar-icon">
                     <span></span>
@@ -15,11 +14,9 @@
                     <span></span>
                 </span>
             </a>
-
             <div class="page-title-box">
-                <h3>Dreamguy's Technologies</h3>
+                <h3>Farmacy</h3>
             </div>
-
             <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
 
             <ul class="nav user-menu">
@@ -35,29 +32,6 @@
                         </form>
                     </div>
                 </li>
-
-
-                <li class="nav-item dropdown has-arrow flag-nav">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-                        <img src="images/us.png" alt height="20"> <span>English</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="images/us.png" alt height="16"> English
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="images/fr.png" alt height="16"> French
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="images/es.png" alt height="16"> Spanish
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="images/de.png" alt height="16"> German
-                        </a>
-                    </div>
-                </li>
-
-
                 <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <i class="fa fa-bell-o"></i> <span class="badge rounded-pill">3</span>
@@ -73,7 +47,7 @@
                                     <a href="activities.html">
                                         <div class="media d-flex">
                                             <span class="avatar flex-shrink-0">
-                                                <img alt src="images/avatar-02.jpg">
+                                                <img alt src="{{asset('frontend/images/avatar-02.jpg')}}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">John Doe</span> added
@@ -89,7 +63,7 @@
                                     <a href="activities.html">
                                         <div class="media d-flex">
                                             <span class="avatar flex-shrink-0">
-                                                <img alt src="images/avatar-03.jpg">
+                                                <img alt src="{{asset('frontend/images/avatar-03.jpg')}}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
@@ -105,7 +79,7 @@
                                     <a href="activities.html">
                                         <div class="media d-flex">
                                             <span class="avatar flex-shrink-0">
-                                                <img alt src="images/avatar-06.jpg">
+                                                <img alt src="{{asset('frontend/images/avatar-06.jpg')}}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Misty Tison</span>
@@ -122,7 +96,7 @@
                                     <a href="activities.html">
                                         <div class="media d-flex">
                                             <span class="avatar flex-shrink-0">
-                                                <img alt src="images/avatar-17.jpg">
+                                                <img alt src="{{asset('frontend/images/avatar-17.jpg')}}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Rolland Webber</span>
@@ -138,7 +112,7 @@
                                     <a href="activities.html">
                                         <div class="media d-flex">
                                             <span class="avatar flex-shrink-0">
-                                                <img alt src="images/avatar-13.jpg">
+                                                <img alt src="{{asset('frontend/images/avatar-13.jpg')}}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
@@ -175,7 +149,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt src="images/avatar-09.jpg">
+                                                    <img alt src="{{asset('frontend/images/avatar-09.jpg')}}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -193,7 +167,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt src="images/avatar-02.jpg">
+                                                    <img alt src="{{asset('frontend/images/avatar-02.jpg')}}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -211,7 +185,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt src="images/avatar-03.jpg">
+                                                    <img alt src="{{asset('frontend/images/avatar-03.jpg')}}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -229,7 +203,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt src="images/avatar-05.jpg">
+                                                    <img alt src="{{asset('frontend/images/avatar-05.jpg')}}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -247,7 +221,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt src="images/avatar-08.jpg">
+                                                    <img alt src="{{asset('frontend/images/avatar-08.jpg')}}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -270,7 +244,7 @@
 
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                        <span class="user-img"><img src="images/avatar-21.jpg" alt>
+                        <span class="user-img"><img src="{{asset('frontend/images/avatar-21.jpg')}}" alt>
                             <span class="status online"></span></span>
                         <span>Admin</span>
                     </a>
