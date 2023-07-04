@@ -36,9 +36,12 @@
 </head>
 <body>
     <div id="app">
+    @yield('user-not-login')
     <div class="main-wrapper">
+    @if (Request::is('admin*'))
     @include('layouts.partial.sidebar')
     @include('layouts.partial.header')
+    @endif
     <div class="page-wrapper">
 
     @yield('content')

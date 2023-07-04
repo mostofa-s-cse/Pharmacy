@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title','Login')
-@section('content')
+@section('user-not-login')
 <div class="account-page">
         <div class="main-wrapper">
             <div class="account-content">

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('title','Verify Email')
-@section('content')
+@section('user-not-login')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="margin-top: 6rem;">
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
                 <div class="card-body">
