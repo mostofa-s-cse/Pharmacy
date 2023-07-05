@@ -1,9 +1,9 @@
 <div class="header">
             <div class="header-left">
-                <a href="admin-dashboard.html" class="logo">
+                <a href="{{ url('admin/dashboard')}}" class="logo">
                     <img src="{{asset('frontend/images/logo.png')}}" width="40" height="40" alt>
                 </a>
-                <a href="admin-dashboard.html" class="logo2">
+                <a href="{{ url('admin/dashboard')}}" class="logo2">
                     <img src="{{asset('frontend/images/logo2.png')}}" width="40" height="40" alt>
                 </a>
             </div>
@@ -15,7 +15,7 @@
                 </span>
             </a>
             <div class="page-title-box">
-                <h3>Farmacy</h3>
+            <a href="{{ url('admin/dashboard')}}">  <h3>Farmacy</h3></a>
             </div>
             <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
 
@@ -246,7 +246,7 @@
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img"><img src="{{asset('frontend/images/avatar-21.jpg')}}" alt>
                             <span class="status online"></span></span>
-                        <span>Admin</span>
+                        <span>{{ Auth::user()->name }}</span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile.html">My Profile</a>
@@ -266,7 +266,10 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="index.html">Logout</a>
+                    <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit()">Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
+                            @csrf
+                        </form>
                 </div>
             </div>
         </div>

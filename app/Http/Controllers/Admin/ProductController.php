@@ -3,63 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('pages.product.product');
+        return view('pages.product.product')->with('products',Product::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $this->validate(request(),
+        [
+            'name' => 'required|min:2|max:200',
+            'description'=>'required',
+            // 'quantity'=>'required'
+        ]);
+        $data=request()->all();
+        $products = new Product();
+        $products->name = $data['name'];
+        $products->description = $data['description'];
+        $products->quantity = $data['quantity']; 
+        $products -> save();
+        session()->flash('success','Product Created Successfully');
+        return redirect('/admin/products');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function destroy(Product $product)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $product->delete();
+        session()->flash('success','Product Delete Successfully');
+        return redirect('/admin/products');
     }
 }
