@@ -31,9 +31,10 @@ class ProductController extends Controller
         return redirect('/admin/products');
     }
 
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        $product->delete();
+        // dd($request->input());
+        Product::find($request->product_id)->delete();
         session()->flash('success','Product Delete Successfully');
         return redirect('/admin/products');
     }

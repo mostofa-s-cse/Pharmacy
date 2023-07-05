@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title','Product')
 @section('content')
-
             <div class="content container-fluid">
                 <div class="page-header">
                     <div class="row align-items-center">
@@ -49,16 +48,9 @@
                         <a href="#" class="btn btn-success w-100"> Search </a>
                     </div>
                 </div>
-
                 <div class="row">
-
-                <div class="col-md-12 ">
-        <div class="card card-table">
-            <div class="card-header">
-                <h3 class="card-title mb-0">All Product</h3>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
+                <div class="col-md-12">
+              <div class="table-responsive">
                 <table class="table table-striped custom-table datatable">
                                 <thead>
                                     <tr>
@@ -69,23 +61,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($products as $product)
+                                    @foreach($products as $key=> $product)
                                     <tr>
                                         <td>{{$product->name}}</td>
                                         <td>{{$product->description}}</td>
                                         <td>{{$product->quantity}}</td>
+                                        <td></td>
                                         <td class="text-end">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle"
                                                     data-bs-toggle="dropdown" aria-expanded="false"><i
                                                         class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#edit_Product"><i
+                                                    <a id="product_{{$key}}" productId="{{$product->id}}" productName="{{$product->name}}" productDescription="{{$product->description}}" productQuantity="{{$product->quantity}}" onclick="productEdit({{$key}})" class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#edit_Product" ><i
                                                             class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#delete_Product"><i
-                                                    class="fa fa-trash-o m-r-5 deleteBtn" value="{{$product->id}}"></i> Delete</a>
+                                                        data-bs-target="#delete_Product" onclick="productdelete({{$product->id}})"><i
+                                                    class="fa fa-trash-o m-r-5" ></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -97,11 +90,6 @@
             </div>
 
         </div>
-    </div>
-                </div>
-            </div>
-
-
             <div id="add_product" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
@@ -123,8 +111,8 @@
                             </ul>
                         </div>
                     @endif
-                    <form action="/admin/create-product" method="POST">
-                        @csrf 
+                    <form action="{{route('pages.product.create')}}" method="POST">
+                        @csrf
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -166,13 +154,13 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                             <form>
+                             <form action="" method="post">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Product Name <span
                                                     class="text-danger">*</span></label>
-                                            <input class="form-control" type="text">
+                                            <input id="product_name_edit" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -207,7 +195,11 @@
                             <div class="modal-btn delete-action">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="#" class="btn btn-primary continue-btn">Delete</a>
+                                        <form action="{{route('pages.product.delete')}}" method="get">
+                                            <input type="hidden" name="product_id" id="product_id">
+                                            <button type="" class="btn btn-primary submit-btn">Delete</button>
+                                        </form>
+                                        <!-- <a href="#" class="btn btn-primary continue-btn" >Delete</a> -->
                                     </div>
                                     <div class="col-6">
                                         <a href="javascript:void(0);" data-bs-dismiss="modal"
@@ -222,13 +214,20 @@
 
 @endsection
 
-@section('scripts')
-<scripts>
-    $(document).ready(function(){
-        $(document).on('click','deleteBtn', function(){
-            var product_id = $(this).val();
-            alert(product_id);
-        })
-    });
-</scripts>
+@section('script')
+<script>
+    function productdelete(id) {
+        $('#product_id').val(id)
+    }
+    function productEdit(id) {
+        let product_id =  $('#product_'+id).attr("productId")
+        let product_name =  $('#product_'+id).attr("productName")
+        let product_description =  $('#product_'+id).attr("description")
+        let product_quantity =  $('#product_'+id).attr("quantity")
+        $('#product_name_edit').val(product_name)
+        $('#product_description_edit').val(product_description)
+        $('#product_quantity_edit').val(product_quantity)
+        // console.log(product_Name,product_Id)
+    }
+</script>
 @endsection

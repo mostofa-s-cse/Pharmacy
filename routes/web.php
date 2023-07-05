@@ -27,10 +27,10 @@ Route::get('admin/dashboard',function(){
     return view('pages.dashboard');
 });
 
-Route::group(['prefix'=>'admin','middleware'=>'auth','namespace'=>'Admin'],function(){
+    Route::group(['prefix'=>'admin','middleware'=>'auth','namespace'=>'Admin'],function(){
     Route::get('dashboard',[DashboardController::class, 'index'])->name('pages.bashboard');
     // Product.............................................................................
-    Route::get('products',[ProductController::class, 'index'])->name('pages.product.product');
-    Route::post('create-product',[ProductController::class, 'create'])->name('pages.product.product');
-    Route::get('products/{product}/delete',[ProductController::class, 'destroy'])->name('pages.product.product');
+    Route::get('products',[ProductController::class, 'index'])->name('pages.product');
+    Route::post('create-product',[ProductController::class, 'create'])->name('pages.product.create');
+    Route::get('products/delete',[ProductController::class, 'destroy'])->name('pages.product.delete');
 });

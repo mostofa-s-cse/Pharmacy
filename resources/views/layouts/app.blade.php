@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/material.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/css/dataTables.bootstrap4.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('frontend/css/bootstrap-datetimepicker.min.css')}}" />
      <!-- Fonts -->
     <link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/line-awesome.min.css')}}">
@@ -34,6 +36,8 @@
     <script src="{{asset('frontend/js/theme-settings.js')}}"></script>
     <script src="{{asset('frontend/js/app.js')}}"></script>
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('frontend/js/dataTables.bootstrap4.min.js')}}"></script>
     
 </head>
 <body>
@@ -47,12 +51,10 @@
     <div class="page-wrapper">
 
     @yield('content')
-        <!-- <main class="py-4">
-            @yield('content')
-        </main> -->
+       
          </div>
         </div>
     </div>
-    @yield('scripts')
+    @yield('script')
 </body>
 </html>
