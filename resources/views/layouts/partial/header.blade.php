@@ -1,10 +1,8 @@
 <div class="header">
             <div class="header-left">
+                
                 <a href="{{ url('admin/dashboard')}}" class="logo">
-                    <img src="{{asset('frontend/images/logo.png')}}" width="40" height="40" alt>
-                </a>
-                <a href="{{ url('admin/dashboard')}}" class="logo2">
-                    <img src="{{asset('frontend/images/logo2.png')}}" width="40" height="40" alt>
+                    <img src="{{asset('frontend/images/logo4.png')}}" width="120" height="90" alt>
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);">

@@ -10,7 +10,7 @@
                             <a href="#" class="noti-dot"><i class="la la-home"></i> <span> Dashboard </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="{{ url('admin/products')}}">Dashboard</a></li>
+                                <li><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
                             </ul>
                         </li>
 
