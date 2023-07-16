@@ -19,73 +19,22 @@
                 </div>
 
 
-                <div class="row filter-row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group form-focus">
-                            <input type="text" class="form-control floating">
-                            <label class="focus-label">Product ID</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group form-focus">
-                            <input type="text" class="form-control floating">
-                            <label class="focus-label">Product Name</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group form-focus select-focus">
-                            <select class="floating form-control">
-                                <option>Select Designation</option>
-                                <option>Web Developer</option>
-                                <option>Web Designer</option>
-                                <option>Android Developer</option>
-                                <option>Ios Developer</option>
-                            </select>
-                            <label class="focus-label">Designation</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <a href="#" class="btn btn-success w-100"> Search </a>
-                    </div>
-                </div>
                 <div class="row">
                 <div class="col-md-12">
               <div class="table-responsive">
-                <table class="table table-striped custom-table datatable">
-                                <thead>
-                                    <tr>
-                                        <th>Product Name</th>
-                                        <th>Description</th>
-                                        <th>Quantity</th>
-                                        <th class="text-end no-sort">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($products as $key=> $product)
-                                    <tr>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->description}}</td>
-                                        <td>{{$product->quantity}}</td>
-                                        <td></td>
-                                        <td class="text-end">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a id="product_{{$key}}" productId="{{$product->id}}" productName="{{$product->name}}" productDescription="{{$product->description}}" productQuantity="{{$product->quantity}}" onclick="productEdit({{$key}})" class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#edit_Product" ><i
-                                                            class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#delete_Product" onclick="productdelete({{$product->id}})"><i
-                                                    class="fa fa-trash-o m-r-5" ></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+               <table class="table table-striped table-bordered custom-table data-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>quantity</th>
+                        <th width="105px">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                </table>
                 </div>
             </div>
 
@@ -229,5 +178,22 @@
         $('#product_quantity_edit').val(product_quantity)
         // console.log(product_Name,product_Id)
     }
+
+    $(function () {
+      
+      var table = $('.data-table').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: "{{ route('product.index') }}",
+          columns: [
+              {data: 'id', name: 'id'},
+              {data: 'name', name: 'name'},
+              {data: 'quantity', name: 'quantity'},
+              {data: 'description', name: 'description'},
+              {data: 'action', name: 'action', orderable: false, searchable: false},
+          ]
+      });
+        
+    });
 </script>
 @endsection
