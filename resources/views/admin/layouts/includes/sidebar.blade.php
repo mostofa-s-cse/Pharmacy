@@ -23,10 +23,10 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="#"><i class="la la-box"></i> <span> Product </span> <span
+                            <a href="#"><i class="la la-people-carry"></i> <span> Supplier  </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="{{ url('admin/products')}}">All Product</a></li>
+                                <li><a href="{{ route('supplier.index')}}">Supplier  Details</a></li>
                             </ul>
                         </li>
 
@@ -37,6 +37,15 @@
                                 <li><a href="{{ url('admin/products')}}">Purchase Details</a></li>
                             </ul>
                         </li>
+
+                        <li class="submenu">
+                            <a href="#"><i class="la la-box"></i> <span> Product </span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="{{ url('admin/products')}}">All Product</a></li>
+                            </ul>
+                        </li>
+
 
                         <li class="submenu">
                             <a href="#"><i class="la la-chart-bar"></i> <span> Sales </span> <span
@@ -70,13 +79,7 @@
                             </ul>
                         </li>
 
-                        <li class="submenu">
-                            <a href="#"><i class="la la-people-carry"></i> <span> Supplier  </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="{{ url('admin/products')}}">Supplier  Details</a></li>
-                            </ul>
-                        </li>
+                        
 
                         <li class="submenu">
                             <a href="#"><i class="la la-user-tag"></i> <span> Customer  </span> <span

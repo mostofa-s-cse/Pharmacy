@@ -45,8 +45,8 @@
     @yield('user-not-login')
     <div class="main-wrapper">
     @if (Request::is('admin*'))
-    @include('admin.layouts.partial.sidebar')
-    @include('admin.layouts.partial.header')
+    @include('admin.layouts.includes.sidebar')
+    @include('admin.layouts.includes.header')
     @endif
     <div class="page-wrapper">
 

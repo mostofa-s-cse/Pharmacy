@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,4 +35,12 @@ Route::get('admin/dashboard',function(){
     // Route::get('products',[ProductController::class, 'index'])->name('pages.product');
     Route::post('create-product',[ProductController::class, 'create'])->name('pages.product.create');
     Route::get('products/delete',[ProductController::class, 'destroy'])->name('pages.product.delete');
+
+
+
+    Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
+    Route::get('create-supplier', [SupplierController::class, 'store'])->name('supplier.store');
+    Route::get('update-supplier', [SupplierController::class, 'store'])->name('supplier.update');
+    Route::delete('supplier/delete',[SupplierController::class, 'destroy'])->name('supplier.delete');
+
 });

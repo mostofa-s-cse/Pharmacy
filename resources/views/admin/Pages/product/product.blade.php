@@ -92,7 +92,6 @@
                 </div>
             </div>
 
-
             <div id="edit_Product" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
@@ -133,6 +132,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="modal custom-modal fade" id="delete_Product" role="dialog">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
