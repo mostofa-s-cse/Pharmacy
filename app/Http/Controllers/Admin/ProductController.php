@@ -24,7 +24,7 @@ class ProductController extends Controller
                 ->make(true);
         }
 
-        return view('pages.product.product');
+        return view('admin.pages.product.product');
     }
 
     public function create()

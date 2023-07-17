@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title','Login')
 @section('user-not-login')
 <div class="account-page">
@@ -6,7 +6,7 @@
             <div class="account-content">
                 <div class="container">
                     <div class="account-logo">
-                        <a href="admin-dashboard.html"
+                        <a href="{{ route('login') }}"
                             ><img
                                 src="{{ asset ('frontend/images/logo2.png')}}"
                                 alt="Dreamguy's Technologies"

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title','reset password')
 @section('user-not-login')
 <div class="container">
