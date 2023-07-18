@@ -116,26 +116,26 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Product</h5>
+                            <h5 class="modal-title">Edit Supplier</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                        <form method="post" enctype="multipart/form-data" action="{{route('supplier.index')}}">
+						<form action="#" method="POST" id="edit_supplier_form" enctype="multipart/form-data">
 				@csrf
 				
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Name<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="name">
+								<label>Name</label>
+								<input class="form-control" type="text" name="name" id="name">
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<label>Email<span class="text-danger">*</span></label>
-							<input class="form-control" type="text" name="email" id="email">
+							<label>Email</label>
+							<input class="form-control" type="text" name="email" id="Email" >
 						</div>
 					</div>
 				</div>
@@ -144,13 +144,13 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Phone<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="phone">
+								<label>Phone</label>
+								<input class="form-control" name="phone" type="text" id="phone">
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<label>Company<span class="text-danger">*</span></label>
-							<input class="form-control" type="text" name="company">
+							<label>Company</label>
+							<input class="form-control" name="company" type="text" id="company">
 						</div>
 					</div>
 				</div>
@@ -159,13 +159,13 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Address <span class="text-danger">*</span></label>
-								<input type="text" name="address" class="form-control">
+								<label>Address</label>
+								<input type="text" id="address" name="address" class="form-control">
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<label>Product</label>
-							<input type="text" name="product" class="form-control">
+							<input type="text" id="product" name="product" class="form-control">
 						</div>
 					</div>
 				</div>			
@@ -173,13 +173,13 @@
 					<div class="row">
 						<div class="col-12">
 							<label>Comment</label>
-							<textarea name="comment" class="form-control" cols="30" rows="10"></textarea>
+							<textarea id="comment" name="comment" class="form-control" cols="30" rows="10"></textarea>
 						</div>
 					</div>
 				</div>
 				
 				<div class="submit-section">
-					<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
+					<button class="btn btn-primary submit-btn" id="edit_supplier_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
 			</form>
                         </div>
@@ -220,25 +220,63 @@
           }
         });
       });
-		 // fetch all employees ajax request
-		 fetchAllEmployees();
-
-		function fetchAllEmployees() {
-		$.ajax({
-			url: '{{ route('fetchAll') }}',
-			method: 'get',
-			success: function(response) {
-			$("#show_all_supplier").html(response);
-			$("table").DataTable({
-				order: [0, 'desc']
-			});
-			}
-		});
-		}
 
 
-		 // delete employee ajax request
-		 $(document).on('click', '.deleteIcon', function(e) {
+	  // edit employee ajax request
+      $(document).on('click', '.editIcon', function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
+        $.ajax({
+          url: '{{ route('edit') }}',
+          method: 'get',
+          data: {
+            id: id,
+            _token: '{{ csrf_token() }}'
+          },
+          success: function(response) {
+            $("#product").val(response.product);
+            $("#name").val(response.name);
+            $("#Email").val(response.email);
+            $("#phone").val(response.phone);
+            $("#address").val(response.address);
+            $("#id").val(response.id);
+            $("#company").val(response.company);
+			$("#comment").val(response.comment);
+          }
+        });
+      });
+
+      // update employee ajax request
+      $("#edit_supplier_form").submit(function(e) {
+        e.preventDefault();
+        const fd = new FormData(this);
+        $("#edit_supplier_btn").text('Updating...');
+        $.ajax({
+          url: '{{ route('update') }}',
+          method: 'post',
+          data: fd,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          success: function(response) {
+            if (response.status == 200) {
+              Swal.fire(
+                'Updated!',
+                'Supplier Updated Successfully!',
+                'success'
+              )
+              fetchAllEmployees();
+            }
+            $("#edit_supplier_btn").text('Update Supplier');
+            $("#edit_supplier_form")[0].reset();
+            $("#editSupplierModal").modal('hide');
+          }
+        });
+      });
+
+	   // delete employee ajax request
+	   $(document).on('click', '.deleteIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
         let csrf = '{{ csrf_token() }}';
@@ -272,6 +310,22 @@
           }
         })
       });
+
+		 // fetch all employees ajax request
+		 fetchAllEmployees();
+
+		function fetchAllEmployees() {
+		$.ajax({
+			url: '{{ route('fetchAll') }}',
+			method: 'get',
+			success: function(response) {
+			$("#show_all_supplier").html(response);
+			$("table").DataTable({
+				order: [0, 'desc']
+			});
+			}
+		});
+		}
 	});
 </script> 
 @endsection

@@ -39,9 +39,10 @@ Route::get('admin/dashboard',function(){
     Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
     Route::get('/fetchall', [SupplierController::class, 'fetchAll'])->name('fetchAll');
     Route::post('/store', [SupplierController::class, 'store'])->name('store');
-
-    Route::delete('/delete', [SupplierController::class, 'delete'])->name('delete');
+    Route::get('/edit', [SupplierController::class, 'edit'])->name('edit');
     Route::post('/update', [SupplierController::class, 'update'])->name('update');
+    Route::delete('/delete', [SupplierController::class, 'delete'])->name('delete');
+    
     
     // Route::post('create-supplier', [SupplierController::class, 'store'])->name('supplier.store');
     // Route::get('update-supplier', [SupplierController::class, 'store'])->name('supplier.update');

@@ -77,24 +77,22 @@ class SupplierController extends Controller
 	// handle edit an Supplier ajax request
 	public function edit(Request $request) {
 		$id = $request->id;
-		$emp = Supplier::find($id);
-		return response()->json($emp);
+		$supplier = Supplier::find($id);
+		return response()->json($supplier);
 	}
 
-	// handle update an Supplier ajax request
+    // handle update an employee ajax request
 	public function update(Request $request) {
-		$supllier = Supplier::find($request->id);
-		$supplierData = [
-            'product' => $request->product, 
+		$supplier = Supplier::find($request->id);
+        $supplier->update([
+            'product' => $request->product,
             'name' => $request->name, 
             'email' => $request->email, 
             'phone' => $request->phone, 
             'address' => $request->address,
             'company' => $request->company, 
             'comment' => $request->comment
-        ];
-
-		$supllier->update($supplierData);
+        ]);
 		return response()->json([
 			'status' => 200,
 		]);
