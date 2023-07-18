@@ -22,13 +22,15 @@
                 
                     <!-- Suppliers -->
                     <div class="card">
+					<div class="table-responsive">
 					<div class="card-body" id="show_all_supplier">
-            <h3 class="text-center text-secondary my-5">Loading...</h3>
-          </div>
+           		 <h3 class="text-center text-secondary my-5">Loading...</h3>
+          		</div>
                     </div>
                     <!-- /Suppliers-->
-                    
+                    </div>
                 </div>
+				</div>
             </div>
             
             </div>
@@ -110,7 +112,7 @@
 
             <!-- add end -->
 
-            <div id="edit_supplier" class="modal custom-modal fade" role="dialog">
+            <div id="editSupplierModal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

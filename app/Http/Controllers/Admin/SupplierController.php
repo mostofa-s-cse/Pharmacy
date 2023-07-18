@@ -12,22 +12,7 @@ class SupplierController extends Controller
     // set index page view
     public function index()
     {
-
-        // if($request->ajax()){
-        //     $supplier = Supplier::get();
-        //     return DataTables::of($supplier)
-        //         ->addIndexColumn()
-        //         ->addColumn('action', function ($row) {
-        //             $editbtn = '<a href="'.route("supplier.update", $row->id).'" class="editbtn"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
-        //             $deletebtn = '<a data-id="'.$row->id.'" data-route="'.route('supplier.delete', $row->id).'" href="javascript:void(0)" id="deletebtn"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
-        //             $btn = $editbtn.' '.$deletebtn;
-        //             return $btn;
-        //         })
-        //         ->rawColumns(['action'])
-        //         ->make(true);
-        // }
         return view('admin.pages.supplier.index');
-        // return view('admin.pages.supplier.index');
     }
   
     // handle fetch all eamployees ajax request
@@ -38,6 +23,7 @@ class SupplierController extends Controller
 			$output .= '<table class="table table-striped table-sm text-center align-middle">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Product</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -50,6 +36,7 @@ class SupplierController extends Controller
             <tbody>';
 			foreach ($suppliers as $supplier) {
 				$output .= '<tr>
+                <td>' . $supplier->id . '</td>
                 <td>' . $supplier->product . '</td>
                 <td>' . $supplier->name . '</td>
                 <td>' . $supplier->email . '</td>
@@ -69,8 +56,6 @@ class SupplierController extends Controller
 			echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
 		}
 	}
-
-
 
     // handle insert a new Supplier ajax request
 	public function store(Request $request) {
@@ -98,22 +83,18 @@ class SupplierController extends Controller
 
 	// handle update an Supplier ajax request
 	public function update(Request $request) {
-		$fileName = '';
-		$emp = Supplier::find($request->emp_id);
-		if ($request->hasFile('avatar')) {
-			$file = $request->file('avatar');
-			$fileName = time() . '.' . $file->getClientOriginalExtension();
-			$file->storeAs('public/images', $fileName);
-			if ($emp->avatar) {
-				Storage::delete('public/images/' . $emp->avatar);
-			}
-		} else {
-			$fileName = $request->emp_avatar;
-		}
+		$supllier = Supplier::find($request->id);
+		$supplierData = [
+            'product' => $request->product, 
+            'name' => $request->name, 
+            'email' => $request->email, 
+            'phone' => $request->phone, 
+            'address' => $request->address,
+            'company' => $request->company, 
+            'comment' => $request->comment
+        ];
 
-		$empData = ['first_name' => $request->fname, 'last_name' => $request->lname, 'email' => $request->email, 'phone' => $request->phone, 'post' => $request->post, 'avatar' => $fileName];
-
-		$emp->update($empData);
+		$supllier->update($supplierData);
 		return response()->json([
 			'status' => 200,
 		]);
