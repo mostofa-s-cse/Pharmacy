@@ -38,10 +38,14 @@
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
     <script src="{{asset('frontend/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('frontend/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
+
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
     
 </head>
 <body>
     <div id="app">
+    @include('sweetalert::alert')
     @yield('user-not-login')
     <div class="main-wrapper">
     @if (Request::is('admin*'))

@@ -12,7 +12,7 @@
                             </ul>
                         </div>
                         <div class="col-auto float-end ms-auto">
-                            <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_supplier"><i
+                            <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addSupplierModal"><i
                                     class="fa fa-plus"></i> Add Supplier</a>
                         </div>
                     </div>
@@ -22,26 +22,9 @@
                 
                     <!-- Suppliers -->
                     <div class="card">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                            <table id="supplier-table" class="table table-hover table-center mb-0">
-						<thead>
-							<tr>
-								<th>Product</th>
-								<th>Name</th>
-								<th>Email</th>
-								<th>phone</th>
-								<th>Address</th>
-								<th>Company</th>
-								<th class="action-btn">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							
-						</tbody>
-					</table>
-                            </div>
-                        </div>
+					<div class="card-body" id="show_all_supplier">
+            <h3 class="text-center text-secondary my-5">Loading...</h3>
+          </div>
                     </div>
                     <!-- /Suppliers-->
                     
@@ -49,7 +32,7 @@
             </div>
             
             </div>
-            <div id="add_supplier" class="modal custom-modal fade" role="dialog">
+            <div id="addSupplierModal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -60,7 +43,7 @@
                         </div>
                         <div class="modal-body">
                        
-                    <form method="post" enctype="multipart/form-data" action="{{route('supplier.store')}}">
+						<form action="#" method="POST" id="add_supplier_form" enctype="multipart/form-data">
 				@csrf
 				
 				<div class="service-fields mb-3">
@@ -117,7 +100,7 @@
 				</div>
 				
 				<div class="submit-section">
-					<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
+					<button class="btn btn-primary submit-btn" id="add_supplier_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
 			</form>
                         </div>
@@ -205,21 +188,88 @@
 @endsection
 @section('script')
 <script>
-    $(document).ready(function() {
-        var table = $('#supplier-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{route('supplier.index')}}",
-            columns: [
-                {data: 'product', name: 'product'},
-                {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
-                {data: 'phone', name: 'phone'},
-                {data: 'address', name: 'address'},
-                {data: 'company',name: 'company'},
-                {data: 'action', name: 'action', orderable: false, searchable: false},
-            ]
+	$(function() 
+	{
+		// add new employee ajax request
+		$("#add_supplier_form").submit(function(e) {
+        e.preventDefault();
+        const fd = new FormData(this);
+        $("#add_supplier_btn").text('Adding...');
+        $.ajax({
+          url: '{{ route('store') }}',
+          method: 'post',
+          data: fd,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          success: function(response) {
+            if (response.status == 200) {
+              Swal.fire(
+                'Added!',
+                'Supplier Added Successfully!',
+                'success'
+              )
+              fetchAllEmployees();
+            }
+            $("#add_supplier_btn").text('Add Supplier');
+            $("#add_supplier_form")[0].reset();
+            $("#addSupplierModal").modal('hide');
+          }
         });
-    });
+      });
+		 // fetch all employees ajax request
+		 fetchAllEmployees();
+
+		function fetchAllEmployees() {
+		$.ajax({
+			url: '{{ route('fetchAll') }}',
+			method: 'get',
+			success: function(response) {
+			$("#show_all_supplier").html(response);
+			$("table").DataTable({
+				order: [0, 'desc']
+			});
+			}
+		});
+		}
+
+
+		 // delete employee ajax request
+		 $(document).on('click', '.deleteIcon', function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
+        let csrf = '{{ csrf_token() }}';
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: '{{ route('delete') }}',
+              method: 'delete',
+              data: {
+                id: id,
+                _token: csrf
+              },
+              success: function(response) {
+                console.log(response);
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
+                fetchAllEmployees();
+              }
+            });
+          }
+        })
+      });
+	});
 </script> 
 @endsection

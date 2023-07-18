@@ -36,11 +36,15 @@ Route::get('admin/dashboard',function(){
     Route::post('create-product',[ProductController::class, 'create'])->name('pages.product.create');
     Route::get('products/delete',[ProductController::class, 'destroy'])->name('pages.product.delete');
 
-
-
     Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
-    Route::post('create-supplier', [SupplierController::class, 'store'])->name('supplier.store');
-    Route::get('update-supplier', [SupplierController::class, 'store'])->name('supplier.update');
-    Route::delete('supplier/delete',[SupplierController::class, 'destroy'])->name('supplier.delete');
+    Route::get('/fetchall', [SupplierController::class, 'fetchAll'])->name('fetchAll');
+    Route::post('/store', [SupplierController::class, 'store'])->name('store');
+
+    Route::delete('/delete', [SupplierController::class, 'delete'])->name('delete');
+    Route::post('/update', [SupplierController::class, 'update'])->name('update');
+    
+    // Route::post('create-supplier', [SupplierController::class, 'store'])->name('supplier.store');
+    // Route::get('update-supplier', [SupplierController::class, 'store'])->name('supplier.update');
+    // Route::delete('supplier/delete',[SupplierController::class, 'destroy'])->name('supplier.delete');
 
 });
