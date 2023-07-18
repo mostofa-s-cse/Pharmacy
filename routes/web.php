@@ -39,7 +39,7 @@ Route::get('admin/dashboard',function(){
 
 
     Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
-    Route::get('create-supplier', [SupplierController::class, 'store'])->name('supplier.store');
+    Route::post('create-supplier', [SupplierController::class, 'store'])->name('supplier.store');
     Route::get('update-supplier', [SupplierController::class, 'store'])->name('supplier.update');
     Route::delete('supplier/delete',[SupplierController::class, 'destroy'])->name('supplier.delete');
 

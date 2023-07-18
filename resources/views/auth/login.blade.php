@@ -9,7 +9,7 @@
                         <a href="{{ route('login') }}"
                             ><img
                                 src="{{ asset ('frontend/images/logo2.png')}}"
-                                alt="Dreamguy's Technologies"
+                                alt="logo"
                         /></a>
                     </div>
 
