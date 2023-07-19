@@ -124,7 +124,7 @@
                         <div class="modal-body">
 						<form action="#" method="POST" id="edit_supplier_form" enctype="multipart/form-data">
 				@csrf
-				
+        <input type="hidden" name="id" id="id" value="id">
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-lg-6">
@@ -241,7 +241,7 @@
             $("#address").val(response.address);
             $("#id").val(response.id);
             $("#company").val(response.company);
-			$("#comment").val(response.comment);
+			      $("#comment").val(response.comment);
           }
         });
       });
@@ -249,6 +249,7 @@
       // update employee ajax request
       $("#edit_supplier_form").submit(function(e) {
         e.preventDefault();
+        let id = $(this).attr('id');
         const fd = new FormData(this);
         $("#edit_supplier_btn").text('Updating...');
         $.ajax({

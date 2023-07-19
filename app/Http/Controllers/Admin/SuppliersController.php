@@ -7,7 +7,7 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class SupplierController extends Controller
+class SuppliersController extends Controller
 {
     // set index page view
     public function index()
@@ -82,9 +82,20 @@ class SupplierController extends Controller
 	}
 
     // handle update an employee ajax request
-	public function update(Request $request) {
+
+    public function update(Request $request) {
 		$supplier = Supplier::find($request->id);
-        $supplier->update([
+		$this->validate($request,[
+            'product'=>'required',
+            'name' => 'required', 
+            'email' => 'required', 
+            'phone' => 'required', 
+            'address' => 'required',
+            'company' => 'required', 
+            'comment' => 'required'
+        ]);
+
+		$newData = [
             'product' => $request->product,
             'name' => $request->name, 
             'email' => $request->email, 
@@ -92,11 +103,57 @@ class SupplierController extends Controller
             'address' => $request->address,
             'company' => $request->company, 
             'comment' => $request->comment
-        ]);
+            ];
+
+		$supplier->update($newData);
 		return response()->json([
 			'status' => 200,
 		]);
 	}
+
+
+	// public function update(Request $request) {
+	// 	$supplier = Supplier::find($request->id);
+    //     $supplier->update([
+    //         'product' => $request->product,
+    //         'name' => $request->name, 
+    //         'email' => $request->email, 
+    //         'phone' => $request->phone, 
+    //         'address' => $request->address,
+    //         'company' => $request->company, 
+    //         'comment' => $request->comment
+    //     ]);
+	// 	return response()->json([
+	// 		'status' => 200,
+	// 	]);
+	// }
+
+
+    // public function update(Request $request, Supplier $supplier)
+    // {
+    //     $this->validate($request,[
+            // 'product'=>'required|max:200',
+            // 'name' => 'required', 
+            // 'email' => 'required', 
+            // 'phone' => 'required', 
+            // 'address' => 'required',
+            // 'company' => 'required', 
+            // 'comment' => 'required'
+    //     ]);
+    //    $supplier->update([
+    //     'product' => $request->product,
+    //     'name' => $request->name, 
+    //     'email' => $request->email, 
+    //     'phone' => $request->phone, 
+    //     'address' => $request->address,
+    //     'company' => $request->company, 
+    //     'comment' => $request->comment
+    //     ]);
+    //     return response()->json([
+	// 		'status' => 200,
+	// 	]);
+    // }
+
 
 	// handle delete an Supplier ajax request
 	public function delete(Request $request) {
