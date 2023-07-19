@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SuppliersController;
+use App\Http\Controllers\Admin\CategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,13 +36,28 @@ Route::get('admin/dashboard',function(){
     // Route::get('products',[ProductController::class, 'index'])->name('pages.product');
     Route::post('create-product',[ProductController::class, 'create'])->name('pages.product.create');
     Route::get('products/delete',[ProductController::class, 'destroy'])->name('pages.product.delete');
-
+    /*
+    |--------------------------------------------------------------------------
+    | All Categories Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('categories', [CategoriesController::class, 'index'])->name('categories.index');
+    Route::get('/categories-fetchall', [CategoriesController::class, 'fetchAll'])->name('categories.fetchAll');
+    Route::post('/categories-store', [CategoriesController::class, 'store'])->name('categories.store');
+    Route::get('/categories-edit', [CategoriesController::class, 'edit'])->name('categories.edit');
+    Route::post('/categories-update', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/categories-delete', [CategoriesController::class, 'delete'])->name('categories.delete');
+    /*
+    |--------------------------------------------------------------------------
+    | All Supplier Routes
+    |--------------------------------------------------------------------------
+    */
     Route::get('supplier', [SuppliersController::class, 'index'])->name('supplier.index');
-    Route::get('/fetchall', [SuppliersController::class, 'fetchAll'])->name('fetchAll');
-    Route::post('/store', [SuppliersController::class, 'store'])->name('store');
-    Route::get('/edit', [SuppliersController::class, 'edit'])->name('edit');
-    Route::post('/update', [SuppliersController::class, 'update'])->name('update');
-    Route::delete('/delete', [SuppliersController::class, 'delete'])->name('delete');
+    Route::get('/supplier-fetchall', [SuppliersController::class, 'fetchAll'])->name('supplier.fetchAll');
+    Route::post('/supplier-store', [SuppliersController::class, 'store'])->name('supplier.store');
+    Route::get('/supplier-edit', [SuppliersController::class, 'edit'])->name('supplier.edit');
+    Route::post('/supplier-update', [SuppliersController::class, 'update'])->name('supplier.update');
+    Route::delete('/supplier-delete', [SuppliersController::class, 'delete'])->name('supplier.delete');
     
     
     // Route::post('create-supplier', [SuppliersController::class, 'store'])->name('supplier.store');

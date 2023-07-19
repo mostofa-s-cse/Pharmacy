@@ -44,21 +44,19 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                       
 						<form action="#" method="POST" id="add_supplier_form" enctype="multipart/form-data">
 				@csrf
-				
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Name<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="name">
+								<input class="form-control" type="text" name="name" required="true">
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<label>Email<span class="text-danger">*</span></label>
-							<input class="form-control" type="text" name="email" id="email">
+							<input class="form-control" type="text" name="email" id="email" required="true">
 						</div>
 					</div>
 				</div>
@@ -68,27 +66,26 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Phone<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="phone">
+								<input class="form-control" type="text" name="phone" required="true">
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<label>Company<span class="text-danger">*</span></label>
-							<input class="form-control" type="text" name="company">
+							<input class="form-control" type="text" name="company" required="true">
 						</div>
 					</div>
 				</div>
-
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Address <span class="text-danger">*</span></label>
-								<input type="text" name="address" class="form-control">
+								<input type="text" name="address" class="form-control" required="true">
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<label>Product</label>
-							<input type="text" name="product" class="form-control">
+							<label>Product <span class="text-danger">*</span></label></label> 
+							<input type="text" name="product" class="form-control" required="true">
 						</div>
 					</div>
 				</div>			
@@ -165,7 +162,7 @@
 						</div>
 						<div class="col-lg-6">
 							<label>Product</label>
-							<input type="text" id="product" name="product" class="form-control">
+							<input type="text" id="product" name="product" class="form-control" required>
 						</div>
 					</div>
 				</div>			
@@ -198,7 +195,7 @@
         const fd = new FormData(this);
         $("#add_supplier_btn").text('Adding...');
         $.ajax({
-          url: '{{ route('store') }}',
+          url: '{{ route('supplier.store') }}',
           method: 'post',
           data: fd,
           cache: false,
@@ -217,8 +214,8 @@
             $("#add_supplier_btn").text('Add Supplier');
             $("#add_supplier_form")[0].reset();
             $("#addSupplierModal").modal('hide');
-          }
-        });
+          },
+        })
       });
 
 
@@ -227,7 +224,7 @@
         e.preventDefault();
         let id = $(this).attr('id');
         $.ajax({
-          url: '{{ route('edit') }}',
+          url: '{{ route('supplier.edit') }}',
           method: 'get',
           data: {
             id: id,
@@ -253,7 +250,7 @@
         const fd = new FormData(this);
         $("#edit_supplier_btn").text('Updating...');
         $.ajax({
-          url: '{{ route('update') }}',
+          url: '{{ route('supplier.update') }}',
           method: 'post',
           data: fd,
           cache: false,
@@ -292,7 +289,7 @@
         }).then((result) => {
           if (result.isConfirmed) {
             $.ajax({
-              url: '{{ route('delete') }}',
+              url: '{{ route('supplier.delete') }}',
               method: 'delete',
               data: {
                 id: id,
@@ -317,7 +314,7 @@
 
 		function fetchAllEmployees() {
 		$.ajax({
-			url: '{{ route('fetchAll') }}',
+			url: '{{ route('supplier.fetchAll') }}',
 			method: 'get',
 			success: function(response) {
 			$("#show_all_supplier").html(response);
