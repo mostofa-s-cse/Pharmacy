@@ -34,7 +34,7 @@
                             <a href="#"><i class="la la-star-o"></i> <span> Purchase </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="{{ url('admin/products')}}">Purchase Details</a></li>
+                                <li><a href="{{ route('purchase.index')}}">Purchase Details</a></li>
                             </ul>
                         </li>
 

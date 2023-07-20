@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\CategoriesController;
 use Illuminate\Support\Facades\Route;
@@ -33,9 +34,6 @@ Route::get('admin/dashboard',function(){
     Route::get('dashboard',[DashboardController::class, 'index'])->name('pages.bashboard');
     // Product.............................................................................
     Route::get('products', [ProductController::class, 'index'])->name('product.index');
-    // Route::get('products',[ProductController::class, 'index'])->name('pages.product');
-    Route::post('create-product',[ProductController::class, 'create'])->name('pages.product.create');
-    Route::get('products/delete',[ProductController::class, 'destroy'])->name('pages.product.delete');
     /*
     |--------------------------------------------------------------------------
     | All Categories Routes
@@ -58,10 +56,16 @@ Route::get('admin/dashboard',function(){
     Route::get('/supplier-edit', [SuppliersController::class, 'edit'])->name('supplier.edit');
     Route::post('/supplier-update', [SuppliersController::class, 'update'])->name('supplier.update');
     Route::delete('/supplier-delete', [SuppliersController::class, 'delete'])->name('supplier.delete');
-    
-    
-    // Route::post('create-supplier', [SuppliersController::class, 'store'])->name('supplier.store');
-    // Route::get('update-supplier', [SuppliersController::class, 'store'])->name('supplier.update');
-    // Route::delete('supplier/delete',[SuppliersController::class, 'destroy'])->name('supplier.delete');
+    /*
+    |--------------------------------------------------------------------------
+    | All Purchase Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('purchase', [PurchaseController::class, 'index'])->name('purchase.index');
+    Route::get('/purchase-fetchall', [PurchaseController::class, 'fetchAll'])->name('purchase.fetchAll');
+    Route::post('/purchase-store', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::get('/purchase-edit', [PurchaseController::class, 'edit'])->name('purchase.edit');
+    Route::post('/purchase-update', [PurchaseController::class, 'update'])->name('purchase.update');
+    Route::delete('/purchase-delete', [PurchaseController::class, 'delete'])->name('purchase.delete');
 
 });

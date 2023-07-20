@@ -76,22 +76,22 @@
                             </button>
                         </div>
                         <div class="modal-body">
-						<form action="#" method="POST" id="edit_Categories_form" enctype="multipart/form-data">
-				@csrf
-        <input type="hidden" name="id" id="id" value="id">
-				<div class="service-fields mb-3">
-					<div class="row">
-						<div class="col-12">
-							<label>Category Name</label>
-							<input class="form-control" type="text" name="name" value="Category_name" id="name">
-						</div>
-					</div>
-				</div>
-				
-				<div class="submit-section">
-					<button class="btn btn-primary submit-btn" id="edit_Categories_btn" type="submit" name="form_submit" value="submit">Submit</button>
-				</div>
-			</form>
+						        <form action="#" method="POST" id="edit_Categories_form" enctype="multipart/form-data">
+                      @csrf
+                      <input type="hidden" name="id" id="id" value="id">
+                      <div class="service-fields mb-3">
+                        <div class="row">
+                          <div class="col-12">
+                            <label>Category Name</label>
+                            <input class="form-control" type="text" name="name"  id="category_name">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" id="edit_Categories_btn" type="submit" name="form_submit" value="submit">Submit</button>
+                      </div>
+                    </form>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,8 @@
             _token: '{{ csrf_token() }}'
           },
           success: function(response) {
-            $("#name").val(response.name);
+            $("#id").val(response.id);
+            $("#category_name").val(response.name);
           }
         });
       });
@@ -174,7 +175,7 @@
             }
             $("#edit_Categories_btn").text('Update Categories');
             $("#edit_Categories_form")[0].reset();
-            $("#editCategoriesModal").modal('hide');
+            $("#editCategoryModal").modal('hide');
           }
         });
       });
