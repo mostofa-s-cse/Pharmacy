@@ -70,6 +70,14 @@ class PurchaseController extends Controller
 // handle insert a new Purchase ajax request
     public function store(Request $request)
     {
+        $category = explode("-", $request->category);
+        $category_name = array_pop($category);
+        $category_id = implode("-", $category);
+        
+        $supplier = explode("-", $request->supplier);
+        $supplier_name = array_pop($supplier);
+        $supplier_id = implode("-", $supplier);
+
         $this->validate($request,[
             'product'=>'required|max:200',
             'category'=>'required',
@@ -86,8 +94,10 @@ class PurchaseController extends Controller
         }
         Purchase::create([
             'product'=>$request->product,
-            'category_id'=>$request->category,
-            'supplier_id'=>$request->supplier,
+            'category_id'=>$category_id,
+            'supplier_id'=>$supplier_id,
+            'category_name'=>$category_name,
+            'supplier_name'=>$supplier_name,
             'cost_price'=>$request->cost_price,
             'quantity'=>$request->quantity,
             'expiry_date'=>$request->expiry_date,

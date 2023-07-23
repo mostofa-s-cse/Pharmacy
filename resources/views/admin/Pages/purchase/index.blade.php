@@ -61,7 +61,7 @@
                                   <option value="" selected>Select Category</option>
                                   @if(!empty($categories))
                                     @foreach ($categories as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                    <option value="{{$item->id}}-{{$item->name}}">{{$item->name}}</option>
                                     @endforeach
                                   @endif
                                   </select>
@@ -74,7 +74,8 @@
                                   <option value="" selected>Select Supplier</option>
                                   @if(!empty($suppliers))
                                     @foreach ($suppliers as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                    
+                                    <option value="{{$item->id}}-{{$item->name}}"> {{$item->name}}</option>
                                     @endforeach
                                   @endif
                                   </select>
