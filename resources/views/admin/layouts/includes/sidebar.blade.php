@@ -14,13 +14,15 @@
                             </ul>
                         </li>
 
-                        <li class="submenu">
+                       @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                       <li class="submenu">
                             <a href="#"><i class="la la-layer-group"></i> <span> Categories </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li><a href="{{ route('categories.index')}}">All Categories</a></li>
                             </ul>
                         </li>
+                       @endif
 
                         <li class="submenu">
                             <a href="#"><i class="la la-people-carry"></i> <span> Supplier  </span> <span

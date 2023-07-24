@@ -189,7 +189,7 @@
 <script>
 	$(function() 
 	{
-		// add new employee ajax request
+		// add new supplier ajax request
 		$("#add_supplier_form").submit(function(e) {
         e.preventDefault();
         const fd = new FormData(this);
@@ -209,7 +209,7 @@
                 'Supplier Added Successfully!',
                 'success'
               )
-              fetchAllEmployees();
+              fetchAllSupplier();
             }
             $("#add_supplier_btn").text('Add Supplier');
             $("#add_supplier_form")[0].reset();
@@ -219,7 +219,7 @@
       });
 
 
-	  // edit employee ajax request
+	  // edit supplier ajax request
       $(document).on('click', '.editIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -243,7 +243,7 @@
         });
       });
 
-      // update employee ajax request
+      // update supplier ajax request
       $("#edit_supplier_form").submit(function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -264,7 +264,7 @@
                 'Supplier Updated Successfully!',
                 'success'
               )
-              fetchAllEmployees();
+              fetchAllSupplier();
             }
             $("#edit_supplier_btn").text('Update Supplier');
             $("#edit_supplier_form")[0].reset();
@@ -273,7 +273,7 @@
         });
       });
 
-	   // delete employee ajax request
+	   // delete supplier ajax request
 	   $(document).on('click', '.deleteIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -302,17 +302,17 @@
                   'Your file has been deleted.',
                   'success'
                 )
-                fetchAllEmployees();
+                fetchAllSupplier();
               }
             });
           }
         })
       });
 
-		 // fetch all employees ajax request
-		 fetchAllEmployees();
+		 // fetch all supplier ajax request
+		 fetchAllSupplier();
 
-		function fetchAllEmployees() {
+		function fetchAllSupplier() {
 		$.ajax({
 			url: '{{ route('supplier.fetchAll') }}',
 			method: 'get',

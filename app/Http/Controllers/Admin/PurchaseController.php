@@ -7,23 +7,40 @@ use App\Models\Category;
 use App\Models\Purchase;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class PurchaseController extends Controller
 {
-    // set index page view
+    /*
+    |--------------------------------------------------------------------------
+    | set index page view
+    |--------------------------------------------------------------------------
+    */
     public function index()
     {
-        $category = \DB::table('categories')->get();
-        $supplier = \DB::table('suppliers')->get();
+        $category = DB::table('categories')->get();
+        $supplier = DB::table('suppliers')->get();
         $categories ['categories'] = $category;
         $suppliers ['suppliers'] = $supplier;
         return view('admin.pages.purchase.index',$categories,$suppliers);
         
     }
-    // handle fetch all Purchase ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle fetch all Purchase ajax request
+    |--------------------------------------------------------------------------
+    */
 	public function fetchAll() {
 		try {
             $purchase = Purchase::all();
+
+            // $purchase = DB::table('purchases as p')
+            //         ->leftJoin('categories as c', function($join) {
+            //             $join->on('c.id', '=', 'p.category_id');
+            //         })
+            //         ->leftJoin('suppliers as s', function($join) {
+            //             $join->on('s.id', '=', 'p.supplier_id');
+            //         })->get(['p.*','c.name as category_name','s.name as as supplier_name']);
+
             $output = '';
             if ($purchase->count() > 0) {
                 $output .= '<table class="table table-striped table-sm text-center align-middle">
@@ -67,17 +84,13 @@ class PurchaseController extends Controller
             ], 500);
         }
     }
-// handle insert a new Purchase ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle insert a new Purchase ajax request
+    |--------------------------------------------------------------------------
+    */
     public function store(Request $request)
     {
-        $category = explode("-", $request->category);
-        $category_name = array_pop($category);
-        $category_id = implode("-", $category);
-        
-        $supplier = explode("-", $request->supplier);
-        $supplier_name = array_pop($supplier);
-        $supplier_id = implode("-", $supplier);
-
         $this->validate($request,[
             'product'=>'required|max:200',
             'category'=>'required',
@@ -85,7 +98,6 @@ class PurchaseController extends Controller
             'quantity'=>'required|min:1',
             'expiry_date'=>'required',
             'supplier'=>'required',
-            'image'=>'file|image|mimes:jpg,jpeg,png,gif',
         ]);
         $imageName = null;
         if($request->hasFile('image')){
@@ -94,10 +106,8 @@ class PurchaseController extends Controller
         }
         Purchase::create([
             'product'=>$request->product,
-            'category_id'=>$category_id,
-            'supplier_id'=>$supplier_id,
-            'category_name'=>$category_name,
-            'supplier_name'=>$supplier_name,
+            'category_id'=>$request->category,
+            'supplier_id'=>$request->supplier,
             'cost_price'=>$request->cost_price,
             'quantity'=>$request->quantity,
             'expiry_date'=>$request->expiry_date,
@@ -108,15 +118,23 @@ class PurchaseController extends Controller
             'status' => 200,
         ]);
     }
-        // handle edit an Supplier ajax request
-        public function edit(Request $request)
-        {
-            $id = $request->id;
-            $purchase = Purchase::find($id);
-            return response()->json($purchase);
-        }
-
-     // handle update an employee ajax request
+     /*
+    |--------------------------------------------------------------------------
+    | handle edit an Purchase ajax request
+    |--------------------------------------------------------------------------
+    */
+    public function edit(Request $request)
+     {
+       $id = $request->id;
+       $purchase = Purchase::find($id);
+       return response()->json($purchase);
+     }
+    /*
+    |--------------------------------------------------------------------------
+    | handle update an Purchase ajax request
+    |--------------------------------------------------------------------------
+    */
+     // 
      public function update(Request $request)
      {
         $purchase = Purchase::find($request->id);
@@ -127,7 +145,7 @@ class PurchaseController extends Controller
              'quantity'=>'required|min:1',
              'expiry_date'=>'required',
              'supplier'=>'required',
-             'image'=>'file|image|mimes:jpg,jpeg,png,gif',
+            //  'image'=>'file|image|mimes:jpg,jpeg,png,gif',
          ]);
          $imageName = $purchase->image;
          if($request->hasFile('image')){
@@ -147,8 +165,11 @@ class PurchaseController extends Controller
             'status' => 200,
         ]);
      }
-
-    // handle delete an Purchase ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle delete an Purchase ajax request
+    |--------------------------------------------------------------------------
+    */
     public function delete(Request $request)
     {
         try {

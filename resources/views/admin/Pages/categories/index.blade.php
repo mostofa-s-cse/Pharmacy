@@ -102,7 +102,7 @@
 <script>
 	$(function() 
 	{
-		// add new employee ajax request
+		// add new Categories ajax request
 		$("#add_Categories_form").submit(function(e) {
         e.preventDefault();
         const fd = new FormData(this);
@@ -122,7 +122,7 @@
                 'Categories Added Successfully!',
                 'success'
               )
-              fetchAllEmployees();
+              fetchAllCategories();
             }
             $("#add_Categories_btn").text('Add Categories');
             $("#add_Categories_form")[0].reset();
@@ -132,7 +132,7 @@
       });
 
 
-	  // edit employee ajax request
+	  // edit Categories ajax request
       $(document).on('click', '.editIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -150,7 +150,7 @@
         });
       });
 
-      // update employee ajax request
+      // update Categories ajax request
       $("#edit_Categories_form").submit(function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -171,7 +171,7 @@
                 'Categories Updated Successfully!',
                 'success'
               )
-              fetchAllEmployees();
+              fetchAllCategories();
             }
             $("#edit_Categories_btn").text('Update Categories');
             $("#edit_Categories_form")[0].reset();
@@ -180,7 +180,7 @@
         });
       });
 
-	   // delete employee ajax request
+	   // delete Categories ajax request
 	   $(document).on('click', '.deleteIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -209,17 +209,17 @@
                   'Your file has been deleted.',
                   'success'
                 )
-                fetchAllEmployees();
+                fetchAllCategories();
               }
             });
           }
         })
       });
 
-		 // fetch all employees ajax request
-		 fetchAllEmployees();
+		 // fetch all Categories ajax request
+		 fetchAllCategories();
 
-		function fetchAllEmployees() {
+		function fetchAllCategories() {
 		$.ajax({
 			url: '{{ route('categories.fetchAll') }}',
 			method: 'get',

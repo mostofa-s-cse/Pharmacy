@@ -61,7 +61,7 @@
                                   <option value="" selected>Select Category</option>
                                   @if(!empty($categories))
                                     @foreach ($categories as $item)
-                                    <option value="{{$item->id}}-{{$item->name}}">{{$item->name}}</option>
+                                    <option value="{{ $item->id }}">{{$item->name}} </option>
                                     @endforeach
                                   @endif
                                   </select>
@@ -75,7 +75,7 @@
                                   @if(!empty($suppliers))
                                     @foreach ($suppliers as $item)
                                     
-                                    <option value="{{$item->id}}-{{$item->name}}"> {{$item->name}}</option>
+                                    <option value="{{ $item->id }}"> {{$item->name}}</option>
                                     @endforeach
                                   @endif
                                   </select>
@@ -142,7 +142,7 @@
                         <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" id="edit_Purchase_form" autocomplete="off">
                           @csrf
-                          @method("PUT")
+                          @method("POST")
                           <input type="hidden" name="id" id="id" value="id">
                           <div class="service-fields mb-3">
                             <div class="row">
@@ -156,17 +156,22 @@
                                 <div class="form-group">
                                   <label>Category <span class="text-danger">*</span></label>
                                   <select class="select2 form-select form-control" id="category_id" name="category"> 
-                                   
+                                    <option value="">Select</option>
+                                    @if(!empty($categories))
+                                      @foreach ($categories as $item)
+                                      <option value="{{$item->id}}">{{$item->name}}</option>
+                                      @endforeach
+                                    @endif
                                   </select>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="form-group">
                                   <label>Supplier <span class="text-danger">*</span></label>
-                                  <select class="select2 form-select form-control"  name="supplier"> 
+                                  <select class="select2 form-select form-control" id="supplier_id"  name="supplier"> 
                                   @if(!empty($suppliers))
                                     @foreach ($suppliers as $item)
-                                    <option id="supplier_id" selected>{{$item->name}}</option>
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
                                   @endif
                                   </select>
@@ -197,7 +202,7 @@
                               <div class="col-lg-6">
                                 <div class="form-group">
                                   <label>Expire Date<span class="text-danger">*</span></label>
-                                  <input class="form-control" value="" type="date" name="expiry_date">
+                                  <input class="form-control" value="" id="expiry_date" type="date" name="expiry_date">
                                 </div>
                               </div>
                               <div class="col-lg-6">
@@ -208,8 +213,6 @@
                               </div>
                             </div>
                           </div>
-                          
-                          
                           <div class="submit-section">
                             <button class="btn btn-primary submit-btn" id="edit_Purchase_btn" type="submit" >Submit</button>
                           </div>
@@ -253,7 +256,7 @@ $("#add_Purchase_form").submit(function(e) {
         })
       });
 
-       // edit employee ajax request
+       // edit Purchase ajax request
        $(document).on('click', '.editIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -267,8 +270,8 @@ $("#add_Purchase_form").submit(function(e) {
           success: function(response) {
             $("#id").val(response.id);
             $("#product").val(response.product);
-            $("#category_id").val(response.category_id);
-            $("#supplier_id").val(response.supplier_id);
+            $("#category_id").val(response.category_id).change();
+            $("#supplier_id").val(response.supplier_id).change();
             $("#cost_price").val(response.cost_price);
             $("#quantity").val(response.quantity);
             $("#expiry_date").val(response.expiry_date);
@@ -277,7 +280,7 @@ $("#add_Purchase_form").submit(function(e) {
         });
       });
 
-      // update employee ajax request
+      // update Purchase ajax request
       $("#edit_Purchase_form").submit(function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -295,12 +298,12 @@ $("#add_Purchase_form").submit(function(e) {
             if (response.status == 200) {
               Swal.fire(
                 'Updated!',
-                'Categories Updated Successfully!',
+                'Purchase Updated Successfully!',
                 'success'
               )
-              fetchAllEmployees();
+              fetchAllPurchase();
             }
-            $("#edit_Purchase_btn").text('Update Categories');
+            $("#edit_Purchase_btn").text('Update Purchase');
             $("#edit_Purchase_form")[0].reset();
             $("#editPurchaseModal").modal('hide');
           }

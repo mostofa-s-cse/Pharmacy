@@ -10,13 +10,20 @@ use Yajra\DataTables\DataTables;
 
 class SuppliersController extends Controller
 {
-    // set index page view
+    /*
+    |--------------------------------------------------------------------------
+    | set index page view
+    |--------------------------------------------------------------------------
+    */
     public function index()
     {
         return view('admin.pages.supplier.index');
     }
-
-    // handle fetch all eamployees ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle fetch all supplier ajax request
+    |--------------------------------------------------------------------------
+    */
     public function fetchAll()
     {
         try {
@@ -66,7 +73,12 @@ class SuppliersController extends Controller
         }
     }
 
-    // handle insert a new Supplier ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle insert a new Supplier ajax request
+    |--------------------------------------------------------------------------
+    */
+
     public function store(Request $request)
     {
         try {
@@ -99,7 +111,11 @@ class SuppliersController extends Controller
         }
     }
 
-    // handle edit an Supplier ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle edit an Supplier ajax request
+    |--------------------------------------------------------------------------
+    */
     public function edit(Request $request)
     {
         $id = $request->id;
@@ -107,8 +123,11 @@ class SuppliersController extends Controller
         return response()->json($supplier);
     }
 
-    // handle update an employee ajax request
-
+    /*
+    |--------------------------------------------------------------------------
+    | handle update an Supplier ajax request
+    |--------------------------------------------------------------------------
+    */
     public function update(Request $request)
     {
         try {
@@ -145,8 +164,11 @@ class SuppliersController extends Controller
         }
     }
 
-
-    // handle delete an Supplier ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle delete an Supplier ajax request
+    |--------------------------------------------------------------------------
+    */
     public function delete(Request $request)
     {
         try {

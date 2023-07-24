@@ -13,7 +13,7 @@
                 </span>
             </a>
             <div class="page-title-box">
-            <a href="{{ url('admin/dashboard')}}">  <h3>Pharmacy</h3></a>
+            <a href="{{ url('admin/dashboard')}}">  <h3>Crud</h3></a>
             </div>
             <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
 

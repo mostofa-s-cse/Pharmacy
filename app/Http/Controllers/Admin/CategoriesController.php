@@ -1,20 +1,27 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-     // set index page view
+    /*
+    |--------------------------------------------------------------------------
+    | set index page view
+    |--------------------------------------------------------------------------
+    */
      public function index()
      {
          return view('admin.pages.categories.index');
      }
  
-     // handle fetch all eamployees ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle fetch all Category ajax request
+    |--------------------------------------------------------------------------
+    */
      public function fetchAll()
      {
          try {
@@ -53,8 +60,11 @@ class CategoriesController extends Controller
              ], 500);
          }
      }
- 
-     // handle insert a new Category ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle insert a new Category ajax request
+    |--------------------------------------------------------------------------
+    */
      public function store(Request $request)
      {
          try {
@@ -75,8 +85,11 @@ class CategoriesController extends Controller
              ], 500);
          }
      }
- 
-     // handle edit an Category ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle edit an Category ajax request
+    |--------------------------------------------------------------------------
+    */
      public function edit(Request $request)
      {
          $id = $request->id;
@@ -84,7 +97,11 @@ class CategoriesController extends Controller
          return response()->json($category);
      }
  
-     // handle update an employee ajax request
+     /*
+    |--------------------------------------------------------------------------
+    | handle update an Category ajax request
+    |--------------------------------------------------------------------------
+    */
  
      public function update(Request $request)
      {
@@ -110,8 +127,12 @@ class CategoriesController extends Controller
          }
      }
  
- 
-     // handle delete an Category ajax request
+    /*
+    |--------------------------------------------------------------------------
+    | handle delete an Category ajax request
+    |--------------------------------------------------------------------------
+    */
+
      public function delete(Request $request)
      {
          try {

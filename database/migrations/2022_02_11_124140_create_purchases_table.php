@@ -18,8 +18,6 @@ class CreatePurchasesTable extends Migration
             $table->string('product');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('supplier_id')->nullable()->constrained()->onDelete('cascade');
-            $table->string('category_name');
-            $table->string('supplier_name');
             $table->decimal('cost_price')->nullable();
             $table->string('quantity');
             $table->string('expiry_date')->nullable();
