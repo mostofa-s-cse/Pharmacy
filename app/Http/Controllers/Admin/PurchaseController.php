@@ -43,7 +43,7 @@ class PurchaseController extends Controller
 
             $output = '';
             if ($purchase->count() > 0) {
-                $output .= '<table class="table table-striped table-sm text-center align-middle">
+                $output .= '<table class="table table-striped table-sm align-middle">
             <thead>
               <tr>
                 <th>Medicine Name</th>
@@ -58,7 +58,12 @@ class PurchaseController extends Controller
             <tbody>';
                 foreach ($purchase as $item) {
                     $output .= '<tr>
-                <td>' . $item->product . '</td>
+                <td class="sorting_1">
+                <h2 class="table-avatar">
+                <img class="avatar" src="'.asset("storage/purchases/".$item->image).'" alt="product">
+                <a href="profile.html">Bernardo Galaviz <span>' . $item->product . '</span></a>
+                </h2>
+                </td>
                 <td>' . $item->category->name . '</td>
                 <td>' . $item->supplier->name . '</td>
                 <td>' . $item->cost_price . '</td>
