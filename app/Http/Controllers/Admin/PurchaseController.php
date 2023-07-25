@@ -61,7 +61,7 @@ class PurchaseController extends Controller
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->image).'" alt="product">
-                <a href="profile.html">Bernardo Galaviz <span>' . $item->product . '</span></a>
+                <a href="profile.html"><span>' . $item->product . '</span></a>
                 </h2>
                 </td>
                 <td>' . $item->category->name . '</td>

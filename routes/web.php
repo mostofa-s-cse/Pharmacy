@@ -32,8 +32,6 @@ Route::get('admin/dashboard',function(){
 
     Route::group(['prefix'=>'admin','middleware'=>'auth','namespace'=>'Admin'],function(){
     Route::get('dashboard',[DashboardController::class, 'index'])->name('pages.bashboard');
-    // Product.............................................................................
-    Route::get('products', [ProductController::class, 'index'])->name('product.index');
     /*
     |--------------------------------------------------------------------------
     | All Categories Routes
@@ -67,5 +65,20 @@ Route::get('admin/dashboard',function(){
     Route::get('/purchase-edit', [PurchaseController::class, 'edit'])->name('purchase.edit');
     Route::post('/purchase-update', [PurchaseController::class, 'update'])->name('purchase.update');
     Route::delete('/purchase-delete', [PurchaseController::class, 'delete'])->name('purchase.delete');
+    /*
+    |--------------------------------------------------------------------------
+    | All Purchase Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('products', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/product-fetchall', [ProductController::class, 'fetchAll'])->name('product.fetchAll');
+    Route::post('/product-store', [ProductController::class, 'store'])->name('product.store');
+    Route::get('/product-edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::post('/product-update', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product-delete', [ProductController::class, 'delete'])->name('product.delete');
+
+    Route::get('products/outstock', [ProductController::class, 'outstock'])->name('product.outstock');
+    Route::get('products-outstock',[ProductController::class,'Alloutstock'])->name('product.Alloutstock');
+    Route::get('products/expired',[ProductController::class,'expired'])->name('product.expired');
 
 });

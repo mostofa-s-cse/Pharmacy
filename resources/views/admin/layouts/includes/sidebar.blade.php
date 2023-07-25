@@ -44,7 +44,9 @@
                             <a href="#"><i class="la la-box"></i> <span> Product </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="{{ url('admin/products')}}">All Product</a></li>
+                                <li><a href="{{ route('product.index')}}">All Product</a></li>
+                                <li><a href="{{ route('product.outstock')}}">Out-Stock</a></li>
+                                <li><a href="{{ route('product.expired')}}">Expired</a></li>
                             </ul>
                         </li>
 
