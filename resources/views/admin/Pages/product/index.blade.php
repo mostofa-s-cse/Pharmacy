@@ -119,59 +119,59 @@
                         </div>
                         <div class="modal-body">
 						<form action="#" method="POST" id="edit_product_form" enctype="multipart/form-data">
-              @csrf
-              @method("POST")
-                          <input type="hidden" name="id" id="id" value="id">
-                          <div class="service-fields mb-3">
-                            <div class="row">
-                              <div class="col-lg-12">
-                                <div class="form-group">
-                                  <label>Product <span class="text-danger">*</span></label>
-                                  <select class="select2 form-select form-control" id="purchase_id" name="product"> 
-                                  @if(!empty($purchases))
-                                      @foreach ($purchases as $item)
-                                      <option value="{{$item->id}}">{{$item->product}}</option>
-                                      @endforeach
-                                  @endif
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="service-fields mb-3">
-                            <div class="row">
-                              <div class="col-lg-6">
-                                <div class="form-group">
-                                  <label>Selling Price<span class="text-danger">*</span></label>
-                                  <input class="form-control" type="text" id="price" name="price">
-                                </div>
-                              </div>
-                  
-                              <div class="col-lg-6">
-                                <div class="form-group">
-                                  <label>Discount (%)<span class="text-danger">*</span></label>
-                                  <input class="form-control" type="text" id="discount" name="discount">
-                                </div>
-                              </div>
-                              
-                            </div>
-                          </div>
-                          <div class="service-fields mb-3">
-                            <div class="row">
-                              <div class="col-lg-12">
-                                <div class="form-group">
-                                  <label>Descriptions <span class="text-danger">*</span></label>
-                                  <textarea class="form-control service-desc" id="description" name="description"></textarea>
-                                </div>
-                              </div>
-                              
-                            </div>
-                          </div>		
-                        
-                        <div class="submit-section">
-                          <button class="btn btn-primary submit-btn" id="edit_product_btn" type="submit" name="form_submit" value="submit">Submit</button>
-                        </div>
-                      </form>
+            @csrf
+            @method("POST")
+          <input type="hidden" name="id" id="id" value="id">
+					<div class="service-fields mb-3">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label>Product <span class="text-danger">*</span></label>
+									<select class="select2 form-select form-control" id="purchase_id" name="product"> 
+                  @if(!empty($purchases))
+                      @foreach ($purchases as $item)
+                      <option value="{{$item->id}}">{{$item->product}}</option>
+                      @endforeach
+                  @endif
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="service-fields mb-3">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Selling Price<span class="text-danger">*</span></label>
+									<input class="form-control" type="text" id="price" name="price">
+								</div>
+							</div>
+	
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Discount (%)<span class="text-danger">*</span></label>
+									<input class="form-control" type="text" id="discount" name="discount">
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="service-fields mb-3">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label>Descriptions <span class="text-danger">*</span></label>
+									<textarea class="form-control service-desc" id="description" name="description"></textarea>
+								</div>
+							</div>
+							
+						</div>
+					</div>		
+				
+				<div class="submit-section">
+					<button class="btn btn-primary submit-btn" id="edit_product_btn" type="submit" name="form_submit" value="submit">Submit</button>
+				</div>
+			</form>
                         </div>
                     </div>
                 </div>
@@ -258,7 +258,7 @@
             }
             $("#edit_product_btn").text('Update product');
             $("#edit_product_form")[0].reset();
-            $("#editProductModal").modal('hide');
+            $("#editproductModal").modal('hide');
           }
         });
       });

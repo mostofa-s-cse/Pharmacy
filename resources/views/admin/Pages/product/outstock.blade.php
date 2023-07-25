@@ -37,7 +37,7 @@
 <script>
 	$(function() 
 	{
-		// fetchAllOutstock Product ajax request
+		// fetch all product ajax request
 		fetchAllOutstockProduct();
 		function fetchAllOutstockProduct() {
 		$.ajax({

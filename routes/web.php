@@ -77,8 +77,8 @@ Route::get('admin/dashboard',function(){
     Route::post('/product-update', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product-delete', [ProductController::class, 'delete'])->name('product.delete');
 
-    Route::get('products/outstock', [ProductController::class, 'outstock'])->name('product.outstock');
-    Route::get('products-outstock',[ProductController::class,'Alloutstock'])->name('product.Alloutstock');
-    Route::get('products/expired',[ProductController::class,'expired'])->name('product.expired');
-
+    Route::get('outstock', [ProductController::class, 'outstock'])->name('product.outstock');
+    Route::get('products-outstock',[ProductController::class,'stockAllProduct'])->name('product.Alloutstock');
+    Route::get('expired',[ProductController::class,'expired'])->name('product.expired');
+    Route::get('products-expired',[ProductController::class,'Allexpired'])->name('product.Allexpired');
 });
