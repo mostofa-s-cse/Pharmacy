@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
-use App\Models\Purchase;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
@@ -159,124 +158,7 @@ class ProductController extends Controller
             'status' => 200,
         ]);
      }
-     /*
-    |--------------------------------------------------------------------------
-    | handle get an outstocked Products ajax request
-    |--------------------------------------------------------------------------
-    */
-
-    public function outstock(Request $request){
-        if($request->ajax()){
-            $products = Purchase::where('quantity', '<=', 0)->get();
-            return DataTables::of($products)
-                ->addColumn('product',function($product){
-                    $image = '';
-                    if(!empty($product->image)){
-                        $image = null;
-                        if(!empty($product->image)){
-                            $image = '<span class="avatar avatar-sm mr-2">
-                            <img class="avatar-img" src="'.asset("storage/purchases/".$product->image).'" alt="image">
-                            </span>';
-                        }
-                        return $image .' ' . $product->product;
-                    }                 
-                })
-                
-                ->addColumn('category',function($product){
-                    $category = null;
-                    if(!empty($product->category)){
-                        $category = $product->category->name;
-                    }
-                    return $category;
-                })
-                ->addColumn('cost_price',function($product){
-                    $cost_price = null;
-                    if(!empty($product->cost_price)){
-                        $cost_price = $product->cost_price;
-                    }
-                    return $cost_price;                 
-                })
-                ->addColumn('quantity',function($product){
-                    if(!empty($product)){
-                        return $product->quantity;
-                    }
-                })
-                ->addColumn('expiry_date',function($product){
-                    if(!empty($product->expiry_date)){
-                        return date_format(date_create($product->expiry_date),'d M, Y');
-                    }
-                })
-                ->addColumn('action', function ($row) {
-                    $editbtn = '<a href="'.route("product.edit", $row->id).'" class="editbtn"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
-                    $deletebtn = '<a data-id="'.$row->id.'" data-route="'.route('product.delete', $row->id).'" href="javascript:void(0)" id="deletebtn"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
-                    $btn = $editbtn.' '.$deletebtn;
-                    return $btn;
-                })
-                ->rawColumns(['product','action'])
-                ->make(true);
-        }      
-        return view('admin.pages.product.outstock');
-    }
-     /*
-    |--------------------------------------------------------------------------
-    | handle all  expired Products page view
-    |--------------------------------------------------------------------------
-    */
-    public function expired(Request $request){
-        if($request->ajax()){
-            $products = Purchase::whereDate('expiry_date', '<=', Carbon::now())->get();
-            return DataTables::of($products)
-                ->addColumn('product',function($product){
-                    $image = '';
-                    if(!empty($product->image)){
-                        $image = null;
-                        if(!empty($product->image)){
-                            $image = '<span class="avatar avatar-sm mr-2">
-                            <img class="avatar-img" src="'.asset("storage/purchases/".$product->image).'" alt="image">
-                            </span>';
-                        }
-                        return $image .' ' . $product->product;
-                    }                 
-                })
-                
-                ->addColumn('category',function($product){
-                    $category = null;
-                    if(!empty($product->category)){
-                        $category = $product->category->name;
-                    }
-                    return $category;
-                })
-                ->addColumn('cost_price',function($product){
-                    $cost_price = null;
-                    if(!empty($product->cost_price)){
-                        $cost_price = $product->cost_price;
-                    }
-                    return $cost_price;                 
-                })
-                ->addColumn('quantity',function($product){
-                    if(!empty($product)){
-                        return $product->quantity;
-                    }
-                })
-                ->addColumn('expiry_date',function($product){
-                    if(!empty($product->expiry_date)){
-                        return date_format(date_create($product->expiry_date),'d M, Y');
-                    }
-                })
-                ->addColumn('action', function ($row) {
-                    $editbtn = '<a href="'.route("product.edit", $row->id).'" class="editbtn"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
-                    $deletebtn = '<a data-id="'.$row->id.'" data-route="'.route('product.delete', $row->id).'" href="javascript:void(0)" id="deletebtn"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
-                    $btn = $editbtn.' '.$deletebtn;
-                    return $btn;
-                })
-                ->rawColumns(['product','action'])
-                ->make(true);
-        }      
-
-        return view('admin.pages.product.expired');
-    }
-
-    /*
+      /*
     |--------------------------------------------------------------------------
     | handle delete an Product ajax request
     |--------------------------------------------------------------------------
@@ -293,5 +175,4 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
 }

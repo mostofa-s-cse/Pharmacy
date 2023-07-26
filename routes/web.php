@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ExpiredProductController;
+use App\Http\Controllers\Admin\OutStockProductController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\SuppliersController;
@@ -81,6 +83,6 @@ Route::get('admin/dashboard',function(){
     // Route::get('products-outstock',[ProductController::class,'stockAllProduct'])->name('product.Alloutstock');
     // Route::get('expired',[ProductController::class,'expired'])->name('product.expired');
     // Route::get('products-expired',[ProductController::class,'Allexpired'])->name('product.Allexpired');
-    Route::get('products/outstock',[ProductController::class,'outstock'])->name('product.outstock');
-    Route::get('products/expired',[ProductController::class,'expired'])->name('product.expired');
+    Route::get('products/outstock',[OutStockProductController::class,'outstock'])->name('outstock');
+    Route::get('products/expired',[ExpiredProductController::class,'expired'])->name('expired');
 });
