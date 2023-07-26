@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use QCod\AppSettings\Setting\AppSettings;
@@ -160,62 +161,65 @@ class ProductController extends Controller
      }
      /*
     |--------------------------------------------------------------------------
-    | set outstock page view
+    | handle get an outstocked Products ajax request
     |--------------------------------------------------------------------------
     */
-    public function outstock()
-    {
-        return view('admin.pages.product.outstock');
-    }
-     /*
-    |--------------------------------------------------------------------------
-    | handle delete an outstocked Products ajax request
-    |--------------------------------------------------------------------------
-    */
-    public function stockAllProduct(Request $request) {
-            $product = Purchase::where('quantity', '<=', 0)->get();
-            dd($product);
-            // $output = '';
-            // if ($product->count() > 0) {
-            //     $output .= '<table class="table table-striped table-sm align-middle">
-            // <thead>
-            //   <tr>
-            //     <th>Product</th>
-            //     <th>Category</th>
-            //     <th>Price</th>
-            //     <th>Discount</th>
-            //     <th>Quantity</th>
-            //     <th>Expire Date</th>
-            //     <th>Action</th>
-            //   </tr>
-            // </thead>
-            // <tbody>';
-            //     foreach ($product as $item) {
-            //         $output .= '<tr>
-            //     <td class="sorting_1">
-            //     <h2 class="table-avatar">
-            //     <img class="avatar" src="'.asset("storage/purchases/".$item->image).'" alt="product">
-            //     <a href="profile.html"><span>' . $item->product . '</span></a>
-            //     </h2>
-            //     </td>
-            //     <td>' . $item->category->name . '</td>
-            //     <td>' . $item->products->price . '</td>
-            //     <td>' . $item->products->discount . '</td>
-            //     <td>' . $item->quantity . '</td>
-            //     <td>' . $item->expiry_date . '</td>
-            //     <td>
-            //       <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editProductModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
 
-            //       <a href="#" id="' . $item->id . '" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
-            //     </td>
-            //   </tr>';
-            //     }
-            //     $output .= '</tbody></table>';
-            //     echo $output;
+    public function outstock(Request $request){
+        $title = "outstocked Products";
+        if($request->ajax()){
+            $products = Purchase::where('quantity', '<=', 0)->get();
+            return DataTables::of($products)
+                ->addColumn('product',function($product){
+                    $image = '';
+                    if(!empty($product->image)){
+                        $image = null;
+                        if(!empty($product->image)){
+                            $image = '<span class="avatar avatar-sm mr-2">
+                            <img class="avatar-img" src="'.asset("storage/purchases/".$product->image).'" alt="image">
+                            </span>';
+                        }
+                        return $image .' ' . $product->product;
+                    }                 
+                })
                 
-            // } else {
-            //     echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
-            // }
+                ->addColumn('category',function($product){
+                    $category = null;
+                    if(!empty($product->category)){
+                        $category = $product->category->name;
+                    }
+                    return $category;
+                })
+                ->addColumn('cost_price',function($product){
+                    $cost_price = null;
+                    if(!empty($product->cost_price)){
+                        $cost_price = $product->cost_price;
+                    }
+                    return $cost_price;                 
+                })
+                ->addColumn('quantity',function($product){
+                    if(!empty($product)){
+                        return $product->quantity;
+                    }
+                })
+                ->addColumn('expiry_date',function($product){
+                    if(!empty($product->expiry_date)){
+                        return date_format(date_create($product->expiry_date),'d M, Y');
+                    }
+                })
+                ->addColumn('action', function ($row) {
+                    $editbtn = '<a href="'.route("product.edit", $row->id).'" class="editbtn"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
+                    $deletebtn = '<a data-id="'.$row->id.'" data-route="'.route('product.delete', $row->id).'" href="javascript:void(0)" id="deletebtn"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
+                    $btn = $editbtn.' '.$deletebtn;
+                    return $btn;
+                })
+                ->rawColumns(['product','action'])
+                ->make(true);
+        }
+        $product = Purchase::where('quantity', '<=', 0)->first();        
+        return view('admin.pages.product.outstock',compact(
+            'title',
+        ));
     }
      /*
     |--------------------------------------------------------------------------

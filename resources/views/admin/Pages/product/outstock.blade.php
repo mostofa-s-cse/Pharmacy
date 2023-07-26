@@ -16,14 +16,29 @@
             <div class="row">
                 <div class="col-md-12">
                 
-                    <!-- products -->
+                <!-- Outstock Products -->
                     <div class="card">
-                  <div class="table-responsive">
-                  <div class="card-body" id="show_all_product">
-                      <h3 class="text-center text-secondary my-5">Loading...</h3>
-                      </div>
+                    <div class="table-responsive">
+                        <div class="card-body">
+                                <table id="outstock-product" class=" table table-hover table-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Brand Name</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Expire</th>
+                                            <th class="action-btn">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
                             </div>
-                            <!-- /products-->
+                        </div>
+                    </div>
+                    <!-- /Outstock Products-->
                             </div>
                         </div>
                 </div>
@@ -35,22 +50,21 @@
 @endsection
 @section('script')
 <script>
-	$(function() 
-	{
-		// fetch all product ajax request
-		fetchAllOutstockProduct();
-		function fetchAllOutstockProduct() {
-		$.ajax({
-			url: '{{ route('product.Alloutstock') }}',
-			method: 'get',
-			success: function(response) {
-			$("#show_all_product").html(response);
-			$("table").DataTable({
-				order: [0, 'desc']
-			});
-			}
-		});
-		}
-	});
+	 $(document).ready(function() {
+        var table = $('#outstock-product').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{route('product.outstock')}}",
+            columns: [
+                {data: 'product', name: 'product'},
+                {data: 'category', name: 'category'},
+                {data: 'cost_price', name: 'cost_price'},
+                {data: 'quantity', name: 'quantity'},
+				{data: 'expiry_date', name: 'expiry_date'},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
+        
+    });
 </script> 
 @endsection
