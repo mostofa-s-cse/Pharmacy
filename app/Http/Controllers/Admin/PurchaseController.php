@@ -68,7 +68,7 @@ class PurchaseController extends Controller
                 <td>' . $item->supplier->name . '</td>
                 <td>' . $item->cost_price . '</td>
                 <td>' . $item->quantity . '</td>
-                <td>' . $item->expiry_date . '</td>
+                <td>' . date_format(date_create($item->expiry_date),'d M, Y'). '</td>
                 <td>
                   <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editPurchaseModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
 

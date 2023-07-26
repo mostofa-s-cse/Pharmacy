@@ -69,7 +69,7 @@ class ProductController extends Controller
                 <td>' . $item->price . '</td>
                 <td>' . $item->discount . '</td>
                 <td>' . $item->purchase->quantity . '</td>
-                <td>' . $item->purchase->expiry_date . '</td>
+                <td>' . date_format(date_create($item->purchase->expiry_date),'d M, Y'). '</td>
                 <td>
                   <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editProductModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
 
@@ -166,7 +166,6 @@ class ProductController extends Controller
     */
 
     public function outstock(Request $request){
-        $title = "outstocked Products";
         if($request->ajax()){
             $products = Purchase::where('quantity', '<=', 0)->get();
             return DataTables::of($products)
@@ -215,85 +214,68 @@ class ProductController extends Controller
                 })
                 ->rawColumns(['product','action'])
                 ->make(true);
-        }
-        $product = Purchase::where('quantity', '<=', 0)->first();        
-        return view('admin.pages.product.outstock',compact(
-            'title',
-        ));
+        }      
+        return view('admin.pages.product.outstock');
     }
      /*
     |--------------------------------------------------------------------------
-    | set outstock page view
+    | handle all  expired Products page view
     |--------------------------------------------------------------------------
     */
-    public function expired()
-    {
+    public function expired(Request $request){
+        if($request->ajax()){
+            $products = Purchase::whereDate('expiry_date', '<=', Carbon::now())->get();
+            return DataTables::of($products)
+                ->addColumn('product',function($product){
+                    $image = '';
+                    if(!empty($product->image)){
+                        $image = null;
+                        if(!empty($product->image)){
+                            $image = '<span class="avatar avatar-sm mr-2">
+                            <img class="avatar-img" src="'.asset("storage/purchases/".$product->image).'" alt="image">
+                            </span>';
+                        }
+                        return $image .' ' . $product->product;
+                    }                 
+                })
+                
+                ->addColumn('category',function($product){
+                    $category = null;
+                    if(!empty($product->category)){
+                        $category = $product->category->name;
+                    }
+                    return $category;
+                })
+                ->addColumn('cost_price',function($product){
+                    $cost_price = null;
+                    if(!empty($product->cost_price)){
+                        $cost_price = $product->cost_price;
+                    }
+                    return $cost_price;                 
+                })
+                ->addColumn('quantity',function($product){
+                    if(!empty($product)){
+                        return $product->quantity;
+                    }
+                })
+                ->addColumn('expiry_date',function($product){
+                    if(!empty($product->expiry_date)){
+                        return date_format(date_create($product->expiry_date),'d M, Y');
+                    }
+                })
+                ->addColumn('action', function ($row) {
+                    $editbtn = '<a href="'.route("product.edit", $row->id).'" class="editbtn"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
+                    $deletebtn = '<a data-id="'.$row->id.'" data-route="'.route('product.delete', $row->id).'" href="javascript:void(0)" id="deletebtn"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
+                    $btn = $editbtn.' '.$deletebtn;
+                    return $btn;
+                })
+                ->rawColumns(['product','action'])
+                ->make(true);
+        }      
+
         return view('admin.pages.product.expired');
     }
-    /*
-    |--------------------------------------------------------------------------
-    | handle delete an outstocked Products ajax request
-    |--------------------------------------------------------------------------
-    */
-    public function Allexpired(Request $request) {
-            $product = Purchase::whereDate('expiry_date', '<=', Carbon::now())->get();
-            dd($product);
-            // $product = Product::all();
-            // $Product = DB::table('Products as p')
-            //         ->leftJoin('categories as c', function($join) {
-            //             $join->on('c.id', '=', 'p.category_id');
-            //         })
-            //         ->leftJoin('suppliers as s', function($join) {
-            //             $join->on('s.id', '=', 'p.supplier_id');
-            //         })->get(['p.*','c.name as category_name','s.name as as supplier_name']);
-        //     $output = '';
-        //     if ($product->count() > 0) {
-        //         $output .= '<table class="table table-striped table-sm align-middle">
-        //     <thead>
-        //       <tr>
-        //         <th>Product</th>
-        //         <th>Category</th>
-        //         <th>Price</th>
-        //         <th>Discount</th>
-        //         <th>Quantity</th>
-        //         <th>Expire Date</th>
-        //         <th>Action</th>
-        //       </tr>
-        //     </thead>
-        //     <tbody>';
-        //         foreach ($product as $item) {
-        //             $output .= '<tr>
-        //         <td class="sorting_1">
-        //         <h2 class="table-avatar">
-        //         <img class="avatar" src="'.asset("storage/purchases/".$item->image).'" alt="product">
-        //         <a href="profile.html"><span>' . $item->product . '</span></a>
-        //         </h2>
-        //         </td>
-        //         <td>' . $item->category->name . '</td>
-        //         <td>' . $item->products->price . '</td>
-        //         <td>' . $item->products->discount . '</td>
-        //         <td>' . $item->quantity . '</td>
-        //         <td>' . $item->expiry_date . '</td>
-        //         <td>
-        //           <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editProductModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
 
-        //           <a href="#" id="' . $item->id . '" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
-        //         </td>
-        //       </tr>';
-        //         }
-        //         $output .= '</tbody></table>';
-        //         echo $output;
-                
-        //     } else {
-        //         echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
-        //     }
-        // } catch (\Exception $e) {
-        //     // Return Json Response
-        //     return response()->json([
-        //         'message' => $e
-        //     ], 500);
-   
-    }
     /*
     |--------------------------------------------------------------------------
     | handle delete an Product ajax request

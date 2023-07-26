@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title','Products-Expired')
+@section('title','products expired')
 @section('content')
 <div class="content container-fluid">
                 <div class="page-header">
@@ -8,7 +8,7 @@
                             <h3 class="page-title">Products-Expired</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Product-Expired</li>
+                                <li class="breadcrumb-item active">Product evxpired</li>
                             </ul>
                         </div>
                     </div>
@@ -16,14 +16,29 @@
             <div class="row">
                 <div class="col-md-12">
                 
-                    <!-- products -->
+                    <!-- Expired Products  -->
                     <div class="card">
-                  <div class="table-responsive">
-                  <div class="card-body" id="show_all_product">
-                      <h3 class="text-center text-secondary my-5">Loading...</h3>
-                      </div>
+                    <div class="table-responsive">
+                        <div class="card-body">
+                                <table id="outstock-product" class=" table table-hover table-center mb-0">
+                                    <thead>
+                                        <tr>
+                                        <th>Brand Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Expire</th>
+                                        <th class="action-btn">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
                             </div>
-                            <!-- /products-->
+                        </div>
+                    </div>
+                            <!-- /Expired Products -->
                             </div>
                         </div>
                 </div>
@@ -35,22 +50,21 @@
 @endsection
 @section('script')
 <script>
-	$(function() 
-	{
-		// fetchAllexpired Product ajax request
-		fetchAllexpiredProduct();
-		function fetchAllexpiredProduct() {
-		$.ajax({
-			url: '{{ route('product.Allexpired') }}',
-			method: 'get',
-			success: function(response) {
-			$("#show_all_product").html(response);
-			$("table").DataTable({
-				order: [0, 'desc']
-			});
-			}
-		});
-		}
-	});
+	$(document).ready(function() {
+        var table = $('#outstock-product').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{route('product.expired')}}",
+            columns: [
+                {data: 'product', name: 'product'},
+                {data: 'category', name: 'category'},
+                {data: 'cost_price', name: 'cost_price'},
+                {data: 'quantity', name: 'quantity'},
+				{data: 'expiry_date', name: 'expiry_date'},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
+        
+    });
 </script> 
 @endsection
