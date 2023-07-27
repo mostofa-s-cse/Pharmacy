@@ -87,7 +87,6 @@ Route::get('admin/dashboard',function(){
     |--------------------------------------------------------------------------
     */
     Route::get('sales', [SaleController::class, 'index'])->name('sales.index');
-    Route::get('/sales-fetchall', [SaleController::class, 'fetchAll'])->name('sales.fetchAll');
     Route::post('/sales-store', [SaleController::class, 'store'])->name('sales.store');
     Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
     Route::post('/sales-update', [SaleController::class, 'update'])->name('sales.update');

@@ -149,7 +149,7 @@
                 {data: 'category', name: 'category'},
                 {data: 'cost_price', name: 'cost_price'},
                 {data: 'quantity', name: 'quantity'},
-				{data: 'expiry_date', name: 'expiry_date'},
+				        {data: 'expiry_date', name: 'expiry_date'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });

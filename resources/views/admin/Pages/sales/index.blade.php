@@ -116,54 +116,38 @@
                             </button>
                         </div>
                         <div class="modal-body">
-						<form action="#" method="POST" id="edit_Sales_form" enctype="multipart/form-data">
-            @csrf
-            @method("POST")
-          <input type="hidden" name="id" id="id" value="id">
-					<div class="service-fields mb-3">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="form-group">
-									<label>Sales <span class="text-danger">*</span></label>
-								
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="service-fields mb-3">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Selling Price<span class="text-danger">*</span></label>
-									<input class="form-control" type="text" id="price" name="price">
-								</div>
-							</div>
-	
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Discount (%)<span class="text-danger">*</span></label>
-									<input class="form-control" type="text" id="discount" name="discount">
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="service-fields mb-3">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="form-group">
-									<label>Descriptions <span class="text-danger">*</span></label>
-									<textarea class="form-control service-desc" id="description" name="description"></textarea>
-								</div>
-							</div>
-							
-						</div>
-					</div>		
-				
-				<div class="submit-section">
-					<button class="btn btn-primary submit-btn" id="edit_Sales_btn" type="submit" name="form_submit" value="submit">Submit</button>
-				</div>
-			</form>
+                              <!-- Edit Sale -->
+                              <form method="post" enctype="multipart/form-data" id="edit_sales_form" autocomplete="off">
+                          @csrf
+                          @method("POST")
+                          <input type="hidden" name="id" id="id" value="id">
+                            <div class="row form-row">
+                              <div class="col-12">
+                                <div class="form-group">
+                                  <label>Product <span class="text-danger">*</span></label>
+                                  <select class="select2 form-select form-control" id="product"  name="product"> 
+                                      @foreach ($products as $product)
+                                        @if (!empty($product->purchase))
+                                          @if (!($product->purchase->quantity <= 0))
+                                            <option value="{{$product->id}}">{{$product->purchase->product}}</option>
+                                          @endif
+                                        @endif
+                                      @endforeach
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <div class="form-group">
+                                  <label>Quantity</label>
+                                  <input type="number" class="form-control edit_quantity" id="quantity" name="quantity">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="submit-section">
+                            <button class="btn btn-primary submit-btn" id="edit_sales_btn" type="submit" >Submit</button>
+                          </div>
+                          </form>
+                                  <!--/ Edit Sale -->
                         </div>
                     </div>
                 </div>
@@ -184,12 +168,60 @@
                 {data: 'quantity', name: 'quantity'},
                 {data: 'total_price', name: 'total_price'},
 				        {data: 'date', name: 'date'},
-                {data: 'action', name: 'action', orderable: false, searchable: false},
+                {data: 'action', name: 'action',  orderable: false, searchable: false},
             ]
         });
         
     });
 
+    // edit sales ajax request
+    $(document).on('click', '.editIcon', function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
+        $.ajax({
+          url: '{{ route('sales.edit') }}',
+          method: 'get',
+          data: {
+            id: id,
+            _token: '{{ csrf_token() }}'
+          },
+          success: function(response) {
+            $("#id").val(response.id);
+            $("#product").val(response.product).change();
+            $("#quantity").val(response.quantity);
+          }
+        });
+      });
+
+      // update sales ajax request
+      $("#edit_sales_form").submit(function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
+        const fd = new FormData(this);
+        $("#edit_Purchase_btn").text('Updating...');
+        $.ajax({
+          url: '{{ route('purchase.update') }}',
+          method: 'post',
+          data: fd,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          success: function(response) {
+            if (response.status == 200) {
+              Swal.fire(
+                'Updated!',
+                'Sales Updated Successfully!',
+                'success'
+              )
+              window.location.reload();
+            }
+            $("#edit_sales_btn").text('Update sales');
+            $("#edit_sales_form")[0].reset();
+            $("#editSalesModal").modal('hide');
+          }
+        });
+      });
 	});
 </script> 
 @endsection

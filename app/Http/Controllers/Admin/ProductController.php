@@ -104,7 +104,7 @@ class ProductController extends Controller
         ]);
         $price = $request->price;
         if($request->discount >0){
-           $price = $request->discount * $request->price;
+            $price = $request->price * (1 - $request->discount / 100);
         }
         Product::create([
             'purchase_id'=>$request->product,
@@ -133,7 +133,6 @@ class ProductController extends Controller
     | handle update an Product ajax request
     |--------------------------------------------------------------------------
     */
-     // 
      public function update(Request $request)
      {
         $products = Product::find($request->id);

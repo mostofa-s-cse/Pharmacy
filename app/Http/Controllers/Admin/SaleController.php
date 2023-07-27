@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
-   
+   /*
+    |--------------------------------------------------------------------------
+    | set index page view
+    |--------------------------------------------------------------------------
+    */
     public function index(Request $request)
     {
-        $title = 'sales';
         if($request->ajax()){
-            $sales = Sale::latest();
+            $sales = Sale::all();
             return DataTables::of($sales)
                     ->addIndexColumn()
                     ->addColumn('product',function($sale){
@@ -40,8 +43,8 @@ class SaleController extends Controller
                         return date_format(date_create($row->created_at),'d M, Y');
                     })
                     ->addColumn('action', function ($row) {
-                        $editbtn = '<a href="'.route("sales.edit", $row->id).'" class="editbtn"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
-                        $deletebtn = '<a data-id="'.$row->id.'" data-route="'.route('sales.delete', $row->id).'" href="javascript:void(0)" id="deletebtn"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
+                        $editbtn = '<a href="#" id="' . $row->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editSalesModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
+                        $deletebtn = '<a href="#" id="' . $row->id . '" name="' . $row->product   .'" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
                         $btn = $editbtn.' '.$deletebtn;
                         return $btn;
                     })
@@ -54,8 +57,11 @@ class SaleController extends Controller
             'products'
         ));
     }
-
-
+    /*
+    |--------------------------------------------------------------------------
+    | handle insert a new Sales ajax request
+    |--------------------------------------------------------------------------
+    */
     public function store(Request $request)
     {
         $this->validate($request,[
@@ -95,4 +101,73 @@ class SaleController extends Controller
         }
         return redirect()->route('sales.index');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | handle edit an Sales ajax request
+    |--------------------------------------------------------------------------
+    */
+    public function edit(Request $request)
+     {
+       $id = $request->id;
+       $sale = Sale::find($id);
+       return response()->json($sale);
+     }
+
+
+     /*
+    |--------------------------------------------------------------------------
+    | handle update an Sales ajax request
+    |--------------------------------------------------------------------------
+    */
+    public function update(Request $request, Sale $sale)
+    {
+        $this->validate($request,[
+            'product'=>'required',
+            'quantity'=>'required|integer|min:1'
+        ]);
+        $sold_product = Product::find($request->product);
+        /**
+         * update quantity of sold item from purchases
+        **/
+        $purchased_item = Purchase::find($sold_product->purchase->id);
+        if(!empty($request->quantity)){
+            $new_quantity = ($purchased_item->quantity) - ($request->quantity);
+        }
+        $new_quantity = $sale->quantity;
+        if (!($new_quantity < 0)){
+            $purchased_item->update([
+                'quantity'=>$new_quantity,
+            ]);
+
+            /**
+             * calcualting item's total price
+            **/
+            if(!empty($request->quantity)){
+                $total_price = ($request->quantity) * ($sold_product->price);
+            }
+            $total_price = $sale->total_price;
+            $sale->update([
+                'product_id'=>$request->product,
+                'quantity'=>$request->quantity,
+                'total_price'=>$total_price,
+            ]);
+            session()->flash('success','Product has been updated'); 
+        } 
+        if($new_quantity <=1 && $new_quantity !=0){
+            // send notification 
+            $product = Purchase::where('quantity', '<=', 1)->first();
+            event(new PurchaseOutStock($product));
+            // end of notification 
+            session()->flash('error','Product is running out of stock!!!'); 
+        }
+        return redirect()->route('sales.index');
+    }
+
+     /*
+    |--------------------------------------------------------------------------
+    | handle delete an Sales ajax request
+    |--------------------------------------------------------------------------
+    */
+
 }
