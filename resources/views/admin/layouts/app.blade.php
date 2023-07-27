@@ -39,18 +39,43 @@
     <script src="{{asset('frontend/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('frontend/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
-    
 </head>
 <body>
     <div id="app">
+    
     @include('sweetalert::alert')
     @yield('user-not-login')
     <div class="main-wrapper">
+
+    @if(session()->has('error'))
+    <div id="alert" class="float-end" style="width:30rem; margin:20px;margin-top: 68px;">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" data-auto-dismiss="4000">
+    <strong>{{session()->get('error') }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+    @endif
+
+
+    
+    @if(session()->has('success'))
+    <div id="alert" class="float-end" style="width:30rem; margin:20px;margin-top: 68px;">
+    <div class="alert alert-primary alert-dismissible fade show" role="alert" data-auto-dismiss="4000">
+    <strong>{{session()->get('success') }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+    @endif
+
+
     @if (Request::is('admin*'))
     @include('admin.layouts.includes.sidebar')
     @include('admin.layouts.includes.header')
     @endif
     <div class="page-wrapper">
+
+
+    
 
     @yield('content')
        
@@ -58,5 +83,14 @@
         </div>
     </div>
     @yield('script')
+    <script>
+    $('.alert[data-auto-dismiss]').each(function (index, element) {
+        var $element = $(element),
+            timeout  = $element.data('auto-dismiss') || 5000;
+        setTimeout(function () {
+            $element.alert('close');
+        }, timeout);
+    });
+    </script>
 </body>
 </html>

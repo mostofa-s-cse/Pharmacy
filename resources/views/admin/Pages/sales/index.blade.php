@@ -2,6 +2,7 @@
 @section('title','Sales')
 @section('content')
 <div class="content container-fluid">
+  
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -17,30 +18,40 @@
                         </div>
                     </div>
                 </div>
-            <div class="row">
-                <div class="col-md-12">
-                
-                  <!--  Sales -->
-                  <div class="card">
-                      <div class="table-responsive">
-                          <div class="card-body">
-                                  <table id="outstock-product" class=" table table-hover table-center mb-0">
-                                      <thead>
-                                          <tr>
-                                          <th>Medicine Name</th>
-                                          <th>Quantity</th>
-                                          <th>Total Price</th>
-                                          <th>Date</th>
-                                          <th class="action-btn">Action</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                          
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
-                      </div>
+                @if(!empty($notification))
+                                      @foreach ($notification as $item)
+                                      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    {{item}}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                      @endforeach
+                                    @endif
+                        <div class="row">
+                            <div class="col-md-12">
+                            
+                              <!--  Sales -->
+                              <div class="card">
+                                  <div class="table-responsive">
+                                      <div class="card-body">
+                                              <table id="outstock-product" class=" table table-hover table-center mb-0">
+                                                  <thead>
+                                                      <tr>
+                                                      <th>Medicine Name</th>
+                                                      <th>Quantity</th>
+                                                      <th>Total Price</th>
+                                                      <th>Date</th>
+                                                      <th class="action-btn">Action</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
                    
 		            <!-- / sales -->
                     </div>
@@ -163,22 +174,6 @@
 <script>
 	$(function() 
 	{
-    // $(document).ready(function() {
-    //     var table = $('#salesTable').DataTable({
-    //         processing: true,
-    //         serverSide: true,
-    //         ajax: "{{route('sales.index')}}",
-    //         columns: [
-    //           {data: 'product', name: 'product'},
-    //             {data: 'quantity', name: 'quantity'},
-    //             {data: 'total_price', name: 'total_price'},
-		// 		        {data: 'date', name: 'date'},
-    //             {data: 'action', name: 'action', orderable: false, searchable: false},
-    //         ]
-    //     });
-        
-    // });
-
     $(document).ready(function() {
         var table = $('#outstock-product').DataTable({
             processing: true,

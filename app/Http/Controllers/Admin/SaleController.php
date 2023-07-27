@@ -63,14 +63,12 @@ class SaleController extends Controller
             'quantity'=>'required|integer|min:1'
         ]);
         $sold_product = Product::find($request->product);
-        
         /**update quantity of
             sold item from
          purchases
         **/
         $purchased_item = Purchase::find($sold_product->purchase->id);
         $new_quantity = ($purchased_item->quantity) - ($request->quantity);
-        $notification = '';
         if (!($new_quantity < 0)){
 
             $purchased_item->update([
@@ -86,18 +84,15 @@ class SaleController extends Controller
                 'quantity'=>$request->quantity,
                 'total_price'=>$total_price,
             ]);
-
-            $notification = notify("Product has been sold");
+            session()->flash('success','Product has been sold');
         } 
         if($new_quantity <=1 && $new_quantity !=0){
             // send notification 
             $product = Purchase::where('quantity', '<=', 1)->first();
             event(new PurchaseOutStock($product));
             // end of notification 
-            $notification = notify("Product is running out of stock!!!");
-            
+            session()->flash('error','Product is running out of stock!!!');    
         }
-
-        return redirect()->route('admin.pages.sales.index')->with($notification);
+        return redirect()->route('sales.index');
     }
 }
