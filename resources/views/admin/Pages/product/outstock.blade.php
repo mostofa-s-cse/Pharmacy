@@ -213,10 +213,12 @@
 	   $(document).on('click', '.deleteIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
+        let name =  $(this).attr('name');
+        console.log(name);
         let csrf = '{{ csrf_token() }}';
         Swal.fire({
           title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          text: 'delete this!',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',

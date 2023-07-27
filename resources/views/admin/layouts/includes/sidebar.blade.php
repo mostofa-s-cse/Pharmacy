@@ -55,7 +55,7 @@
                             <a href="#"><i class="la la-chart-bar"></i> <span> Sales </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="{{ url('admin/products')}}">Sales Details</a></li>
+                                <li><a href="{{ route('sales.index')}}">Sales Details</a></li>
                             </ul>
                         </li>
 

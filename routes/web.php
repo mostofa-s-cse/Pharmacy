@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ExpiredProductController;
 use App\Http\Controllers\Admin\OutStockProductController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PurchaseController;
+use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\CategoriesController;
 use Illuminate\Support\Facades\Route;
@@ -78,11 +79,17 @@ Route::get('admin/dashboard',function(){
     Route::get('/product-edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product-update', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product-delete', [ProductController::class, 'delete'])->name('product.delete');
-
-    // Route::get('outstock', [ProductController::class, 'outstock'])->name('product.outstock');
-    // Route::get('products-outstock',[ProductController::class,'stockAllProduct'])->name('product.Alloutstock');
-    // Route::get('expired',[ProductController::class,'expired'])->name('product.expired');
-    // Route::get('products-expired',[ProductController::class,'Allexpired'])->name('product.Allexpired');
     Route::get('products/outstock',[OutStockProductController::class,'outstock'])->name('outstock');
     Route::get('products/expired',[ExpiredProductController::class,'expired'])->name('expired');
+     /*
+    |--------------------------------------------------------------------------
+    | All Sales Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('sales', [SaleController::class, 'index'])->name('sales.index');
+    Route::get('/sales-fetchall', [SaleController::class, 'fetchAll'])->name('sales.fetchAll');
+    Route::post('/sales-store', [SaleController::class, 'store'])->name('sales.store');
+    Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
+    Route::post('/sales-update', [SaleController::class, 'update'])->name('sales.update');
+    Route::delete('/sales-delete', [SaleController::class, 'delete'])->name('sales.delete');
 });
