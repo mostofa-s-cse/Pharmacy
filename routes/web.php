@@ -91,4 +91,7 @@ Route::get('admin/dashboard',function(){
     Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
     Route::post('/sales-update', [SaleController::class, 'update'])->name('sales.update');
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
+
+    Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
+    Route::post('/sales-reports',[SaleController::class,'generateReport']);
 });

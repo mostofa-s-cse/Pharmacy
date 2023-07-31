@@ -116,7 +116,7 @@
                             <a href="#"><i class="la la-file-alt"></i> <span> Report  </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="{{ url('admin/products')}}">Sale Report</a></li>
+                                <li><a href="{{ route('sales.reports')}}">Sale Report</a></li>
                                 <li><a href="{{ url('admin/products')}}">Purchase Report</a></li>
                             </ul>
                         </li>

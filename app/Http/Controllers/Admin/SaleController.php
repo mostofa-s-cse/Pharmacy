@@ -103,7 +103,7 @@ class SaleController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | handle edit an Sales ajax request
+    | handle edit an Sales
     |--------------------------------------------------------------------------
     */
     public function edit(Request $request)
@@ -175,5 +175,33 @@ class SaleController extends Controller
     public function destroy(Request $request)
     {
         return Sale::findOrFail($request->id)->delete();
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | handle an Sales reports view
+    |--------------------------------------------------------------------------
+    */
+    public function reports(){
+        $sales = Sale::get();
+        return view('admin.pages.sales.reports',compact(
+            'sales'
+        ));
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | handle an Sales generateReport reports view
+    |--------------------------------------------------------------------------
+    */
+    public function generateReport(Request $request){
+        $this->validate($request,[
+            'from_date' => 'required',
+            'to_date' => 'required',
+        ]);
+        $sales = Sale::whereBetween(DB::raw('DATE(created_at)'), array($request->from_date, $request->to_date))->get();
+        return view('admin.pages.sales.reports',compact(
+            'sales'
+        ));
     }
 }

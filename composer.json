@@ -13,6 +13,7 @@
         "laravel/ui": "^4.2",
         "mckenziearts/laravel-notify": "^2.4",
         "realrashid/sweet-alert": "^7.0",
+        "yajra/laravel-datatables-buttons": "^10.0",
         "yajra/laravel-datatables-oracle": "^10.6"
     },
     "require-dev": {
