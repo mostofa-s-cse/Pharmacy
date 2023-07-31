@@ -52,7 +52,8 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Product <span class="text-danger">*</span></label>
-                                    <select class="select2 form-select form-control" name="product"> 
+                                    <select class="select2 form-select form-control" name="product">
+                                    <option value=" ">Select Product</option> 
                                         @foreach ($purchases as $purchase)
                                             <option value="{{$purchase->id}}">{{$purchase->product}}</option>
                                         @endforeach

@@ -125,7 +125,7 @@
                               <div class="col-12">
                                 <div class="form-group">
                                   <label>Product <span class="text-danger">*</span></label>
-                                  <select class="select2 form-select form-control" id="product"  name="product"> 
+                                  <select class="select2 form-select form-control" id="product_id"  name="product"> 
                                       @foreach ($products as $product)
                                         @if (!empty($product->purchase))
                                           @if (!($product->purchase->quantity <= 0))
@@ -187,7 +187,7 @@
           },
           success: function(response) {
             $("#id").val(response.id);
-            $("#product").val(response.product).change();
+            $("#product_id").val(response.product_id).change();
             $("#quantity").val(response.quantity);
           }
         });
