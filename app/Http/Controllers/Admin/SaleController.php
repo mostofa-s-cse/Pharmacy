@@ -76,7 +76,6 @@ class SaleController extends Controller
         $purchased_item = Purchase::find($sold_product->purchase->id);
         $new_quantity = ($purchased_item->quantity) - ($request->quantity);
         if (!($new_quantity < 0)){
-
             $purchased_item->update([
                 'quantity'=>$new_quantity,
             ]);
@@ -120,7 +119,9 @@ class SaleController extends Controller
     | handle update an Sales ajax request
     |--------------------------------------------------------------------------
     */
-    public function update(Request $request, Sale $sale)
+
+
+    public function update(Request $request ,Sale $sale)
     {
         $this->validate($request,[
             'product'=>'required',
@@ -152,14 +153,16 @@ class SaleController extends Controller
                 'quantity'=>$request->quantity,
                 'total_price'=>$total_price,
             ]);
-            session()->flash('success','Product has been updated'); 
+
+            session()->flash('success','Product has been updated');
         } 
         if($new_quantity <=1 && $new_quantity !=0){
             // send notification 
             $product = Purchase::where('quantity', '<=', 1)->first();
             event(new PurchaseOutStock($product));
             // end of notification 
-            session()->flash('error','Product is running out of stock!!!'); 
+            session()->flash('error','Product is running out of stock!!!');
+            
         }
         return redirect()->route('sales.index');
     }
@@ -169,5 +172,8 @@ class SaleController extends Controller
     | handle delete an Sales ajax request
     |--------------------------------------------------------------------------
     */
-
+    public function destroy(Request $request)
+    {
+        return Sale::findOrFail($request->id)->delete();
+    }
 }

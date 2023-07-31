@@ -200,7 +200,7 @@
         const fd = new FormData(this);
         $("#edit_Purchase_btn").text('Updating...');
         $.ajax({
-          url: '{{ route('purchase.update') }}',
+          url: '{{ route('sales.update') }}',
           method: 'post',
           data: fd,
           cache: false,
@@ -221,6 +221,42 @@
             $("#editSalesModal").modal('hide');
           }
         });
+      });
+
+      // delete sales ajax request
+	   $(document).on('click', '.deleteIcon', function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
+        let csrf = '{{ csrf_token() }}';
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: '{{ route('sales.delete') }}',
+              method: 'delete',
+              data: {
+                id: id,
+                _token: csrf
+              },
+              success: function(response) {
+                console.log(response);
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
+                window.location.reload();
+              }
+            });
+          }
+        })
       });
 	});
 </script> 
