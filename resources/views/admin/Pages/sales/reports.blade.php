@@ -32,9 +32,16 @@
                             <div class="col-md-12">
 
                               <!--  Sales Report -->
+                              <div class="btn-group mb-2" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-warning"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export PDF</button>
+                    <button type="button" class="btn btn-warning"><i class='fa fa-file-excel-o' aria-hidden="true"></i> Export Excel</button>
+                    <button type="button" class="btn btn-warning"><i class="fas fa-file-csv" aria-hidden="true"></i> Export CSV</button>
+                    <button type="button" class="btn btn-warning"><i class="fas fa-file-csv" aria-hidden="true"></i> Print</button>
+                    </div>
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
+                   
                         <table id="sales-table" class="datatable table table-hover table-center mb-0">
                             <thead>
                                 <tr>
@@ -123,7 +130,7 @@
 	$(function()
 	{
     //    
-
+   
 	});
 </script>
 @endsection

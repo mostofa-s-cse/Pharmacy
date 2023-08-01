@@ -100,7 +100,6 @@ class SaleController extends Controller
         }
         return redirect()->route('sales.index');
     }
-
     /*
     |--------------------------------------------------------------------------
     | handle edit an Sales
@@ -112,14 +111,11 @@ class SaleController extends Controller
        $sale = Sale::find($id);
        return response()->json($sale);
      }
-
-
      /*
     |--------------------------------------------------------------------------
     | handle update an Sales ajax request
     |--------------------------------------------------------------------------
     */
-
 
     public function update(Request $request ,Sale $sale)
     {
@@ -176,8 +172,6 @@ class SaleController extends Controller
     {
         return Sale::findOrFail($request->id)->delete();
     }
-
-
     /*
     |--------------------------------------------------------------------------
     | handle an Sales reports view
