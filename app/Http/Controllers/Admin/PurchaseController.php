@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Purchase;
+use App\Models\Sale;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,7 @@ class PurchaseController extends Controller
         $categories ['categories'] = $category;
         $suppliers ['suppliers'] = $supplier;
         return view('admin.pages.purchase.index',$categories,$suppliers);
-        
+
     }
     /*
     |--------------------------------------------------------------------------
@@ -61,7 +62,7 @@ class PurchaseController extends Controller
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->image).'" alt="product">
-                <a href="profile.html"><span>' . $item->product . '</span></a>
+                <a href=""><span>' . $item->product . '</span></a>
                 </h2>
                 </td>
                 <td>' . $item->category->name . '</td>
@@ -78,7 +79,7 @@ class PurchaseController extends Controller
                 }
                 $output .= '</tbody></table>';
                 echo $output;
-                
+
             } else {
                 echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
             }
@@ -139,7 +140,7 @@ class PurchaseController extends Controller
     | handle update an Purchase ajax request
     |--------------------------------------------------------------------------
     */
-     // 
+     //
      public function update(Request $request)
      {
         $purchase = Purchase::find($request->id);
@@ -186,6 +187,33 @@ class PurchaseController extends Controller
                 'message' => $e
             ], 500);
         }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | handle an Sales reports view
+    |--------------------------------------------------------------------------
+    */
+    public function reports(){
+        $purchases = Purchase::all();
+        return view('admin.pages.purchase.reports',compact(
+            'purchases'
+        ));
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | handle an Sales generateReport reports view
+    |--------------------------------------------------------------------------
+    */
+    public function generateReport(Request $request){
+        $this->validate($request,[
+            'from_date' => 'required',
+            'to_date' => 'required',
+        ]);
+        $purchases = Purchase::whereBetween(DB::raw('DATE(created_at)'), array($request->from_date, $request->to_date))->get();
+        return view('admin.pages.purchase.reports',compact(
+            'purchases'
+        ));
     }
 
 }

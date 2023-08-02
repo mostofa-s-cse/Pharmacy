@@ -12,14 +12,15 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/images/favicon.png')}}">
     <!-- css -->
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/css/buttons.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/morris.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/material.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('frontend/css/dataTables.bootstrap4.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('frontend/css/bootstrap-datetimepicker.min.css')}}" />
-     <!-- Fonts -->
+    <link rel="stylesheet" href="{{asset('frontend/css/dataTables.bootstrap4.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('frontend/css/bootstrap-datetimepicker.min.css')}}"/>
+    <!-- Fonts -->
     <link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/line-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/font-awesome.min.css')}}">
@@ -38,59 +39,58 @@
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
     <script src="{{asset('frontend/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('frontend/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('frontend/js/datatables-customizer.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
 </head>
 <body>
-    <div id="app">
-    
+<div id="app">
+
     @include('sweetalert::alert')
     @yield('user-not-login')
     <div class="main-wrapper">
 
-    @if(session()->has('error'))
-    <div id="alert" class="float-end" style="width:30rem; margin:20px;margin-top: 68px;">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" data-auto-dismiss="4000">
-    <strong>{{session()->get('error') }}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-</div>
-    @endif
+        @if(session()->has('error'))
+            <div id="alert" class="float-end" style="width:30rem; margin:20px;margin-top: 68px;">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" data-auto-dismiss="4000">
+                    <strong>{{session()->get('error') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
 
 
-    
-    @if(session()->has('success'))
-    <div id="alert" class="float-end" style="width:30rem; margin:20px;margin-top: 68px;">
-    <div class="alert alert-primary alert-dismissible fade show" role="alert" data-auto-dismiss="4000">
-    <strong>{{session()->get('success') }}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-</div>
-    @endif
+
+        @if(session()->has('success'))
+            <div id="alert" class="float-end" style="width:30rem; margin:20px;margin-top: 68px;">
+                <div class="alert alert-primary alert-dismissible fade show" role="alert" data-auto-dismiss="4000">
+                    <strong>{{session()->get('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
 
 
-    @if (Request::is('admin*'))
-    @include('admin.layouts.includes.sidebar')
-    @include('admin.layouts.includes.header')
-    @endif
-    <div class="page-wrapper">
+        @if (Request::is('admin*'))
+            @include('admin.layouts.includes.sidebar')
+            @include('admin.layouts.includes.header')
+        @endif
+        <div class="page-wrapper">
 
 
-    
+            @yield('content')
 
-    @yield('content')
-       
-         </div>
         </div>
     </div>
-    @yield('script')
-    <script>
+</div>
+@yield('script')
+<script>
     $('.alert[data-auto-dismiss]').each(function (index, element) {
         var $element = $(element),
-            timeout  = $element.data('auto-dismiss') || 5000;
+            timeout = $element.data('auto-dismiss') || 5000;
         setTimeout(function () {
             $element.alert('close');
         }, timeout);
     });
-    </script>
+</script>
 </body>
 </html>

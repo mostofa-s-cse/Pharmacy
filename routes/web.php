@@ -29,12 +29,12 @@ Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('admin/dashboard',function(){
+Route::get('admin/dashboard', function () {
     return view('pages.dashboard');
 });
 
-    Route::group(['prefix'=>'admin','middleware'=>'auth','namespace'=>'Admin'],function(){
-    Route::get('dashboard',[DashboardController::class, 'index'])->name('pages.bashboard');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('pages.bashboard');
     /*
     |--------------------------------------------------------------------------
     | All Categories Routes
@@ -68,6 +68,9 @@ Route::get('admin/dashboard',function(){
     Route::get('/purchase-edit', [PurchaseController::class, 'edit'])->name('purchase.edit');
     Route::post('/purchase-update', [PurchaseController::class, 'update'])->name('purchase.update');
     Route::delete('/purchase-delete', [PurchaseController::class, 'delete'])->name('purchase.delete');
+
+    Route::get('/purchase-reports', [PurchaseController::class, 'reports'])->name('purchase.reports');
+    Route::post('/purchase-reports', [PurchaseController::class, 'generateReport']);
     /*
     |--------------------------------------------------------------------------
     | All Purchase Routes
@@ -79,13 +82,13 @@ Route::get('admin/dashboard',function(){
     Route::get('/product-edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product-update', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product-delete', [ProductController::class, 'delete'])->name('product.delete');
-    Route::get('products/outstock',[OutStockProductController::class,'outstock'])->name('outstock');
-    Route::get('products/expired',[ExpiredProductController::class,'expired'])->name('expired');
-     /*
-    |--------------------------------------------------------------------------
-    | All Sales Routes
-    |--------------------------------------------------------------------------
-    */
+    Route::get('products/outstock', [OutStockProductController::class, 'outstock'])->name('outstock');
+    Route::get('products/expired', [ExpiredProductController::class, 'expired'])->name('expired');
+    /*
+   |--------------------------------------------------------------------------
+   | All Sales Routes
+   |--------------------------------------------------------------------------
+   */
     Route::get('sales', [SaleController::class, 'index'])->name('sales.index');
     Route::post('/sales-store', [SaleController::class, 'store'])->name('sales.store');
     Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
@@ -93,5 +96,5 @@ Route::get('admin/dashboard',function(){
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
-    Route::post('/sales-reports',[SaleController::class,'generateReport']);
+    Route::post('/sales-reports', [SaleController::class, 'generateReport']);
 });
