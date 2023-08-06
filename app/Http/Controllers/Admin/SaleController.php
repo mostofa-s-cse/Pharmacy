@@ -34,9 +34,9 @@ class SaleController extends Controller
                                 </span>';
                             }
                             return $image . ' ' . $sale->product->purchase->product;
-                        }                 
+                        }
                     })
-                    ->addColumn('total_price',function($sale){                   
+                    ->addColumn('total_price',function($sale){
                         return $sale->total_price;
                     })
                     ->addColumn('date',function($row){
@@ -90,13 +90,13 @@ class SaleController extends Controller
                 'total_price'=>$total_price,
             ]);
             session()->flash('success','Product has been sold');
-        } 
+        }
         if($new_quantity <=1 && $new_quantity !=0){
-            // send notification 
+            // send notification
             $product = Purchase::where('quantity', '<=', 1)->first();
             event(new PurchaseOutStock($product));
-            // end of notification 
-            session()->flash('error','Product is running out of stock!!!');    
+            // end of notification
+            session()->flash('error','Product is running out of stock!!!');
         }
         return redirect()->route('sales.index');
     }
@@ -151,14 +151,14 @@ class SaleController extends Controller
             ]);
 
             session()->flash('success','Product has been updated');
-        } 
+        }
         if($new_quantity <=1 && $new_quantity !=0){
-            // send notification 
+            // send notification
             $product = Purchase::where('quantity', '<=', 1)->first();
             event(new PurchaseOutStock($product));
-            // end of notification 
+            // end of notification
             session()->flash('error','Product is running out of stock!!!');
-            
+
         }
         return redirect()->route('sales.index');
     }

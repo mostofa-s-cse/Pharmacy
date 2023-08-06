@@ -12,13 +12,14 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/images/favicon.png')}}">
     <!-- css -->
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('frontend/css/buttons.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/morris.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/material.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('frontend/css/dataTables.bootstrap4.min.css')}}"/>
+    {{--    datatables css--}}
+{{--    <link rel="stylesheet" href="{{asset('frontend/datatables/css/bootstrap.min.css')}}">--}}
+    <link rel="stylesheet" href="{{asset('frontend/datatables/css/datatables.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap-datetimepicker.min.css')}}"/>
     <!-- Fonts -->
     <link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}">
@@ -37,10 +38,14 @@
     <script src="{{asset('frontend/js/theme-settings.js')}}"></script>
     <script src="{{asset('frontend/js/app.js')}}"></script>
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('frontend/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('frontend/js/datatables-customizer.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
+{{--    datatables js--}}
+{{--    <script src="{{asset('frontend/datatables/js/bootstrap.bundle.min.js')}}"></script>--}}
+    <script src="{{asset('frontend/datatables/js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{asset('frontend/datatables/js/datatables.min.js')}}"></script>
+    <script src="{{asset('frontend/datatables/js/pdfmake.min.js')}}"></script>
+    <script src="{{asset('frontend/datatables/js/vfs_fonts.js')}}"></script>
+{{--    <script src="{{asset('frontend/datatables/js/custom.js')}}"></script>--}}
 </head>
 <body>
 <div id="app">
