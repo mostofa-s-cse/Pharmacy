@@ -177,6 +177,15 @@
                     $("#quantity").val(response.quantity);
                     $("#expiry_date").val(response.expiry_date);
                     $("#image").val(response.image);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // alert(xhr.status);
+                    Swal.fire(
+                        'Edit fails!',
+                        thrownError,
+                        'error'
+                    )
+                    // alert(thrownError);
                 }
             });
         });
@@ -207,6 +216,15 @@
                     $("#edit_Purchase_btn").text('Update Purchase');
                     $("#edit_Purchase_form")[0].reset();
                     $("#editPurchaseModal").modal('hide');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // alert(xhr.status);
+                    Swal.fire(
+                        'Update fails!',
+                        thrownError,
+                        'error'
+                    )
+                    // alert(thrownError);
                 }
             });
         });
@@ -243,6 +261,15 @@
                                 'success'
                             )
                             window.location.reload();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            // alert(xhr.status);
+                            Swal.fire(
+                                'Delete fails!',
+                                thrownError,
+                                'error'
+                            )
+                            // alert(thrownError);
                         }
                     });
                 }

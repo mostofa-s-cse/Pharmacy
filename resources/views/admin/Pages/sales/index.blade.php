@@ -2,7 +2,7 @@
 @section('title','Sales')
 @section('content')
 <div class="content container-fluid">
-  
+
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -30,7 +30,7 @@
                                     @endif
                         <div class="row">
                             <div class="col-md-12">
-                            
+
                               <!--  Sales -->
                               <div class="card">
                                   <div class="table-responsive">
@@ -46,19 +46,19 @@
                                                       </tr>
                                                   </thead>
                                                   <tbody>
-                                                      
+
                                                   </tbody>
                                               </table>
                                           </div>
                                       </div>
                                   </div>
-                   
+
 		            <!-- / sales -->
                     </div>
                 </div>
 				</div>
             </div>
-            
+
             </div>
             <div id="addSalesModal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -125,7 +125,7 @@
                               <div class="col-12">
                                 <div class="form-group">
                                   <label>Product <span class="text-danger">*</span></label>
-                                  <select class="select2 form-select form-control" id="product_id"  name="product"> 
+                                  <select class="select2 form-select form-control" id="product_id"  name="product">
                                       @foreach ($products as $product)
                                         @if (!empty($product->purchase))
                                           @if (!($product->purchase->quantity <= 0))
@@ -156,7 +156,7 @@
 @endsection
 @section('script')
 <script>
-	$(function() 
+	$(function()
 	{
     $(document).ready(function() {
         var table = $('#outstock-product').DataTable({
@@ -171,7 +171,7 @@
                 {data: 'action', name: 'action',  orderable: false, searchable: false},
             ]
         });
-        
+
     });
 
     // edit sales ajax request
@@ -189,7 +189,16 @@
             $("#id").val(response.id);
             $("#product_id").val(response.product_id).change();
             $("#quantity").val(response.quantity);
-          }
+          },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // alert(xhr.status);
+                Swal.fire(
+                    'Sales edit fails!',
+                    thrownError,
+                    'error'
+                )
+                // alert(thrownError);
+            }
         });
       });
 
@@ -219,7 +228,16 @@
             $("#edit_sales_btn").text('Update sales');
             $("#edit_sales_form")[0].reset();
             $("#editSalesModal").modal('hide');
-          }
+          },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // alert(xhr.status);
+                Swal.fire(
+                    'Sales update fails!',
+                    thrownError,
+                    'error'
+                )
+                // alert(thrownError);
+            }
         });
       });
 
@@ -253,11 +271,20 @@
                   'success'
                 )
                 window.location.reload();
-              }
+              },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // alert(xhr.status);
+                    Swal.fire(
+                        'Sales delete fails!',
+                        thrownError,
+                        'error'
+                    )
+                    // alert(thrownError);
+                }
             });
           }
         })
       });
 	});
-</script> 
+</script>
 @endsection

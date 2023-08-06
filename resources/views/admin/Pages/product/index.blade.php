@@ -214,6 +214,15 @@
                         $("#add_product_form")[0].reset();
                         $("#addProductModal").modal('hide');
                     },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Product add fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
+                    }
                 })
             });
 
@@ -235,6 +244,15 @@
                         $("#discount").val(response.discount);
                         $("#price").val(response.price);
                         $("#purchase_id").val(response.purchase_id).change();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'product edit fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
                     }
                 });
             });
@@ -265,6 +283,15 @@
                         $("#edit_product_btn").text('Update product');
                         $("#edit_product_form")[0].reset();
                         $("#editproductModal").modal('hide');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Product update fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
                     }
                 });
             });
@@ -276,7 +303,7 @@
                 let csrf = '{{ csrf_token() }}';
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    text: "Delete this product",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -301,6 +328,15 @@
                                 fetchAllProduct();
                             }
                         });
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Product delete fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
                     }
                 })
             });

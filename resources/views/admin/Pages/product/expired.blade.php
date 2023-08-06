@@ -177,6 +177,15 @@
                     $("#quantity").val(response.quantity);
                     $("#expiry_date").val(response.expiry_date);
                     $("#image").val(response.image);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // alert(xhr.status);
+                    Swal.fire(
+                        'Purchase edit fails!',
+                        thrownError,
+                        'error'
+                    )
+                    // alert(thrownError);
                 }
             });
         });
@@ -203,10 +212,19 @@
                             'success'
                         )
                         window.location.reload();
-                    }
+                    },
                     $("#edit_Purchase_btn").text('Update Purchase');
                     $("#edit_Purchase_form")[0].reset();
                     $("#editPurchaseModal").modal('hide');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // alert(xhr.status);
+                    Swal.fire(
+                        'Purchase update fails!',
+                        thrownError,
+                        'error'
+                    )
+                    // alert(thrownError);
                 }
             });
         });
@@ -218,7 +236,7 @@
             let csrf = '{{ csrf_token() }}';
             Swal.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "Delete this product",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -241,6 +259,15 @@
                                 'success'
                             )
                             window.location.reload();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            // alert(xhr.status);
+                            Swal.fire(
+                                'Purchase delete fails!',
+                                thrownError,
+                                'error'
+                            )
+                            // alert(thrownError);
                         }
                     });
                 }

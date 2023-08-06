@@ -131,6 +131,15 @@
                         $("#add_Categories_form")[0].reset();
                         $("#addCategoriesModal").modal('hide');
                     },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Add categories fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
+                    }
                 })
             });
 
@@ -149,7 +158,17 @@
                     success: function (response) {
                         $("#id").val(response.id);
                         $("#category_name").val(response.name);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Edit categories fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
                     }
+
                 });
             });
 
@@ -179,7 +198,17 @@
                         $("#edit_Categories_btn").text('Update Categories');
                         $("#edit_Categories_form")[0].reset();
                         $("#editCategoryModal").modal('hide');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Update categories fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
                     }
+
                 });
             });
 
@@ -190,7 +219,7 @@
                 let csrf = '{{ csrf_token() }}';
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    text: "Delete this category?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -213,6 +242,15 @@
                                     'success'
                                 )
                                 fetchAllCategories();
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                // alert(xhr.status);
+                                Swal.fire(
+                                    'Category delete fails!',
+                                    thrownError,
+                                    'error'
+                                )
+                                // alert(thrownError);
                             }
                         });
                     }

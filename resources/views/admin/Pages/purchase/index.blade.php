@@ -256,6 +256,15 @@
                         $("#add_Purchase_form")[0].reset();
                         $("#addPurchaseModal").modal('hide');
                     },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Purchase add fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
+                    }
                 })
             });
 
@@ -279,6 +288,15 @@
                         $("#quantity").val(response.quantity);
                         $("#expiry_date").val(response.expiry_date);
                         $("#image").val(response.image);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Purchase edit fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
                     }
                 });
             });
@@ -309,6 +327,15 @@
                         $("#edit_Purchase_btn").text('Update Purchase');
                         $("#edit_Purchase_form")[0].reset();
                         $("#editPurchaseModal").modal('hide');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Purchase update fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
                     }
                 });
             });
@@ -343,6 +370,15 @@
                                     'success'
                                 )
                                 fetchAllPurchase();
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                // alert(xhr.status);
+                                Swal.fire(
+                                    'Purchase delete fails!',
+                                    thrownError,
+                                    'error'
+                                )
+                                // alert(thrownError);
                             }
                         });
                     }
