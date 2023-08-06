@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="purchase-table" class="datatable table table-hover table-center mb-0">
+                            <table id="purchase-table"  class="datatable table table-hover table-center mb-0">
                                     <thead>
                                     <tr>
                                         <th>Medicine Name</th>
@@ -124,27 +124,14 @@
     <!-- /Generate Modal -->
 @endsection
 @section('script')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.jqueryui.css" />
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.jqueryui.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.jqueryui.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.js"></script>
     <script>
-        $(function () {
-            //
-            $('#purchase-table').DataTable({
-                dom: 'B',
-                buttons: ['print','csv', 'excel','pdf']
-            });
+        $(document).ready(function(){
+            var table = $('#purchase-table').DataTable({
+                "responsive": false,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#purchase-table_wrapper .col-md-6:eq(0)');
         });
     </script>
 @endsection

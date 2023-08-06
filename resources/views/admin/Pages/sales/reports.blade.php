@@ -120,12 +120,13 @@
 @endsection
 @section('script')
     <script>
-        $(function () {
-            //
-            $('#sales-table').DataTable({
-                dom: 'B',
-                buttons: ['print','csv', 'excel','pdf']
-            });
+        $(document).ready(function(){
+            var table = $('#sales-table').DataTable({
+                "responsive": false,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#sales-table_wrapper .col-md-6:eq(0)');
         });
     </script>
 @endsection
