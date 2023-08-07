@@ -5,10 +5,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Products Outstock</h3>
+                    <h3 class="page-title">Products Expired</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Product Outstock</li>
+                        <li class="breadcrumb-item active">Product Expired</li>
                     </ul>
                 </div>
             </div>
@@ -63,14 +63,13 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>Medicine Name<span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" id="product" name="product">
+                                        <input class="form-control" type="text" id="product" name="product" >
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>Category <span class="text-danger">*</span></label>
-                                        <select class="select2 form-select form-control" id="category_id"
-                                                name="category">
+                                        <select class="select2 form-select form-control" id="category_id" name="category">
                                             <option value="">Select</option>
                                             @if(!empty($categories))
                                                 @foreach ($categories as $item)
@@ -83,8 +82,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>Supplier <span class="text-danger">*</span></label>
-                                        <select class="select2 form-select form-control" id="supplier_id"
-                                                name="supplier">
+                                        <select class="select2 form-select form-control" id="supplier_id"  name="supplier">
                                             @if(!empty($suppliers))
                                                 @foreach ($suppliers as $item)
                                                     <option value="{{$item->id}}">{{$item->name}}</option>
@@ -116,8 +114,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Expire Date<span class="text-danger">*</span></label>
-                                        <input class="form-control" value="" id="expiry_date" type="date"
-                                               name="expiry_date">
+                                        <input class="form-control" value="" id="expiry_date" type="date" name="expiry_date">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -129,8 +126,7 @@
                             </div>
                         </div>
                         <div class="submit-section">
-                            <button class="btn btn-primary submit-btn" id="edit_Purchase_btn" type="submit">Submit
-                            </button>
+                            <button class="btn btn-primary submit-btn" id="edit_Purchase_btn" type="submit" >Submit</button>
                         </div>
                     </form>
                 </div>
@@ -138,10 +134,12 @@
         </div>
     </div>
 
+
+
 @endsection
 @section('script')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var table = $('#outstock-product').DataTable({
                 processing: true,
                 serverSide: true,
@@ -158,7 +156,7 @@
 
         });
         // edit Purchase ajax request
-        $(document).on('click', '.editIcon', function (e) {
+        $(document).on('click', '.editIcon', function(e) {
             e.preventDefault();
             let id = $(this).attr('id');
             $.ajax({
@@ -168,7 +166,7 @@
                     id: id,
                     _token: '{{ csrf_token() }}'
                 },
-                success: function (response) {
+                success: function(response) {
                     $("#id").val(response.id);
                     $("#product").val(response.product);
                     $("#category_id").val(response.category_id).change();
@@ -191,7 +189,7 @@
         });
 
         // update Purchase ajax request
-        $("#edit_Purchase_form").submit(function (e) {
+        $("#edit_Purchase_form").submit(function(e) {
             e.preventDefault();
             let id = $(this).attr('id');
             const fd = new FormData(this);
@@ -204,7 +202,7 @@
                 contentType: false,
                 processData: false,
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
                     if (response.status == 200) {
                         Swal.fire(
                             'Updated!',
@@ -212,7 +210,7 @@
                             'success'
                         )
                         window.location.reload();
-                    },
+                    }
                     $("#edit_Purchase_btn").text('Update Purchase');
                     $("#edit_Purchase_form")[0].reset();
                     $("#editPurchaseModal").modal('hide');
@@ -230,13 +228,13 @@
         });
 
         // delete Purchase ajax request
-        $(document).on('click', '.deleteIcon', function (e) {
+        $(document).on('click', '.deleteIcon', function(e) {
             e.preventDefault();
             let id = $(this).attr('id');
             let csrf = '{{ csrf_token() }}';
             Swal.fire({
                 title: 'Are you sure?',
-                text: "Delete this product",
+                text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -251,7 +249,7 @@
                             id: id,
                             _token: csrf
                         },
-                        success: function (response) {
+                        success: function(response) {
                             console.log(response);
                             Swal.fire(
                                 'Deleted!',
