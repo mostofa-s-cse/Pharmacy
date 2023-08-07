@@ -1,14 +1,15 @@
 @extends('admin.layouts.app')
-@section('title','Barcode Scanning')
+@section('title','Billing History')
 @section('content')
     <div class="content container-fluid">
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Barcode Scanning</h3>
+                    <h3 class="page-title">Billing History</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Barcode Scanning</li>
+                        <li class="breadcrumb-item active">Accounts</li>
+                        <li class="breadcrumb-item active">Billing History</li>
                     </ul>
                 </div>
 {{--                <div class="col-auto float-end ms-auto">--}}

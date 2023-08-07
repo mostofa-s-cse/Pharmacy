@@ -103,10 +103,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/sales-reports', [SaleController::class, 'generateReport']);
     /*
     |--------------------------------------------------------------------------
-    | All Company Routes
+    | All Accounts Routes
     |--------------------------------------------------------------------------
     */
     Route::get('accounts', [AccountsController::class, 'index'])->name('accounts.index');
+    Route::get('accounts-billing-history', [AccountsController::class, 'BillingHistoryindex'])->name('billinghistory.index');
+    Route::get('accounts-other-transaction', [AccountsController::class, 'OtherTransactionIndex'])->name('othertransaction.index');
+    Route::get('accounts-transaction-history', [AccountsController::class, 'TransactionHistoryIndex'])->name('transactionhistory.index');
+    Route::get('cash-memo', [AccountsController::class, 'CashMemo'])->name('cashmemo.index');
+    Route::get('barcode-scanning', [AccountsController::class, 'BarcodeScanning'])->name('barcodescanning.index');
+
+
 
     /*
   |--------------------------------------------------------------------------
