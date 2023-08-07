@@ -59,13 +59,6 @@
                     </ul>
                 </li>
 
-                <li class="submenu">
-                    <a href="#"><i class="la la-dice-d6"></i> <span>Stock</span> <span
-                            class="menu-arrow"></span></a>
-                    <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Stock Details</a></li>
-                    </ul>
-                </li>
 
                 <li class="submenu">
                     <a href="#"><i class="la la-exclamation-triangle"></i> <span> Damage  </span> <span
@@ -88,7 +81,7 @@
                     <a href="#"><i class="la la-qrcode"></i> <span> Barcode & Scanning  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Barcode Generation & Scanning</a></li>
+                        <li><a href="{{ route('barcodescanning.index')}}">Barcode Generation & Scanning</a></li>
                     </ul>
                 </li>
 
@@ -96,10 +89,10 @@
                     <a href="#"><i class="la la-user-alt"></i> <span> Accounts  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Accounts Details</a></li>
-                        <li><a href="{{ url('admin/products')}}">Billing History</a></li>
-                        <li><a href="{{ url('admin/products')}}">Other Transaction</a></li>
-                        <li><a href="{{ url('admin/products')}}">Transaction History</a></li>
+                        <li><a href="{{ route('accounts.index')}}">Accounts Details</a></li>
+                        <li><a href="{{ route('billinghistory.index')}}">Billing History</a></li>
+                        <li><a href="{{ route('othertransaction.index')}}">Other Transaction</a></li>
+                        <li><a href="{{ route('transactionhistory.index')}}">Transaction History</a></li>
                     </ul>
                 </li>
 
@@ -107,7 +100,7 @@
                     <a href="#"><i class="la la-file-invoice-dollar"></i> <span> Cash Memo  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Cash Memo</a></li>
+                        <li><a href="{{ route('cashmemo.index')}}">Cash Memo</a></li>
                     </ul>
                 </li>
 
@@ -115,7 +108,7 @@
                     <a href="#"><i class="la la-city"></i> <span> Company  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Company Details</a></li>
+                        <li><a href="{{ route('company.index')}}">Company Details</a></li>
                     </ul>
                 </li>
 
@@ -124,7 +117,7 @@
                     <a href="#"><i class="la la-user-tag"></i> <span> Customer  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Customer Details</a></li>
+                        <li><a href="{{ route('customer.index')}}">Customer Details</a></li>
                     </ul>
                 </li>
 

@@ -8,7 +8,11 @@ use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\AccountsController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DamageController;
+use App\Http\Controllers\Admin\CompanyController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,7 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     |--------------------------------------------------------------------------
     */
     Route::get('products', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/product-fetchall', [ProductController::class, 'fetchAll'])->name('product.fetchAll');
+    Route::get('/product-fetchAll', [ProductController::class, 'fetchAll'])->name('product.fetchAll');
     Route::post('/product-store', [ProductController::class, 'store'])->name('product.store');
     Route::get('/product-edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product-update', [ProductController::class, 'update'])->name('product.update');
@@ -98,8 +102,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
     Route::post('/sales-reports', [SaleController::class, 'generateReport']);
-
-    /*
+        /*
    |--------------------------------------------------------------------------
    | All Damage Routes
    |--------------------------------------------------------------------------
@@ -108,6 +111,32 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
    Route::get('/damage',[DamageController::class, 'index'])->name('damage.index');
    Route::post('/damage/store', [DamageController::class, 'store'])->name('damage.store');
    Route::get('/damage/edit', [SaleController::class, 'edit'])->name('damage.edit');
+    /*
+    |--------------------------------------------------------------------------
+    | All Accounts Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('accounts', [AccountsController::class, 'index'])->name('accounts.index');
+    Route::get('accounts-billing-history', [AccountsController::class, 'BillingHistoryindex'])->name('billinghistory.index');
+    Route::get('accounts-other-transaction', [AccountsController::class, 'OtherTransactionIndex'])->name('othertransaction.index');
+    Route::get('accounts-transaction-history', [AccountsController::class, 'TransactionHistoryIndex'])->name('transactionhistory.index');
+    Route::get('cash-memo', [AccountsController::class, 'CashMemo'])->name('cashmemo.index');
+    Route::get('barcode-scanning', [AccountsController::class, 'BarcodeScanning'])->name('barcodescanning.index');
 
 
+
+    /*
+  |--------------------------------------------------------------------------
+  | All Customer Routes
+  |--------------------------------------------------------------------------
+  */
+    Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
+
+
+    /*
+  |--------------------------------------------------------------------------
+  | All Company Routes
+  |--------------------------------------------------------------------------
+  */
+    Route::get('company', [CompanyController::class, 'index'])->name('company.index');
 });

@@ -53,7 +53,6 @@
                                     <div class="form-group">
                                         <label>Product <span class="text-danger">*</span></label>
                                         <select class="select2 form-select form-control" name="product">
-                                            <option value=" ">Select Product</option>
                                             @foreach ($purchases as $purchase)
                                                 <option value="{{$purchase->id}}">{{$purchase->product}}</option>
                                             @endforeach
@@ -83,13 +82,13 @@
                         </div>
 
 
+
                         <div class="service-fields mb-3">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Descriptions <span class="text-danger">*</span></label>
-                                        <textarea class="form-control service-desc"
-                                                  name="description">{{old('description')}}</textarea>
+                                        <textarea class="form-control service-desc" name="description">{{old('description')}}</textarea>
                                     </div>
                                 </div>
 
@@ -98,9 +97,7 @@
 
 
                         <div class="submit-section">
-                            <button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">
-                                Submit
-                            </button>
+                            <button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
                         </div>
                     </form>
                     <!-- /Add Product -->
@@ -130,8 +127,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Product <span class="text-danger">*</span></label>
-                                        <select class="select2 form-select form-control" id="purchase_id"
-                                                name="product">
+                                        <select class="select2 form-select form-control" id="purchase_id" name="product">
                                             @if(!empty($purchases))
                                                 @foreach ($purchases as $item)
                                                     <option value="{{$item->id}}">{{$item->product}}</option>
@@ -165,8 +161,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Descriptions <span class="text-danger">*</span></label>
-                                        <textarea class="form-control service-desc" id="description"
-                                                  name="description"></textarea>
+                                        <textarea class="form-control service-desc" id="description" name="description"></textarea>
                                     </div>
                                 </div>
 
@@ -174,9 +169,7 @@
                         </div>
 
                         <div class="submit-section">
-                            <button class="btn btn-primary submit-btn" id="edit_product_btn" type="submit"
-                                    name="form_submit" value="submit">Submit
-                            </button>
+                            <button class="btn btn-primary submit-btn" id="edit_product_btn" type="submit" name="form_submit" value="submit">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -187,9 +180,10 @@
 @endsection
 @section('script')
     <script>
-        $(function () {
+        $(function()
+        {
             // add new product ajax request
-            $("#add_product_form").submit(function (e) {
+            $("#add_product_form").submit(function(e) {
                 e.preventDefault();
                 const fd = new FormData(this);
                 $("#add_product_btn").text('Adding...');
@@ -201,7 +195,7 @@
                     contentType: false,
                     processData: false,
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == 200) {
                             Swal.fire(
                                 'Added!',
@@ -217,7 +211,7 @@
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
                         Swal.fire(
-                            'Product add fails!',
+                            'Product Add fails!',
                             thrownError,
                             'error'
                         )
@@ -228,7 +222,7 @@
 
 
             // edit product ajax request
-            $(document).on('click', '.editIcon', function (e) {
+            $(document).on('click', '.editIcon', function(e) {
                 e.preventDefault();
                 let id = $(this).attr('id');
                 $.ajax({
@@ -238,7 +232,7 @@
                         id: id,
                         _token: '{{ csrf_token() }}'
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $("#id").val(response.id);
                         $("#description").val(response.description);
                         $("#discount").val(response.discount);
@@ -248,7 +242,7 @@
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
                         Swal.fire(
-                            'product edit fails!',
+                            'Product edit fails!',
                             thrownError,
                             'error'
                         )
@@ -258,7 +252,7 @@
             });
 
             // update product ajax request
-            $("#edit_product_form").submit(function (e) {
+            $("#edit_product_form").submit(function(e) {
                 e.preventDefault();
                 let id = $(this).attr('id');
                 const fd = new FormData(this);
@@ -271,7 +265,7 @@
                     contentType: false,
                     processData: false,
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == 200) {
                             Swal.fire(
                                 'Updated!',
@@ -282,7 +276,7 @@
                         }
                         $("#edit_product_btn").text('Update product');
                         $("#edit_product_form")[0].reset();
-                        $("#editproductModal").modal('hide');
+                        $("#editProductModal").modal('hide');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
@@ -297,7 +291,7 @@
             });
 
             // delete product ajax request
-            $(document).on('click', '.deleteIcon', function (e) {
+            $(document).on('click', '.deleteIcon', function(e) {
                 e.preventDefault();
                 let id = $(this).attr('id');
                 let csrf = '{{ csrf_token() }}';
@@ -318,7 +312,7 @@
                                 id: id,
                                 _token: csrf
                             },
-                            success: function (response) {
+                            success: function(response) {
                                 console.log(response);
                                 Swal.fire(
                                     'Deleted!',
@@ -326,28 +320,27 @@
                                     'success'
                                 )
                                 fetchAllProduct();
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                // alert(xhr.status);
+                                Swal.fire(
+                                    'Product delete fails!',
+                                    thrownError,
+                                    'error'
+                                )
+                                // alert(thrownError);
                             }
                         });
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        // alert(xhr.status);
-                        Swal.fire(
-                            'Product delete fails!',
-                            thrownError,
-                            'error'
-                        )
-                        // alert(thrownError);
                     }
                 })
             });
             // fetch all product ajax request
             fetchAllProduct();
-
             function fetchAllProduct() {
                 $.ajax({
                     url: '{{ route('product.fetchAll') }}',
                     method: 'get',
-                    success: function (response) {
+                    success: function(response) {
                         $("#show_all_product").html(response);
                         $("table").DataTable({
                             order: [0, 'desc']
