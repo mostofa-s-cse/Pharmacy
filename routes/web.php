@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\DamageProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,4 +98,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
     Route::post('/sales-reports', [SaleController::class, 'generateReport']);
+
+     /*
+     |--------------------------------------------------------------------------
+     | All Sales Routes
+     |--------------------------------------------------------------------------
+     */
+    Route::get('damage-product', [DamageProductController::class, 'index'])->name('damage.index');
+
 });
