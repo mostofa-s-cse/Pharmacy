@@ -71,7 +71,7 @@
                     <a href="#"><i class="la la-exclamation-triangle"></i> <span> Damage  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Damage Details</a></li>
+                        <li><a href="{{route('damage.index')}}">Damage Details</a></li>
                     </ul>
                 </li>
 
