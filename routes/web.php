@@ -8,6 +8,10 @@ use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\AccountsController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\CompanyController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,7 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     |--------------------------------------------------------------------------
     */
     Route::get('products', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/product-fetchall', [ProductController::class, 'fetchAll'])->name('product.fetchAll');
+    Route::get('/product-fetchAll', [ProductController::class, 'fetchAll'])->name('product.fetchAll');
     Route::post('/product-store', [ProductController::class, 'store'])->name('product.store');
     Route::get('/product-edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product-update', [ProductController::class, 'update'])->name('product.update');
@@ -97,4 +101,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
     Route::post('/sales-reports', [SaleController::class, 'generateReport']);
+    /*
+    |--------------------------------------------------------------------------
+    | All Company Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('accounts', [AccountsController::class, 'index'])->name('accounts.index');
+
+    /*
+  |--------------------------------------------------------------------------
+  | All Customer Routes
+  |--------------------------------------------------------------------------
+  */
+    Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
+
+
+    /*
+  |--------------------------------------------------------------------------
+  | All Company Routes
+  |--------------------------------------------------------------------------
+  */
+    Route::get('company', [CompanyController::class, 'index'])->name('company.index');
 });

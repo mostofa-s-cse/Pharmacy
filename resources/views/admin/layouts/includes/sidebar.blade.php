@@ -64,7 +64,7 @@
                     <a href="#"><i class="la la-exclamation-triangle"></i> <span> Damage  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ route('damage.index')}}">Damage Details</a></li>
+                        <li><a href="">Damage Details</a></li>
                     </ul>
                 </li>
 
@@ -89,7 +89,7 @@
                     <a href="#"><i class="la la-user-alt"></i> <span> Accounts  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Accounts Details</a></li>
+                        <li><a href="{{ route('accounts.index')}}">Accounts Details</a></li>
                         <li><a href="{{ url('admin/products')}}">Billing History</a></li>
                         <li><a href="{{ url('admin/products')}}">Other Transaction</a></li>
                         <li><a href="{{ url('admin/products')}}">Transaction History</a></li>
@@ -108,7 +108,7 @@
                     <a href="#"><i class="la la-city"></i> <span> Company  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Company Details</a></li>
+                        <li><a href="{{ route('company.index')}}">Company Details</a></li>
                     </ul>
                 </li>
 
@@ -117,7 +117,7 @@
                     <a href="#"><i class="la la-user-tag"></i> <span> Customer  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Customer Details</a></li>
+                        <li><a href="{{ route('customer.index')}}">Customer Details</a></li>
                     </ul>
                 </li>
 
