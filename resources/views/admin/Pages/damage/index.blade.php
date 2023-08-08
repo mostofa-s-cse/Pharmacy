@@ -147,7 +147,7 @@
                             <button class="btn btn-primary submit-btn" id="edit_sales_btn" type="submit" >Submit</button>
                           </div>
                           </form>
-                                  <!--/ Edit Sale -->
+                                  <!--/ Edit damage -->
                         </div>
                     </div>
                 </div>
@@ -155,8 +155,8 @@
 
 @endsection
 @section('script')
-    <script>
-     $(function()
+   <script>
+    	$(function()
 	{
     $(document).ready(function() {
         var table = $('#outstock-product').DataTable({
@@ -164,22 +164,127 @@
             serverSide: true,
             ajax: "{{route('damage.index')}}",
             columns: [
-                {data: 'product', name: 'product'},
+              {data: 'product', name: 'product'},
                 {data: 'quantity', name: 'quantity'},
                 {data: 'total_price', name: 'total_price'},
-				{data: 'date', name: 'date'},
+				        {data: 'date', name: 'date'},
                 {data: 'action', name: 'action',  orderable: false, searchable: false},
             ]
         });
 
     });
 
+    // edit sales ajax request
+    $(document).on('click', '.editIcon', function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
+        $.ajax({
+          url: '{{ route('damage.edit') }}',
+          method: 'get',
+          data: {
+            id: id,
+            _token: '{{ csrf_token() }}'
+          },
+          success: function(response) {
+            $("#id").val(response.id);
+            $("#product_id").val(response.product_id).change();
+            $("#quantity").val(response.quantity);
+          },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // alert(xhr.status);
+                Swal.fire(
+                    'Damage edit fails!',
+                    thrownError,
+                    'error'
+                )
+                // alert(thrownError);
+            }
+        });
+      });
 
-    });
+      // update sales ajax request
+      $("#edit_sales_form").submit(function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
+        const fd = new FormData(this);
+        $("#edit_Purchase_btn").text('Updating...');
+        $.ajax({
+          url: '{{ route('damage.update') }}',
+          method: 'post',
+          data: fd,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          success: function(response) {
+            if (response.status == 200) {
+              Swal.fire(
+                'Updated!',
+                'Damage Product Updated Successfully!',
+                'success'
+              )
+              window.location.reload();
+            }
+            $("#edit_sales_btn").text('Update sales');
+            $("#edit_sales_form")[0].reset();
+            $("#editSalesModal").modal('hide');
+          },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // alert(xhr.status);
+                Swal.fire(
+                    'Damage Product update fails!',
+                    thrownError,
+                    'error'
+                )
+                // alert(thrownError);
+            }
+        });
+      });
 
-
-         
-
-    
+      // delete sales ajax request
+	   $(document).on('click', '.deleteDamageProduct', function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
+        let csrf = '{{ csrf_token() }}';
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: '{{ route('damage.delete') }}',
+              method: 'delete',
+              data: {
+                id: id,
+                _token: csrf
+              },
+              success: function(response) {
+                console.log(response);
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
+                window.location.reload();
+              },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // alert(xhr.status);
+                    Swal.fire(
+                        'Damage Product delete fails!',
+                        thrownError,
+                        'error'
+                    )
+                    // alert(thrownError);
+                }
+            });
+          }
+        })
+      });
+	});
     </script>
 @endsection

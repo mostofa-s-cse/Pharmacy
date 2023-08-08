@@ -110,7 +110,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
    Route::get('/damage',[DamageController::class, 'index'])->name('damage.index');
    Route::post('/damage/store', [DamageController::class, 'store'])->name('damage.store');
-   Route::get('/damage/edit', [SaleController::class, 'edit'])->name('damage.edit');
+   Route::get('/damage/edit', [DamageController ::class, 'edit'])->name('damage.edit');
+   Route::post('/damage/update', [DamageController::class, 'update'])->name('damage.update');
+   Route::delete('/damage/delete', [DamageController::class, 'destroy'])->name('damage.delete');
+ 
     /*
     |--------------------------------------------------------------------------
     | All Accounts Routes
