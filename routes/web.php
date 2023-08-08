@@ -122,16 +122,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('accounts-transaction-history', [AccountsController::class, 'TransactionHistoryIndex'])->name('transactionhistory.index');
     Route::get('cash-memo', [AccountsController::class, 'CashMemo'])->name('cashmemo.index');
     Route::get('barcode-scanning', [AccountsController::class, 'BarcodeScanning'])->name('barcodescanning.index');
-
-
-
     /*
   |--------------------------------------------------------------------------
   | All Customer Routes
   |--------------------------------------------------------------------------
   */
     Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
-
+    Route::get('/customer-fetchall', [CustomerController::class, 'fetchAll'])->name('customer.fetchAll');
+    Route::post('/customer-store', [CustomerController::class, 'store'])->name('customer.store');
+    Route::get('/customer-edit', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::post('/customer-update', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/customer-delete', [CustomerController::class, 'delete'])->name('customer.delete');
 
     /*
   |--------------------------------------------------------------------------

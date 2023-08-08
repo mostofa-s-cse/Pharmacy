@@ -17,8 +17,7 @@
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/material.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
-    {{--    datatables css--}}
-{{--    <link rel="stylesheet" href="{{asset('frontend/datatables/css/bootstrap.min.css')}}">--}}
+    <!-- {{--    datatables css--}} -->
     <link rel="stylesheet" href="{{asset('frontend/datatables/css/datatables.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap-datetimepicker.min.css')}}"/>
     <!-- Fonts -->
@@ -39,13 +38,12 @@
     <script src="{{asset('frontend/js/app.js')}}"></script>
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
-{{--    datatables js--}}
-{{--    <script src="{{asset('frontend/datatables/js/bootstrap.bundle.min.js')}}"></script>--}}
+    <!-- {{--    datatables js--}} -->
+    <!-- <script src="{{asset('frontend/datatables/js/bootstrap.bundle.min.js')}}"></script> -->
     <script src="{{asset('frontend/datatables/js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('frontend/datatables/js/datatables.min.js')}}"></script>
     <script src="{{asset('frontend/datatables/js/pdfmake.min.js')}}"></script>
     <script src="{{asset('frontend/datatables/js/vfs_fonts.js')}}"></script>
-{{--    <script src="{{asset('frontend/datatables/js/custom.js')}}"></script>--}}
 </head>
 <body>
 <div id="app">

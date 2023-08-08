@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 class ExpiredProductController extends Controller
 {
-       /*
+    /*
     |--------------------------------------------------------------------------
     | handle all  expired Products page view
     |--------------------------------------------------------------------------
@@ -33,9 +33,9 @@ class ExpiredProductController extends Controller
                             </span>';
                         }
                         return $image .' ' . $product->product;
-                    }                 
+                    }
                 })
-                
+
                 ->addColumn('category',function($product){
                     $category = null;
                     if(!empty($product->category)){
@@ -48,7 +48,7 @@ class ExpiredProductController extends Controller
                     if(!empty($product->cost_price)){
                         $cost_price = $product->cost_price;
                     }
-                    return $cost_price;                 
+                    return $cost_price;
                 })
                 ->addColumn('quantity',function($product){
                     if(!empty($product)){
@@ -68,7 +68,7 @@ class ExpiredProductController extends Controller
                 })
                 ->rawColumns(['product','action'])
                 ->make(true);
-        }      
+        }
 
         return view('admin.pages.product.expired', $categories,$suppliers);
     }
