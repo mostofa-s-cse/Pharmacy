@@ -1,52 +1,52 @@
 @extends('admin.layouts.app')
-@section('title','Customer')
+@section('title','All Users')
 @section('content')
     <div class="content container-fluid">
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Customer</h3>
+                    <h3 class="page-title">Users</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Customer</li>
+                        <li class="breadcrumb-item active">Users</li>
                     </ul>
                 </div>
                 <div class="col-auto float-end ms-auto">
-                    <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addCustomerModal"><i
-                            class="fa fa-plus"></i> Add Customer</a>
+                    <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addUserModal"><i
+                            class="fa fa-plus"></i> Add User</a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
 
-                <!-- Customers -->
+                <!-- Users -->
                 <div class="card">
                     <div class="table-responsive">
-                        <div class="card-body" id="show_all_Customer">
+                        <div class="card-body" id="show_all_User">
                             <h3 class="text-center text-secondary my-5">Loading...</h3>
                         </div>
                     </div>
-                    <!-- /Customers-->
+                    <!-- /Users-->
                 </div>
             </div>
         </div>
     </div>
 
     </div>
-    <div id="addCustomerModal" class="modal custom-modal fade" role="dialog">
+    <div id="addUserModal" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Customer</h5>
+                    <h5 class="modal-title">Add User</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                <form action="#" method="POST" id="add_Customer_form" enctype="multipart/form-data">
+                <form action="#" method="POST" id="add_User_form" enctype="multipart/form-data">
 				@csrf
-				<div class="service-fields mb-3">
+				<div class="service-fields mb-2">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
@@ -61,7 +61,7 @@
 					</div>
 				</div>
 
-				<div class="service-fields mb-3">
+				<div class="service-fields mb-2">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
@@ -70,26 +70,47 @@
 							</div>
 						</div>
 						<div class="col-lg-6">
-                        <div class="form-group">
-								<label>Address</label>
-								<input type="text" name="address" class="form-control" required="true">
+							<div class="form-group">
+                            <label>Role</label>
+                                    <div class="form-group">
+                                        <select class="select2 form-select form-control" name="role_id">
+                                        <option selected>Select Role</option>
+                                        <option value="1">Super Admin</option>
+                                        <option value="2">Admin</option>
+                                        <option value="3">User</option>
+                                        </select>
+                                    </div>
 							</div>
 						</div>
 					</div>
 				</div>			
-				<div class="service-fields mb-3">
-					<div class="row">
-						<div class="col-12">
+				<div class="service-fields">
+                <div class="row">
+						<div class="col-lg-6">
                         <div class="form-group">
-								<label>Due</label>
-								<input type="text" name="due" class="form-control" required="true">
+								<label>Password<span class="text-danger">*</span></label>
+								<input class="form-control" type="password" name="password" required="true">
 							</div>
+						</div>
+						<div class="col-lg-6">
+                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="password" name="password_confirmation" class="form-control">
+                                        </div>
 						</div>
 					</div>
 				</div>
-				
+                <div class="service-fields">
+                <div class="row">
+						<div class="col-lg-12">
+                        <div class="form-group">
+                                    <label>Picture</label>
+                                    <input type="file" name="avatar" class="form-control" >
+                                </div>
+					</div>
+				</div>
 				<div class="submit-section">
-					<button class="btn btn-primary submit-btn" id="add_Customer_btn" type="submit" name="form_submit" value="submit">Submit</button>
+					<button class="btn btn-primary submit-btn" id="add_User_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
 			</form>
                 </div>
@@ -98,84 +119,103 @@
     </div>
 
     <!-- add end -->
-
-    <div id="editCustomerModal" class="modal custom-modal fade" role="dialog">
+    <div id="editModal" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Customer</h5>
+                    <h5 class="modal-title">Edit User</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="POST" id="edit_Customer_form" enctype="multipart/form-data">
+                <form action="#" method="POST" id="edit_User_form" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" id="id" value="id">
-                        <div class="service-fields mb-3">
+                        <div class="service-fields mb-2">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Name<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="name" id="name" required="true">
+								<input class="form-control" type="text" name="name" id="name">
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<label>Email</label>
-							<input class="form-control" type="text" name="email" id="Email" required="true">
+							<input class="form-control" type="text" name="email" id="Email">
 						</div>
 					</div>
 				</div>
 
-				<div class="service-fields mb-3">
+				<div class="service-fields mb-2">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Phone<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="phone" id="phone" required="true">
+								<input class="form-control" type="text" name="phone" id="phone">
 							</div>
 						</div>
 						<div class="col-lg-6">
-                        <div class="form-group">
-								<label>Address</label>
-								<input type="text" name="address" class="form-control" id="address" required="true">
+							<div class="form-group">
+                            <label>Role</label>
+                                    <div class="form-group">
+                                        <select class="select2 form-select form-control" name="role_id" id="role_id">
+                                        <option selected>Select Role</option>
+                                        <option value="1">Super Admin</option>
+                                        <option value="2">Admin</option>
+                                        <option value="3">User</option>
+                                        </select>
+                                    </div>
 							</div>
 						</div>
 					</div>
 				</div>			
-				<div class="service-fields mb-3">
-					<div class="row">
-						<div class="col-12">
+				<div class="service-fields">
+                <div class="row">
+						<div class="col-lg-6">
                         <div class="form-group">
-								<label>Due</label>
-								<input type="text" name="due" class="form-control" id="due" required="true">
+								<label>Password<span class="text-danger">*</span></label>
+								<input class="form-control" type="password" name="password">
 							</div>
+						</div>
+						<div class="col-lg-6">
+                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="password" name="password_confirmation" class="form-control">
+                                        </div>
 						</div>
 					</div>
 				</div>
-
-                        <div class="submit-section">
-                            <button class="btn btn-primary submit-btn" id="edit_Customer_btn" type="submit"
-                                    name="form_submit" value="submit">Submit
-                            </button>
-                        </div>
+                <div class="service-fields">
+                <div class="row">
+						<div class="col-lg-12">
+                        <div class="form-group">
+                                    <label>Picture</label>
+                                    <input type="file" name="avatar" class="form-control" id="avatar">
+                                </div>
+					</div>
+				</div>
+				<div class="submit-section">
+					<button class="btn btn-primary submit-btn" id="add_User_btn" type="submit" name="form_submit" value="submit">Submit</button>
+				</div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    
 
 @endsection
 @section('script')
     <script>
         $(function () {
-            // add new Customer ajax request
-            $("#add_Customer_form").submit(function (e) {
+            // add new User ajax request
+            $("#add_User_form").submit(function (e) {
                 e.preventDefault();
                 const fd = new FormData(this);
-                $("#add_Customer_btn").text('Adding...');
+                $("#add_User_btn").text('Adding...');
                 $.ajax({
-                    url: '{{ route('customer.store') }}',
+                    url: '{{ route('users.store') }}',
                     method: 'post',
                     data: fd,
                     cache: false,
@@ -186,19 +226,19 @@
                         if (response.status == 200) {
                             Swal.fire(
                                 'Added!',
-                                'Customer Added Successfully!',
+                                'User Added Successfully!',
                                 'success'
                             )
-                            fetchAllCustomer();
+                            fetchAllUser();
                         }
-                        $("#add_Customer_btn").text('Add Customer');
-                        $("#add_Customer_form")[0].reset();
-                        $("#addCustomerModal").modal('hide');
+                        $("#add_User_btn").text('Add User');
+                        $("#add_User_form")[0].reset();
+                        $("#addUserModal").modal('hide');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
                         Swal.fire(
-                            'Add Customer fails!',
+                            'Add User fails!',
                             thrownError,
                             'error'
                         )
@@ -208,12 +248,12 @@
             });
 
 
-            // edit Customer ajax request
+            // edit User ajax request
             $(document).on('click', '.editIcon', function (e) {
                 e.preventDefault();
                 let id = $(this).attr('id');
                 $.ajax({
-                    url: '{{ route('customer.edit') }}',
+                    url: '{{ route('users.edit') }}',
                     method: 'get',
                     data: {
                         id: id,
@@ -224,13 +264,13 @@
                         $("#name").val(response.name);
                         $("#phone").val(response.phone);
                         $("#Email").val(response.email);
-                        $("#address").val(response.address);
-                        $("#due").val(response.due);
+                        $("#role_id").val(response.role_id).change();
+                        $("#avatar").val(response.avatar);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
                         Swal.fire(
-                            'Edit Customer fails!',
+                            'Edit User fails!',
                             thrownError,
                             'error'
                         )
@@ -240,14 +280,14 @@
                 });
             });
 
-            // update Customer ajax request
-            $("#edit_Customer_form").submit(function (e) {
+            // update User ajax request
+            $("#edit_User_form").submit(function (e) {
                 e.preventDefault();
                 let id = $(this).attr('id');
                 const fd = new FormData(this);
-                $("#edit_Customer_btn").text('Updating...');
+                $("#edit_User_btn").text('Updating...');
                 $.ajax({
-                    url: '{{ route('customer.update') }}',
+                    url: '{{ route('users.update') }}',
                     method: 'post',
                     data: fd,
                     cache: false,
@@ -258,19 +298,19 @@
                         if (response.status == 200) {
                             Swal.fire(
                                 'Updated!',
-                                'Customer Updated Successfully!',
+                                'User Updated Successfully!',
                                 'success'
                             )
-                            fetchAllCustomer();
+                            fetchAllUser();
                         }
-                        $("#edit_Customer_btn").text('Update Customer');
-                        $("#edit_Customer_form")[0].reset();
+                        $("#edit_User_btn").text('Update User');
+                        $("#edit_User_form")[0].reset();
                         $("#editCategoryModal").modal('hide');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
                         Swal.fire(
-                            'Update Customer fails!',
+                            'Update User fails!',
                             thrownError,
                             'error'
                         )
@@ -280,7 +320,7 @@
                 });
             });
 
-            // delete Customer ajax request
+            // delete User ajax request
             $(document).on('click', '.deleteIcon', function (e) {
                 e.preventDefault();
                 let id = $(this).attr('id');
@@ -296,7 +336,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: '{{ route('customer.delete') }}',
+                            url: '{{ route('users.delete') }}',
                             method: 'delete',
                             data: {
                                 id: id,
@@ -309,7 +349,7 @@
                                     'Your file has been deleted.',
                                     'success'
                                 )
-                                fetchAllCustomer();
+                                fetchAllUser();
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 // alert(xhr.status);
@@ -325,15 +365,15 @@
                 })
             });
 
-            // fetch all Customer ajax request
-            fetchAllCustomer();
+            // fetch all User ajax request
+            fetchAllUser();
 
-            function fetchAllCustomer() {
+            function fetchAllUser() {
                 $.ajax({
-                    url: '{{ route('customer.fetchAll') }}',
+                    url: '{{ route('users.fetchAll') }}',
                     method: 'get',
                     success: function (response) {
-                        $("#show_all_Customer").html(response);
+                        $("#show_all_User").html(response);
                         $("table").DataTable({
                             order: [0, 'desc']
                         });

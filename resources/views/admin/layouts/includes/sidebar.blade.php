@@ -134,7 +134,7 @@
                     <a href="#"><i class="la la-users"></i> <span> User  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">All Users</a></li>
+                        <li><a href="{{ route('users.index')}}">All Users</a></li>
                     </ul>
                 </li>
 

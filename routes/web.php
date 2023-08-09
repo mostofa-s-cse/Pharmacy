@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DamageController;
 use App\Http\Controllers\Admin\CompanyController;
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,17 @@ Route::get('admin/dashboard', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('pages.bashboard');
+    /*
+    |--------------------------------------------------------------------------
+    | All User Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users-fetchall', [UserController::class, 'fetchAll'])->name('users.fetchAll');
+    Route::post('/users-store', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users-edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::post('/users-update', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users-delete', [UserController::class, 'delete'])->name('users.delete');
     /*
     |--------------------------------------------------------------------------
     | All Categories Routes
