@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     |--------------------------------------------------------------------------
     */
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+    // Route::get('user-profile', [UserController::class, 'profile'])->name('users.profile');
     Route::get('/users-fetchall', [UserController::class, 'fetchAll'])->name('users.fetchAll');
     Route::post('/users-store', [UserController::class, 'store'])->name('users.store');
     Route::get('/users-edit', [UserController::class, 'edit'])->name('users.edit');
