@@ -46,7 +46,7 @@
                 <div class="modal-body">
                 <form action="#" method="POST" id="add_User_form" enctype="multipart/form-data">
 				@csrf
-				<div class="service-fields mb-2">
+				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
@@ -56,59 +56,52 @@
 						</div>
 						<div class="col-lg-6">
 							<label>Email</label>
-							<input class="form-control" type="text" name="email" id="email" required="true">
+							<input class="form-control" type="text" name="email">
 						</div>
 					</div>
 				</div>
 
 				<div class="service-fields mb-2">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label>Phone<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="phone" required="true">
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
-                            <label>Role</label>
+                            <div class="row">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <select class="select2 form-select form-control" name="role_id">
-                                        <option selected>Select Role</option>
-                                        <option value="1">Super Admin</option>
-                                        <option value="2">Admin</option>
-                                        <option value="3">User</option>
-                                        </select>
+                                        <label>Phone<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="phone">
                                     </div>
-							</div>
-						</div>
-					</div>
-				</div>			
-				<div class="service-fields">
-                <div class="row">
-						<div class="col-lg-6">
-                        <div class="form-group">
-								<label>Password<span class="text-danger">*</span></label>
-								<input class="form-control" type="password" name="password" required="true">
-							</div>
-						</div>
-						<div class="col-lg-6">
-                        <div class="form-group">
-                                            <label>Confirm Password</label>
-                                            <input type="password" name="password_confirmation" class="form-control">
-                                        </div>
-						</div>
-					</div>
-				</div>
-                <div class="service-fields">
-                <div class="row">
-						<div class="col-lg-12">
-                        <div class="form-group">
-                                    <label>Picture</label>
-                                    <input type="file" name="avatar" class="form-control" >
                                 </div>
-					</div>
-				</div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Role</label>
+                                        <div class="form-group">
+                                            <select class="select2 form-select form-control" name="role_id">
+                                                <option selected>Select Role</option>
+                                                <option value="1">Super Admin</option>
+                                                <option value="2">Admin</option>
+                                                <option value="3">User</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-fields">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    
+                                <div class="form-group">
+                                    <input class="form-control" type="password" name="password" id="password">
+                                    <span class="fa fa-eye-slash mt-2" id="toggle-password" style="cursor: pointer;"> <span class="ml-2">Show Password</span></span>
+                                    </div>
+                                    </div>
+                      
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Picture</label>
+                                        <input type="file" name="avatar" class="form-control">
+                                 </div>
+                                </div>
+                            </div>
+                        </div>
 				<div class="submit-section">
 					<button class="btn btn-primary submit-btn" id="add_User_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
@@ -119,7 +112,7 @@
     </div>
 
     <!-- add end -->
-    <div id="editModal" class="modal custom-modal fade" role="dialog">
+    <div id="editUserModal" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -129,14 +122,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <form action="#" method="POST" id="edit_User_form" enctype="multipart/form-data">
+                    <form action="#" method="POST" id="edit_User_form" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" id="id" value="id">
-                        <div class="service-fields mb-2">
+                        <div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Name<span class="text-danger">*</span></label>
+								<label>Name</label>
 								<input class="form-control" type="text" name="name" id="name">
 							</div>
 						</div>
@@ -148,53 +141,46 @@
 				</div>
 
 				<div class="service-fields mb-2">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label>Phone<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="phone" id="phone">
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
-                            <label>Role</label>
+                            <div class="row">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <select class="select2 form-select form-control" name="role_id" id="role_id">
-                                        <option selected>Select Role</option>
-                                        <option value="1">Super Admin</option>
-                                        <option value="2">Admin</option>
-                                        <option value="3">User</option>
-                                        </select>
+                                        <label>Phone</label>
+                                        <input class="form-control" type="text" name="phone" id="phone">
                                     </div>
-							</div>
-						</div>
-					</div>
-				</div>			
-				<div class="service-fields">
-                <div class="row">
-						<div class="col-lg-6">
-                        <div class="form-group">
-								<label>Password<span class="text-danger">*</span></label>
-								<input class="form-control" type="password" name="password">
-							</div>
-						</div>
-						<div class="col-lg-6">
-                        <div class="form-group">
-                                            <label>Confirm Password</label>
-                                            <input type="password" name="password_confirmation" class="form-control">
-                                        </div>
-						</div>
-					</div>
-				</div>
-                <div class="service-fields">
-                <div class="row">
-						<div class="col-lg-12">
-                        <div class="form-group">
-                                    <label>Picture</label>
-                                    <input type="file" name="avatar" class="form-control" id="avatar">
                                 </div>
-					</div>
-				</div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Role</label>
+                                        <div class="form-group">
+                                            <select class="select2 form-select form-control" name="role_id" id="role_id">
+                                                <option selected>Select Role</option>
+                                                <option value="1">Super Admin</option>
+                                                <option value="2">Admin</option>
+                                                <option value="3">User</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-fields">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    
+                                <div class="form-group">
+                                <input class="form-control" type="password" name="password" id="myInput" required="true">
+                                    <span class="fa fa-eye-slash mt-2" onclick="myFunction()" style="cursor: pointer;"> <span class="ml-2">Show Password</span></span>
+                                    </div>
+                                    </div>
+                      
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Picture</label>
+                                        <input type="file" name="avatar" class="form-control" id="avatar" required="true">
+                                 </div>
+                                </div>
+                            </div>
+                        </div>
 				<div class="submit-section">
 					<button class="btn btn-primary submit-btn" id="add_User_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
@@ -203,11 +189,19 @@
             </div>
         </div>
     </div>
-    
 
 @endsection
 @section('script')
+
     <script>
+        function myFunction() {
+  var x = document.getElementById("myInput");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
         $(function () {
             // add new User ajax request
             $("#add_User_form").submit(function (e) {
@@ -305,7 +299,7 @@
                         }
                         $("#edit_User_btn").text('Update User');
                         $("#edit_User_form")[0].reset();
-                        $("#editCategoryModal").modal('hide');
+                        $("#editUserModal").modal('hide');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
@@ -354,7 +348,7 @@
                             error: function (xhr, ajaxOptions, thrownError) {
                                 // alert(xhr.status);
                                 Swal.fire(
-                                    'Category delete fails!',
+                                    'User delete fails!',
                                     thrownError,
                                     'error'
                                 )

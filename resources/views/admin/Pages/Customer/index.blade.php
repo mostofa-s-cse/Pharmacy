@@ -265,7 +265,7 @@
                         }
                         $("#edit_Customer_btn").text('Update Customer');
                         $("#edit_Customer_form")[0].reset();
-                        $("#editCategoryModal").modal('hide');
+                        $("#editCustomerModal").modal('hide');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
@@ -314,7 +314,7 @@
                             error: function (xhr, ajaxOptions, thrownError) {
                                 // alert(xhr.status);
                                 Swal.fire(
-                                    'Category delete fails!',
+                                    'Customer delete fails!',
                                     thrownError,
                                     'error'
                                 )

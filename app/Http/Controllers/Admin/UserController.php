@@ -49,7 +49,7 @@ class UserController extends Controller
                  <td><img class="avatar" src="'.asset("storage/users/".$item->avatar).'" alt="product"></td>
                  <td>' . $item->role_id . '</td>
                  <td>
-                 <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
+                 <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editUserModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
                    <a href="#" id="' . $item->id . '" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
                  </td>
                </tr>';
