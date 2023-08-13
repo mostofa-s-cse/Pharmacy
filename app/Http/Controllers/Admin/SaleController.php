@@ -55,7 +55,6 @@ class SaleController extends Controller
                 <th>Discount</th>
                 <th>Quantity</th>
                 <th>Expire Date</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>';
@@ -64,7 +63,7 @@ class SaleController extends Controller
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">
-                <a href="profile.html"><span>' . $item->purchase->product . '</span></a>
+                <span>' . $item->purchase->product . '</span>
                 </h2>
                 </td>
                 <td>' . $item->purchase->category->name . '</td>
@@ -72,9 +71,6 @@ class SaleController extends Controller
                 <td>' . $item->discount . '</td>
                 <td>' . $item->purchase->quantity . '</td>
                 <td>' . date_format(date_create($item->purchase->expiry_date),'d M, Y'). '</td>
-                <td>
-                  <button id="' . $item->id . '"  type="button" class="btn btn-primary add-new"><i class="fa fa-plus"></i></button>
-                </td>
               </tr>';
                 }
                 $output .= '</tbody></table>';

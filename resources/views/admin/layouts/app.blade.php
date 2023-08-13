@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{asset('frontend/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/line-awesome.min.css')}}">
     <!-- Scripts -->
-    <script src="{{asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('frontend/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('frontend/js/jquery.slimscroll.min.js')}}"></script>
 
@@ -42,6 +42,8 @@
     <script src="{{asset('frontend/js/app.js')}}"></script>
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
+
+
     <!-- {{--    datatables js--}} -->
     <!-- <script src="{{asset('frontend/datatables/js/bootstrap.bundle.min.js')}}"></script> -->
     <!-- <script src="{{asset('frontend/datatables/js/jquery-3.6.0.min.js')}}"></script> -->
