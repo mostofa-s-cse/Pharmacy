@@ -1,290 +1,428 @@
 @extends('admin.layouts.app')
 @section('title','Sales')
 @section('content')
-<div class="content container-fluid">
+    <div class="content container-fluid">
 
-                <div class="page-header">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="page-title">Sales</h3>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Sales</li>
-                            </ul>
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Sales</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Sales</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-end ms-auto">
+                    <!-- <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addSalesModal"><i
+                            class="fa fa-plus"></i> Add Sales</a> -->
+                    <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addCustomerModal"><i
+                            class="fa fa-plus"></i> Add Customer</a>
+                </div>
+            </div>
+        </div>
+        @if(!empty($notification))
+            @foreach ($notification as $item)
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{item}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endforeach
+        @endif
+        <div class="row">
+            <div class="col-md-6">
+
+                <!-- products -->
+                <div class="card">
+                    <div class="table-responsive">
+                        <div class="card-body" id="show_all_product">
+                            <h3 class="text-center text-secondary my-5">Loading...</h3>
                         </div>
-                        <div class="col-auto float-end ms-auto">
-                            <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addSalesModal"><i
-                                    class="fa fa-plus"></i> Add Sales</a>
+                    </div>
+
+                </div>
+                <!-- /products-->
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="custom_field1">Select customers</label>
+                            <input name="customer_id" type="text" list="custom_field1_datalist" class="form-control"
+                                   placeholder="Search customers">
+                            <datalist id="custom_field1_datalist">
+                                @foreach ($customers as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                            </datalist>
+                            <span id="error" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
-                @if(!empty($notification))
-                                      @foreach ($notification as $item)
-                                      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    {{item}}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                      @endforeach
-                                    @endif
-                        <div class="row">
-                            <div class="col-md-12">
-
-                              <!--  Sales -->
-                              <div class="card">
-                                  <div class="table-responsive">
-                                      <div class="card-body">
-                                              <table id="outstock-product" class=" table table-hover table-center mb-0">
-                                                  <thead>
-                                                      <tr>
-                                                      <th>Medicine Name</th>
-                                                      <th>Quantity</th>
-                                                      <th>Total Price</th>
-                                                      <th>Date</th>
-                                                      <th class="action-btn">Action</th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tbody>
-
-                                                  </tbody>
-                                              </table>
-                                          </div>
-                                      </div>
-                                  </div>
-
-		            <!-- / sales -->
-                    </div>
-                </div>
-				</div>
-            </div>
-
-            </div>
-            <div id="addSalesModal" class="modal custom-modal fade" role="dialog">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add Sales</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
+                <!-- <div class="table-wrapper"> -->
+                <!-- <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
                         </div>
-                        <div class="modal-body">
-						 <!-- Create Sale -->
-             <form method="POST" action="{{route('sales.store')}}">
-					@csrf
-					<div class="row form-row">
-						<div class="col-12">
-							<div class="form-group">
-								<label>Product <span class="text-danger">*</span></label>
-								<select class="select2 form-select form-control" name="product">
-                <option disabled selected > Select Product</option>
-									@foreach ($products as $product)
-										@if (!empty($product->purchase))
-											@if (!($product->purchase->quantity <= 0))
-												<option value="{{$product->id}}">{{$product->purchase->product}}</option>
-											@endif
-										@endif
-									@endforeach
-								</select>
-							</div>
-						</div>
-						<div class="col-12">
-							<div class="form-group">
-								<label>Quantity</label>
-								<input type="number" value="1" class="form-control" name="quantity">
-							</div>
-						</div>
-					</div>
-					<button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-				</form>
-                <!--/ Create Sale -->
-				       </div>
                     </div>
+                </div> -->
+                <!-- <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>Administration</td>
+                        <td>(171) 555-2222</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Peter Parker</td>
+                        <td>Customer Service</td>
+                        <td>(313) 555-5735</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fran Wilson</td>
+                        <td>Human Resources</td>
+                        <td>(503) 555-9931</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table> -->
+                <!-- </div> -->
+                
+                <div class="table-responsive">
+                <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover table-white" id="addTable">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="col-sm-2">Item</th>
+                            <th class="col-md-6">Description</th>
+                            <th>Unit Cost</th>
+                            <th>Qty</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbodyone">
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <input class="form-control" type="text">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text">
+                            </td>
+                            <td>
+                                <input class="form-control" readonly type="text">
+                            </td>
+                            <td><a href="javascript:void(0)" class="text-success font-18"
+                                   id="addProduct" title="Add"><i class="fa fa-plus"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <input class="form-control" type="text">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text">
+                            </td>
+                            <td>
+                                <input class="form-control" readonly type="text">
+                            </td>
+                            <td><a href="javascript:void(0)" class="text-danger font-18 remove"
+                                   title="Remove"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
                 </div>
             </div>
+        </div>
 
-            <!-- add end -->
+    </div>
 
-            <div id="editSalesModal" class="modal custom-modal fade" role="dialog">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Sales</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                              <!-- Edit Sale -->
-                              <form method="post" enctype="multipart/form-data" id="edit_sales_form" autocomplete="off">
-                          @csrf
-                          @method("POST")
-                          <input type="hidden" name="id" id="id" value="id">
-                            <div class="row form-row">
-                              <div class="col-12">
+    </div>
+    </div>
+
+    </div>
+    <div id="addSalesModal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Sales</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Create Sale -->
+                    <form method="POST" action="{{route('sales.store')}}">
+                        @csrf
+                        <div class="row form-row">
+                            <div class="col-12">
                                 <div class="form-group">
-                                  <label>Product <span class="text-danger">*</span></label>
-                                  <select class="select2 form-select form-control" id="product_id"  name="product">
-                                      @foreach ($products as $product)
-                                        @if (!empty($product->purchase))
-                                          @if (!($product->purchase->quantity <= 0))
-                                            <option value="{{$product->id}}">{{$product->purchase->product}}</option>
-                                          @endif
-                                        @endif
-                                      @endforeach
-                                  </select>
+                                    <label>Product <span class="text-danger">*</span></label>
+                                    <select class="select2 form-select form-control" name="product">
+                                        <option disabled selected> Select Product</option>
+                                        @foreach ($products as $product)
+                                            @if (!empty($product->purchase))
+                                                @if (!($product->purchase->quantity <= 0))
+                                                    <option
+                                                        value="{{$product->id}}">{{$product->purchase->product}}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
-                              </div>
-                              <div class="col-12">
-                                <div class="form-group">
-                                  <label>Quantity</label>
-                                  <input type="number" class="form-control edit_quantity" id="quantity" name="quantity">
-                                </div>
-                              </div>
                             </div>
-                            <div class="submit-section">
-                            <button class="btn btn-primary submit-btn" id="edit_sales_btn" type="submit" >Submit</button>
-                          </div>
-                          </form>
-                                  <!--/ Edit Sale -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input type="number" value="1" class="form-control" name="quantity">
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                    </form>
+                    <!--/ Create Sale -->
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- add end -->
+
+    <div id="editSalesModal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Sales</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit Sale -->
+                    <form method="post" enctype="multipart/form-data" id="edit_sales_form" autocomplete="off">
+                        @csrf
+                        @method("POST")
+                        <input type="hidden" name="id" id="id" value="id">
+                        <div class="row form-row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Product <span class="text-danger">*</span></label>
+                                    <select class="select2 form-select form-control" id="product_id" name="product">
+                                        @foreach ($products as $product)
+                                            @if (!empty($product->purchase))
+                                                @if (!($product->purchase->quantity <= 0))
+                                                    <option
+                                                        value="{{$product->id}}">{{$product->purchase->product}}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input type="number" class="form-control edit_quantity" id="quantity"
+                                           name="quantity">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn" id="edit_sales_btn" type="submit">Submit</button>
+                        </div>
+                    </form>
+                    <!--/ Edit Sale -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add customer modal -->
+    <div id="addCustomerModal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Customer</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST" id="add_Customer_form" enctype="multipart/form-data">
+                        @csrf
+                        <div class="service-fields mb-3">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Name<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="name" required="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Email</label>
+                                    <input class="form-control" type="text" name="email" id="email" required="true">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="service-fields mb-3">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Phone<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="phone" required="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="text" name="address" class="form-control" required="true">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-fields mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Due</label>
+                                        <input type="text" name="due" class="form-control" required="true">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn" id="add_Customer_btn" type="submit"
+                                    name="form_submit" value="submit">Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 @section('script')
-<script>
-	$(function()
-	{
-    $(document).ready(function() {
-        var table = $('#outstock-product').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{route('sales.index')}}",
-            columns: [
-              {data: 'product', name: 'product'},
-                {data: 'quantity', name: 'quantity'},
-                {data: 'total_price', name: 'total_price'},
-				        {data: 'date', name: 'date'},
-                {data: 'action', name: 'action',  orderable: false, searchable: false},
-            ]
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        // $(document).ready(function(){
+        //     $('[data-toggle="tooltip"]').tooltip();
+        //     var actions = $("table td:last-child").html();
+        //     // Append table with add row form on add new button click
+        //     $(".add-new").click(function(){
+        //         $(this).attr("disabled", "disabled");
+        //         var index = $("table tbody tr:last-child").index();
+        //         var row = '<tr>' +
+        //             '<td><input type="text" class="form-control" name="name" id="name"></td>' +
+        //             '<td><input type="text" class="form-control" name="department" id="department"></td>' +
+        //             '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
+        //             '<td>' + actions + '</td>' +
+        //             '</tr>';
+        //         $("table").append(row);
+        //         $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+        //         $('[data-toggle="tooltip"]').tooltip();
+        //     });
+        //     // Add row on add button click
+        //     $(document).on("click", ".add", function(){
+        //         var empty = false;
+        //         var input = $(this).parents("tr").find('input[type="text"]');
+        //         input.each(function(){
+        //             if(!$(this).val()){
+        //                 $(this).addClass("error");
+        //                 empty = true;
+        //             } else{
+        //                 $(this).removeClass("error");
+        //             }
+        //         });
+        //         $(this).parents("tr").find(".error").first().focus();
+        //         if(!empty){
+        //             input.each(function(){
+        //                 $(this).parent("td").html($(this).val());
+        //             });
+        //             $(this).parents("tr").find(".add, .edit").toggle();
+        //             $(".add-new").removeAttr("disabled");
+        //         }
+        //     });
+        //     // Edit row on edit button click
+        //     $(document).on("click", ".edit", function(){
+        //         $(this).parents("tr").find("td:not(:last-child)").each(function(){
+        //             $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+        //         });
+        //         $(this).parents("tr").find(".add, .edit").toggle();
+        //         $(".add-new").attr("disabled", "disabled");
+        //     });
+        //     // Delete row on delete button click
+        //     $(document).on("click", ".delete", function(){
+        //         $(this).parents("tr").remove();
+        //         $(".add-new").removeAttr("disabled");
+        //     });
+        // });
+
+
+        $(document).ready(function () {
+            $('.select2').select2();
         });
+        $(function () {
 
-    });
+            // fetch all product ajax request
+            fetchAllProduct();
 
-    // edit sales ajax request
-    $(document).on('click', '.editIcon', function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        $.ajax({
-          url: '{{ route('sales.edit') }}',
-          method: 'get',
-          data: {
-            id: id,
-            _token: '{{ csrf_token() }}'
-          },
-          success: function(response) {
-            $("#id").val(response.id);
-            $("#product_id").val(response.product_id).change();
-            $("#quantity").val(response.quantity);
-          },
-            error: function (xhr, ajaxOptions, thrownError) {
-                // alert(xhr.status);
-                Swal.fire(
-                    'Sales edit fails!',
-                    thrownError,
-                    'error'
-                )
-                // alert(thrownError);
+            function fetchAllProduct() {
+                $.ajax({
+                    url: '{{ route('sales.fetchAll') }}',
+                    method: 'get',
+                    success: function (response) {
+                        $("#show_all_product").html(response);
+                        $("table").DataTable({});
+                    }
+                });
             }
+
         });
-      });
-
-      // update sales ajax request
-      $("#edit_sales_form").submit(function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        const fd = new FormData(this);
-        $("#edit_Purchase_btn").text('Updating...');
-        $.ajax({
-          url: '{{ route('sales.update') }}',
-          method: 'post',
-          data: fd,
-          cache: false,
-          contentType: false,
-          processData: false,
-          dataType: 'json',
-          success: function(response) {
-            if (response.status == 200) {
-              Swal.fire(
-                'Updated!',
-                'Sales Updated Successfully!',
-                'success'
-              )
-              window.location.reload();
-            }
-            $("#edit_sales_btn").text('Update sales');
-            $("#edit_sales_form")[0].reset();
-            $("#editSalesModal").modal('hide');
-          },
-            error: function (xhr, ajaxOptions, thrownError) {
-                // alert(xhr.status);
-                Swal.fire(
-                    'Sales update fails!',
-                    thrownError,
-                    'error'
-                )
-                // alert(thrownError);
-            }
-        });
-      });
-
-      // delete sales ajax request
-	   $(document).on('click', '.deleteIcon', function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        let csrf = '{{ csrf_token() }}';
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $.ajax({
-              url: '{{ route('sales.delete') }}',
-              method: 'delete',
-              data: {
-                id: id,
-                _token: csrf
-              },
-              success: function(response) {
-                console.log(response);
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                )
-                window.location.reload();
-              },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    // alert(xhr.status);
-                    Swal.fire(
-                        'Sales delete fails!',
-                        thrownError,
-                        'error'
-                    )
-                    // alert(thrownError);
-                }
-            });
-          }
-        })
-      });
-	});
-</script>
+    </script>
 @endsection
