@@ -35,43 +35,38 @@ class SaleController extends Controller
     public function fetchAll() {
 		try {
             $product = Product::all();
-
-            // $Product = DB::table('Products as p')
-            //         ->leftJoin('categories as c', function($join) {
-            //             $join->on('c.id', '=', 'p.category_id');
-            //         })
-            //         ->leftJoin('suppliers as s', function($join) {
-            //             $join->on('s.id', '=', 'p.supplier_id');
-            //         })->get(['p.*','c.name as category_name','s.name as as supplier_name']);
-
             $output = '';
             if ($product->count() > 0) {
-                $output .= '<table class="table table-striped table-sm align-middle">
+                $output .= '<table class="table table-striped table-sm align-middle" id="tablebtn">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Product</th>
-                <th>Category</th>
                 <th>Price</th>
                 <th>Discount</th>
                 <th>Quantity</th>
-                <th>Expire Date</th>
+                <th>Add to cart</th>
               </tr>
             </thead>
             <tbody>';
                 foreach ($product as $item) {
                     $output .= '<tr>
+                <td>' . $item->id . '</td>
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">
                 <span>' . $item->purchase->product . '</span>
                 </h2>
                 </td>
-                <td>' . $item->purchase->category->name . '</td>
+              
                 <td>' . $item->price . '</td>
                 <td>' . $item->discount . '</td>
                 <td>' . $item->purchase->quantity . '</td>
-                <td>' . date_format(date_create($item->purchase->expiry_date),'d M, Y'). '</td>
-              </tr>';
+                <td>
+                <a href="javascript:void(0)" id="' . $item->id . '" name="' . $item->purchase->product . '" class="btn btn-success font-18 add_field_button"
+                    title="Add"><i class="fa fa-plus"></i> Add To Cart</a>
+                </td>
+                </tr>';
                 }
                 $output .= '</tbody></table>';
                 echo $output;

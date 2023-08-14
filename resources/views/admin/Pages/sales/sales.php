@@ -17,8 +17,8 @@
                             class="fa fa-plus"></i> Add Sales</a> -->
                     <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addCustomerModal"><i
                             class="fa fa-plus"></i> Add Customer</a>
-                    </a>
-
+                            </a>
+                            
                 </div>
             </div>
         </div>
@@ -63,40 +63,33 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <div class="card">
-                        <div class="card-body">
+                <div class="card">
+                <div class="card-body">
 
-                            <div>
-                                <table>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Product Name</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Rate</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <form action="">
-                                            <tbody class="input_fields_wrap" id="input_fields_wrap">
-
-
-                                            </tbody>
-                                        </form>
-                                    </table>
-
-                                </table>
-                                <div class="submit-section" style="margin-top: 15px;">
-                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                                </div>
-                            </div>
+<div>
+                    <div class="item" style="margin-bottom:-25px;">
+                        <!-- <p>S/N</p> -->
+                        <p>Medisin ID</p>
+                        <p>Quantity</p>
+                        <p>Rate</p>
+                        <p>Total price</p>
+                        <p>Action</p>
+                    </div>
+                    <hr/>
+                    <div class="input_fields_wrap">
+                        
+                        
+                    </div>
+                    <div class="submit-section" style="margin-top: 15px;">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </div>
                     </div>
                 </div>
+                </div>
+                </div>
+                </div>
             </div>
         </div>
-    </div>
 
     </div>
 
@@ -271,39 +264,36 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 
     <script>
-
+ 
 
         $(document).ready(function () {
             $('.select2').select2();
         });
-        // tablebtn
+       
+// dynamic add fields..........................................
+    
+$(document).ready(function() {
+    var max_fields      = 100; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button class
+            
+    var x = 1; //initlal text box count
+    $(document).on('click', '#tablebtn .add_field_button', function(e) { //on add input button click
+        
+        if(x < max_fields){ //max input box allowed
+            console.log(e.currentTarget.id);
+            console.log(e.currentTarget.getAttribute('name'));
+            x++; //text box increment
+            $("#rm").remove(); 
 
+            $(wrapper).append('<div id="addfields" class="add_input_fields"><div class="row"><div class="col-3"><div class="form-group"><input name="product_id" type="text" list="custom_field2_datalist" class="form-control" placeholder="Search product"><datalist id="custom_field2_datalist" >@foreach ($products as $product) @if(!empty($product->purchase)) @if (!($product->purchase->quantity <= 0))<optionvalue="{{$product->id}}">{{$product->purchase->product}}</option> @endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></div></div><div class="col-2"><input type="text" class="form-control" name="" placeholder="Quantity"></div><div class="col-2"><input type="text" class="form-control" name="" placeholder="Rate"></div><div class="col-3"><input type="text" class="form-control" name="" placeholder="Total Price"></div><div class="col-2"><a href="javascript:void(0)" class="text-danger font-18 remove_field" title="Remove"><i class="fa fa-trash"></i></a></div></div></div>'); //add input box
+        }
+    });
 
-        $(document).ready(function () {
-            var max_fields = 100; //maximum input boxes allowed
-            var wrapper = $("#input_fields_wrap"); //Fields wrapper
-            var add_button = $(".add_field_button"); //Add button class
-
-            var x = 1; //initlal text box count
-            $(document).on('click', '#tablebtn .add_field_button', function (e) { //on add input button click
-
-                if (x < max_fields) { //max input box allowed
-                    console.log(e.currentTarget.id);
-                    console.log(e.currentTarget.getAttribute('name'));
-                    x++; //text box increment
-                    $("#rm").remove();
-
-                    $(wrapper).append('<tr id="addfields"><td><input type="text" class="form-control" name="product" placeholder="Product Name"></td><td><input type="text" class="form-control" name="quantity" placeholder="Quantity"></td><td><input type="text" class="form-control" name="price" placeholder="Rate"></td><td><input type="text" class="form-control" name="" placeholder="Price"></td><td><a href="javascript:void(0)" style="font-size:20px;" class="text-danger font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a></td></tr>'); //add input box
-                }
-            });
-
-            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-                e.preventDefault();
-                $("#addfields").remove();
-                x--;
-            })
-        });
-
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $("#addfields").remove(); x--;
+    })
+});
 
         $(function () {
 

@@ -32,13 +32,13 @@
 
     <script src="{{asset('frontend/js/moment.min.js')}}"></script>
     <script src="{{asset('frontend/js/bootstrap-datetimepicker.min.js')}}"></script>
-
-    <script src="{{asset('frontend/js/morris.min.js')}}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <!-- <script src="{{asset('frontend/js/morris.min.js')}}"></script> -->
     <script src="{{asset('frontend/js/raphael.min.js')}}"></script>
     <script src="{{asset('frontend/js/chart.js')}}"></script>
     <script src="{{asset('frontend/js/greedynav.js')}}"></script>
     <script src="{{asset('frontend/js/layout.js')}}"></script>
-    <script src="{{asset('frontend/js/theme-settings.js')}}"></script>
+    <!-- <script src="{{asset('frontend/js/theme-settings.js')}}"></script> -->
     <script src="{{asset('frontend/js/app.js')}}"></script>
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
