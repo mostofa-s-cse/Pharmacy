@@ -50,13 +50,13 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Name<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="name" required="true">
+								<label>Customer ID<span class="text-danger">*</span></label>
+								<input class="form-control" type="text" name="customer_id" required="true">
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<label>Email</label>
-							<input class="form-control" type="text" name="email" id="email" required="true">
+                            <label>Name<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="name" required="true">
 						</div>
 					</div>
 				</div>
@@ -71,23 +71,29 @@
 						</div>
 						<div class="col-lg-6">
                         <div class="form-group">
-								<label>Address</label>
-								<input type="text" name="address" class="form-control" required="true">
-							</div>
-						</div>
-					</div>
-				</div>			
-				<div class="service-fields mb-3">
-					<div class="row">
-						<div class="col-12">
-                        <div class="form-group">
-								<label>Due</label>
-								<input type="text" name="due" class="form-control" required="true">
+                            <label>Email</label>
+                            <input class="form-control" type="text" name="email" id="email" required="true">
 							</div>
 						</div>
 					</div>
 				</div>
-				
+				<div class="service-fields mb-3">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" name="address" class="form-control" required="true">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Due</label>
+                                <input type="text" name="due" class="form-control" required="true">
+                            </div>
+                        </div>
+                    </div>
+				</div>
+
 				<div class="submit-section">
 					<button class="btn btn-primary submit-btn" id="add_Customer_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
@@ -142,7 +148,7 @@
 							</div>
 						</div>
 					</div>
-				</div>			
+				</div>
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-12">

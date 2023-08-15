@@ -39,7 +39,7 @@ class CustomerController extends Controller
             <tbody>';
                 foreach ($Customers as $customers) {
                     $output .= '<tr>
-                <td>' . $customers->id . '</td>
+                <td>' . $customers->customer_id . '</td>
                 <td>' . $customers->name . '</td>
                 <td>' . $customers->email . '</td>
                 <td>' . $customers->phone . '</td>
@@ -73,10 +73,12 @@ class CustomerController extends Controller
     {
         try {
             $this->validate(request(), [
+                'customer_id'=>'required',
                 'name' => 'required',
                 'phone'=>'required'
             ]);
             $customerData = [
+                'customer_id'=> $request->customer_id,
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
@@ -117,10 +119,12 @@ class CustomerController extends Controller
         try {
             $customers = Customer::find($request->id);
             $this->validate(request(), [
+                'customer_id'=>'required',
                 'name' => 'required',
                 'phone'=>'required'
             ]);
             $newData = [
+                'customer_id'=> $request->customer_id,
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,

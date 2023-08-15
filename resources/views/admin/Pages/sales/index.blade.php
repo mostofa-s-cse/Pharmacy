@@ -51,12 +51,13 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="custom_field1">Select customers</label>
-                            <input name="customer_id" type="text" list="custom_field1_datalist" class="form-control"
-                                   placeholder="Search customers">
+                            <input type="text" list="custom_field1_datalist" class="form-control"
+                                   placeholder="Search customers" name="customer_id">
                             <datalist id="custom_field1_datalist">
                                 @foreach ($customers as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                    <option value="{{$item->customer_id}}">{{$item->name}}</option>
                                 @endforeach
+
                             </datalist>
                             <span id="error" class="text-danger"></span>
                         </div>
@@ -216,13 +217,13 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Name<span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="name" required="true">
+                                        <label>Customer ID<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="customer_id" required="true">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label>Email</label>
-                                    <input class="form-control" type="text" name="email" id="email" required="true">
+                                    <label>Name<span class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" name="name" required="true">
                                 </div>
                             </div>
                         </div>
@@ -237,15 +238,21 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Address</label>
-                                        <input type="text" name="address" class="form-control" required="true">
+                                        <label>Email</label>
+                                        <input class="form-control" type="text" name="email" id="email" required="true">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="service-fields mb-3">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="text" name="address" class="form-control" required="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Due</label>
                                         <input type="text" name="due" class="form-control" required="true">
@@ -288,12 +295,13 @@
             $(document).on('click', '#tablebtn .add_field_button', function (e) { //on add input button click
 
                 if (x < max_fields) { //max input box allowed
-                    console.log(e.currentTarget.id);
-                    console.log(e.currentTarget.getAttribute('name'));
+                    // $("#id").val(e.currentTarget.id);
+                    // console.log(e.currentTarget.id);
+                    // console.log(e.currentTarget.getAttribute('name'));
                     x++; //text box increment
                     $("#rm").remove();
 
-                    $(wrapper).append('<tr id="addfields"><td><input type="text" class="form-control" name="product" placeholder="Product Name"></td><td><input type="text" class="form-control" name="quantity" placeholder="Quantity"></td><td><input type="text" class="form-control" name="price" placeholder="Rate"></td><td><input type="text" class="form-control" name="" placeholder="Price"></td><td><a href="javascript:void(0)" style="font-size:20px;" class="text-danger font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a></td></tr>'); //add input box
+                    $(wrapper).append('<tr id="addfields"><td><input type="text" list="custom_field2_datalist" class="form-control" placeholder="Search Product" id="name"><datalist id="custom_field2_datalist">@foreach ($products as $product)@if (!empty($product->purchase))  @if (!($product->purchase->quantity <= 0))<option value="{{$product->id}}">{{$product->purchase->product}}</option>@endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></td><td><input type="text" class="form-control" name="quantity" placeholder="Quantity"></td><td><input type="text" class="form-control" name="price" placeholder="Rate"></td><td><input type="text" class="form-control" name="" placeholder="Price"></td><td><a href="javascript:void(0)" style="font-size:20px;" class="text-danger font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a></td></tr>'); //add input box
                 }
             });
 
@@ -306,6 +314,43 @@
 
 
         $(function () {
+            // add new Customer ajax request
+            $("#add_Customer_form").submit(function (e) {
+                e.preventDefault();
+                const fd = new FormData(this);
+                $("#add_Customer_btn").text('Adding...');
+                $.ajax({
+                    url: '{{ route('customer.store') }}',
+                    method: 'post',
+                    data: fd,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == 200) {
+                            Swal.fire(
+                                'Added!',
+                                'Customer Added Successfully!',
+                                'success'
+                            )
+                            location.reload();
+                        }
+                        $("#add_Customer_btn").text('Add Customer');
+                        $("#add_Customer_form")[0].reset();
+                        $("#addCustomerModal").modal('hide');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Add Customer fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
+                    }
+                })
+            });
 
             // fetch all product ajax request
             fetchAllProduct();
