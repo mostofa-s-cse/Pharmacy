@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AccountsController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DamageController;
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\InventoryController;
 
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -111,7 +112,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/sales-fetchAll', [SaleController::class, 'fetchAll'])->name('sales.fetchAll');
     Route::post('/sales-store', [SaleController::class, 'store'])->name('sales.store');
     Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
-    Route::post('/sales-update', [SaleController::class, 'update'])->name('sales.update');
+    Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
@@ -157,4 +158,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
   |--------------------------------------------------------------------------
   */
     Route::get('company', [CompanyController::class, 'index'])->name('company.index');
+
+   /*
+   |--------------------------------------------------------------------------
+   | All Inventories Routes
+   |--------------------------------------------------------------------------
+   */
+
+   Route::get('/inventories',[InventoryController::class, 'index'])->name('inventory.index');
+   Route::post('/inventories/store', [InventoryController::class, 'store'])->name('inventories.store');
+   Route::get('/inventories/edit/{id}', [InventoryController::class, 'edit'])->name('inventories.edit');
+   Route::put('/inventories/update/{id}', [InventoryController::class, 'update'])->name('inventories.update');
+   Route::get('/inventories/delete/{id}', [InventoryController::class, 'delete'])->name('inventories.delete');
+
 });
