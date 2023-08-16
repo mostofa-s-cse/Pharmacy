@@ -51,7 +51,8 @@
                     <div class="card-body">
                         <h4 class="text-center">Create Bill</h4>
                         <hr/>
-                        <form action="">
+                        <form action="" method="POST" id="add_sale_form" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
                             <label for="custom_field1">Select customers</label>
                             <input type="text" list="custom_field1_datalist" class="form-control"
@@ -60,7 +61,6 @@
                                 @foreach ($customers as $item)
                                     <option value="{{$item->customer_id}}">{{$item->name}}</option>
                                 @endforeach
-
                             </datalist>
                             <span id="error" class="text-danger"></span>
                         </div>
@@ -76,12 +76,9 @@
                                             <th scope="col">Action</th>
                                         </tr>
                                         </thead>
-                                        
                                             <tbody class="input_fields_wrap" id="input_fields_wrap">
-
-
+                                                    <!-- dynamic fields -->
                                             </tbody>
-                                        
                                     </table>
                                     
                                 </table>
@@ -94,32 +91,32 @@
                                         <tbody>
                                             <tr>
                                             <td>Sub Total :</td>
-                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            <td><input type="text" name="sub_total" class="form-control" /></td>
                                             </tr>
                                             <tr>
                                             <td>Discount :</td>
-                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            <td><input type="text" name="discount" class="form-control" /></td>
                                             </tr>
                                             <tr>
                                             <td>Total :</td>
-                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            <td><input type="text" name="total" class="form-control" /></td>
                                             </tr>
                                             <tr>
                                             <td>Paid By</td>
-                                            <td><select class="custom-select form-control">
+                                            <td><select class="custom-select form-control" name="paid_by">
                                                 <option selected>Select Type</option>
-                                                <option value="1">One</option>
+                                                <option value="cash">Cash</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                                 </select></td>
                                             </tr>
                                             <tr>
                                             <td>Amount Paid :</td>
-                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            <td><input type="text" name="amount_paid" class="form-control" /></td>
                                             </tr>
                                             <tr>
                                             <td>Due/Return :</td>
-                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            <td><input type="text" name="due_return" class="form-control" /></td>
                                             </tr>
                                         </tbody>
                                         </table>
@@ -127,7 +124,7 @@
                                     </div>
                                     </div>
                                 <div class="submit-section" style="margin-top: 15px;margin-bottom: 10px;">
-                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                    <button type="submit" id="add_sale_btn" class="btn btn-primary btn-block">Submit</button>
                                 </div>
                          </form>
                     </div>
@@ -378,6 +375,43 @@ $(document).ready(function () {
                         // alert(xhr.status);
                         Swal.fire(
                             'Add Customer fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
+                    }
+                })
+            });
+
+             // add new sales ajax request
+             $("#add_sale_form").submit(function (e) {
+                e.preventDefault();
+                const fd = new FormData(this);
+                $("#add_sale_btn").text('Adding...');
+                $.ajax({
+                    url: '{{ route('sales.store') }}',
+                    method: 'post',
+                    data: fd,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == 200) {
+                            Swal.fire(
+                                'Added!',
+                                'Sales Added Successfully!',
+                                'success'
+                            )
+                            location.reload();
+                        }
+                        $("#add_sale_btn").text('Add Sale');
+                        $("#add_sale_form")[0].reset();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Sales Add fails!',
                             thrownError,
                             'error'
                         )

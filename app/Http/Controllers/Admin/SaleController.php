@@ -86,6 +86,7 @@ class SaleController extends Controller
     */
     public function store(Request $request)
     {
+        // dd($request);
         $this->validate($request,[
             'product'=>'required',
             'quantity'=>'required|integer|min:1'
@@ -101,7 +102,6 @@ class SaleController extends Controller
             $purchased_item->update([
                 'quantity'=>$new_quantity,
             ]);
-
             /**
              * calcualting item's total price
             **/
