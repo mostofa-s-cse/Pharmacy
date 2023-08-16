@@ -47,8 +47,12 @@
             </div>
             <div class="col-md-7">
                 <div class="card">
+                <div class="table-responsive">
                     <div class="card-body">
-                        <div class="form-group">
+                        <h4 class="text-center">Create Bill</h4>
+                        <hr/>
+                        <form action="">
+                        <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
                             <label for="custom_field1">Select customers</label>
                             <input type="text" list="custom_field1_datalist" class="form-control"
                                    placeholder="Search customers" name="customer_id">
@@ -60,18 +64,10 @@
                             </datalist>
                             <span id="error" class="text-danger"></span>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                    <div class="table-responsive">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div>
-                                <table>
+                        <div class="table-responsive">
+                        <table>
                                     <table class="table">
-                                        <thead>
+                                        <thead class="shadow-sm p-3 mb-5 bg-white rounded">
                                         <tr>
                                             <th scope="col">Product Name</th>
                                             <th scope="col">Quantity</th>
@@ -80,78 +76,62 @@
                                             <th scope="col">Action</th>
                                         </tr>
                                         </thead>
-                                        <form action="">
+                                        
                                             <tbody class="input_fields_wrap" id="input_fields_wrap">
 
 
                                             </tbody>
-                                        </form>
+                                        
                                     </table>
-
+                                    
                                 </table>
-                                <div class="submit-section" style="margin-top: 15px;">
+                                <div class="bill-sumary shadow-sm p-3 mb-5 bg-white rounded">
+                                    <div class="row mx-3">
+                                        <table class="table">
+                                        <thead>
+                                           
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <td>Sub Total :</td>
+                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            </tr>
+                                            <tr>
+                                            <td>Discount :</td>
+                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            </tr>
+                                            <tr>
+                                            <td>Total :</td>
+                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            </tr>
+                                            <tr>
+                                            <td>Paid By</td>
+                                            <td><select class="custom-select form-control">
+                                                <option selected>Select Type</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                                </select></td>
+                                            </tr>
+                                            <tr>
+                                            <td>Amount Paid :</td>
+                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            </tr>
+                                            <tr>
+                                            <td>Due/Return :</td>
+                                            <td><input type="email" id="form1Example1" class="form-control" /></td>
+                                            </tr>
+                                        </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <div class="submit-section" style="margin-top: 15px;margin-bottom: 10px;">
                                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
                                 </div>
-                            </div>
-                        </div>
+                         </form>
                     </div>
                 </div>
-                    </div>
-                    <div class="col-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <table>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">item</th>
-                                            <th scope="col">amount</th>
-                                        </tr>
-                                        </thead>
-                                        <form action="">
-                                            <tbody class="total-calculate">
-                                                <tr>
-                                                    <td scope="col">Sub Total:</td>
-                                                    <td scope="col"> <input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Discount %:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Total Discount:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Vat :</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">GST/ Tax Amount% :</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Grand Total:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Recieved Amount:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Change:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                            </tbody>
-                                        </form>
-                                    </table>
-
-                                </table>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                
             </div>
         </div>
     </div>
