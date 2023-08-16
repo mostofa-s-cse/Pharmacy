@@ -39,14 +39,14 @@ class CustomerController extends Controller
             <tbody>';
                 foreach ($Customers as $customers) {
                     $output .= '<tr>
-                <td>' . $customers->id . '</td>
+                <td>' . $customers->customer_id . '</td>
                 <td>' . $customers->name . '</td>
                 <td>' . $customers->email . '</td>
                 <td>' . $customers->phone . '</td>
                 <td>' . $customers->address . '</td>
                 <td>' . $customers->due . '</td>
                 <td>
-                  <a href="#" id="' . $customers->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
+                  <a href="#" id="' . $customers->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editCustomerModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
 
                   <a href="#" id="' . $customers->id . '" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
                 </td>
@@ -73,10 +73,12 @@ class CustomerController extends Controller
     {
         try {
             $this->validate(request(), [
+                'customer_id'=>'required',
                 'name' => 'required',
                 'phone'=>'required'
             ]);
             $customerData = [
+                'customer_id'=> $request->customer_id,
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
@@ -96,7 +98,7 @@ class CustomerController extends Controller
     }
    /*
    |--------------------------------------------------------------------------
-   | handle edit an Category ajax request
+   | handle edit an Customer ajax request
    |--------------------------------------------------------------------------
    */
     public function edit(Request $request)
@@ -108,19 +110,21 @@ class CustomerController extends Controller
 
     /*
    |--------------------------------------------------------------------------
-   | handle update an Category ajax request
+   | handle update an Customer ajax request
    |--------------------------------------------------------------------------
    */
 
     public function update(Request $request)
     {
         try {
-            $category = Customer::find($request->id);
+            $customers = Customer::find($request->id);
             $this->validate(request(), [
+                'customer_id'=>'required',
                 'name' => 'required',
                 'phone'=>'required'
             ]);
             $newData = [
+                'customer_id'=> $request->customer_id,
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
@@ -128,7 +132,7 @@ class CustomerController extends Controller
                 'due' => $request->due
             ];
 
-            $category->update($newData);
+            $customers->update($newData);
             return response()->json([
                 'status' => 200,
             ]);
@@ -142,7 +146,7 @@ class CustomerController extends Controller
 
    /*
    |--------------------------------------------------------------------------
-   | handle delete an Category ajax request
+   | handle delete an Customer ajax request
    |--------------------------------------------------------------------------
    */
 

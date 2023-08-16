@@ -19,7 +19,7 @@
                 </div>
             <div class="row">
                 <div class="col-md-12">
-                
+
                     <!-- Suppliers -->
                     <div class="card">
 					<div class="table-responsive">
@@ -32,7 +32,7 @@
                 </div>
 				</div>
             </div>
-            
+
             </div>
             <div id="addSupplierModal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -84,11 +84,11 @@
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<label>Product <span class="text-danger">*</span></label></label> 
+							<label>Product <span class="text-danger">*</span></label></label>
 							<input type="text" name="product" class="form-control" required="true">
 						</div>
 					</div>
-				</div>			
+				</div>
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-12">
@@ -97,7 +97,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="submit-section">
 					<button class="btn btn-primary submit-btn" id="add_supplier_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
@@ -165,7 +165,7 @@
 							<input type="text" id="product" name="product" class="form-control" required>
 						</div>
 					</div>
-				</div>			
+				</div>
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-12">
@@ -174,7 +174,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="submit-section">
 					<button class="btn btn-primary submit-btn" id="edit_supplier_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
@@ -187,7 +187,7 @@
 @endsection
 @section('script')
 <script>
-	$(function() 
+	$(function()
 	{
 		// add new supplier ajax request
 		$("#add_supplier_form").submit(function(e) {
@@ -319,11 +319,11 @@
 			success: function(response) {
 			$("#show_all_supplier").html(response);
 			$("table").DataTable({
-				order: [0, 'desc']
+				// order: [0, 'desc']
 			});
 			}
 		});
 		}
 	});
-</script> 
+</script>
 @endsection

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\DamageController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\InventoryController;
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,18 @@ Route::get('admin/dashboard', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('pages.bashboard');
+    /*
+    |--------------------------------------------------------------------------
+    | All User Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    // Route::get('user-profile', [UserController::class, 'profile'])->name('users.profile');
+    Route::get('/users-fetchall', [UserController::class, 'fetchAll'])->name('users.fetchAll');
+    Route::post('/users-store', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users-edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::post('/users-update', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users-delete', [UserController::class, 'delete'])->name('users.delete');
     /*
     |--------------------------------------------------------------------------
     | All Categories Routes
@@ -96,6 +109,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
    |--------------------------------------------------------------------------
    */
     Route::get('sales', [SaleController::class, 'index'])->name('sales.index');
+    Route::get('/sales-fetchAll', [SaleController::class, 'fetchAll'])->name('sales.fetchAll');
     Route::post('/sales-store', [SaleController::class, 'store'])->name('sales.store');
     Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
     Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');

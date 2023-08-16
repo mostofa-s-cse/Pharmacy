@@ -15,6 +15,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('customer_id');
             $table->foreignId('product_id');
             $table->integer('quantity');
             $table->decimal('total_price');

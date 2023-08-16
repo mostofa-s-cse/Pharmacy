@@ -26,21 +26,27 @@
     <link rel="stylesheet" href="{{asset('frontend/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/line-awesome.min.css')}}">
     <!-- Scripts -->
-    <script src="{{asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('frontend/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('frontend/js/jquery.slimscroll.min.js')}}"></script>
-    <script src="{{asset('frontend/js/morris.min.js')}}"></script>
+
+    <script src="{{asset('frontend/js/moment.min.js')}}"></script>
+    <script src="{{asset('frontend/js/bootstrap-datetimepicker.min.js')}}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <!-- <script src="{{asset('frontend/js/morris.min.js')}}"></script> -->
     <script src="{{asset('frontend/js/raphael.min.js')}}"></script>
     <script src="{{asset('frontend/js/chart.js')}}"></script>
     <script src="{{asset('frontend/js/greedynav.js')}}"></script>
     <script src="{{asset('frontend/js/layout.js')}}"></script>
-    <script src="{{asset('frontend/js/theme-settings.js')}}"></script>
+    <!-- <script src="{{asset('frontend/js/theme-settings.js')}}"></script> -->
     <script src="{{asset('frontend/js/app.js')}}"></script>
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
+
+
     <!-- {{--    datatables js--}} -->
     <!-- <script src="{{asset('frontend/datatables/js/bootstrap.bundle.min.js')}}"></script> -->
-    <script src="{{asset('frontend/datatables/js/jquery-3.6.0.min.js')}}"></script>
+    <!-- <script src="{{asset('frontend/datatables/js/jquery-3.6.0.min.js')}}"></script> -->
     <script src="{{asset('frontend/datatables/js/datatables.min.js')}}"></script>
     <script src="{{asset('frontend/datatables/js/pdfmake.min.js')}}"></script>
     <script src="{{asset('frontend/datatables/js/vfs_fonts.js')}}"></script>

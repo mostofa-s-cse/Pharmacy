@@ -50,13 +50,13 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Name<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="name" required="true">
+								<label>Customer ID<span class="text-danger">*</span></label>
+								<input class="form-control" type="text" name="customer_id" required="true">
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<label>Email</label>
-							<input class="form-control" type="text" name="email" id="email" required="true">
+                            <label>Name<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="name" required="true">
 						</div>
 					</div>
 				</div>
@@ -71,23 +71,29 @@
 						</div>
 						<div class="col-lg-6">
                         <div class="form-group">
-								<label>Address</label>
-								<input type="text" name="address" class="form-control" required="true">
-							</div>
-						</div>
-					</div>
-				</div>			
-				<div class="service-fields mb-3">
-					<div class="row">
-						<div class="col-12">
-                        <div class="form-group">
-								<label>Due</label>
-								<input type="text" name="due" class="form-control" required="true">
+                            <label>Email</label>
+                            <input class="form-control" type="text" name="email" id="email" required="true">
 							</div>
 						</div>
 					</div>
 				</div>
-				
+				<div class="service-fields mb-3">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" name="address" class="form-control" required="true">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Due</label>
+                                <input type="text" name="due" class="form-control" required="true">
+                            </div>
+                        </div>
+                    </div>
+				</div>
+
 				<div class="submit-section">
 					<button class="btn btn-primary submit-btn" id="add_Customer_btn" type="submit" name="form_submit" value="submit">Submit</button>
 				</div>
@@ -99,7 +105,7 @@
 
     <!-- add end -->
 
-    <div id="editCategoryModal" class="modal custom-modal fade" role="dialog">
+    <div id="editCustomerModal" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -142,7 +148,7 @@
 							</div>
 						</div>
 					</div>
-				</div>			
+				</div>
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-12">
@@ -265,7 +271,7 @@
                         }
                         $("#edit_Customer_btn").text('Update Customer');
                         $("#edit_Customer_form")[0].reset();
-                        $("#editCategoryModal").modal('hide');
+                        $("#editCustomerModal").modal('hide');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         // alert(xhr.status);
@@ -314,7 +320,7 @@
                             error: function (xhr, ajaxOptions, thrownError) {
                                 // alert(xhr.status);
                                 Swal.fire(
-                                    'Category delete fails!',
+                                    'Customer delete fails!',
                                     thrownError,
                                     'error'
                                 )

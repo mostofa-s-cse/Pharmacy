@@ -17,8 +17,8 @@
                             class="fa fa-plus"></i> Add Sales</a> -->
                     <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addCustomerModal"><i
                             class="fa fa-plus"></i> Add Customer</a>
-                    </a>
-
+                            </a>
+                            
                 </div>
             </div>
         </div>
@@ -51,58 +51,45 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="custom_field1">Select customers</label>
-                            <input type="text" list="custom_field1_datalist" class="form-control"
-                                   placeholder="Search customers" name="customer_id">
+                            <input name="customer_id" type="text" list="custom_field1_datalist" class="form-control"
+                                   placeholder="Search customers">
                             <datalist id="custom_field1_datalist">
                                 @foreach ($customers as $item)
-                                    <option value="{{$item->customer_id}}">{{$item->name}}</option>
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
                                 @endforeach
-
                             </datalist>
                             <span id="error" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <div class="card">
-                        <div class="card-body">
+                <div class="card">
+                <div class="card-body">
 
-                            <div>
-                                <form action="#" method="POST" id="add_sale_form">
-                                @csrf
-                                <input type="hidden" name="customer_id" value="079238747249">
-                                <table>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Product Name</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Rate</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <form action="">
-                                            <tbody class="input_fields_wrap" id="input_fields_wrap">
-
-                                            <tr id="addfields"><td><input type="text" list="custom_field2_datalist" class="form-control" placeholder="Search Product" name="inputs[0][product_id]"><datalist id="custom_field2_datalist">@foreach ($products as $product)@if (!empty($product->purchase))  @if (!($product->purchase->quantity <= 0))<option value="{{$product->id}}">{{$product->purchase->product}}</option>@endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></td><td><input type="text" class="form-control" name="inputs[0][quantity]" placeholder="Quantity"></td><td><input type="text" class="form-control" name="inputs[0][price]" placeholder="Rate"></td><td><input type="text" class="form-control" name="inputs[0][total_price]" placeholder="Price"></td><td><a href="javascript:void(0)" class="btn btn-success font-18 add_field_button"
-                    title="Add"><i class="fa fa-plus"></i></a></td></tr>
-                                            </tbody>
-                                        </form>
-                                    </table>
-
-                                </table>
-                                <div class="submit-section" style="margin-top: 15px;">
-                                    <button type="submit" class="btn btn-primary btn-block" id="add_sale_btn">Submit</button>
-                                </div>
-                                </form>
-                            </div>
+<div>
+                    <div class="item" style="margin-bottom:-25px;">
+                        <!-- <p>S/N</p> -->
+                        <p>Medisin ID</p>
+                        <p>Quantity</p>
+                        <p>Rate</p>
+                        <p>Total price</p>
+                        <p>Action</p>
+                    </div>
+                    <hr/>
+                    <div class="input_fields_wrap">
+                        
+                        
+                    </div>
+                    <div class="submit-section" style="margin-top: 15px;">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </div>
                     </div>
                 </div>
+                </div>
+                </div>
+                </div>
             </div>
         </div>
-    </div>
 
     </div>
 
@@ -121,7 +108,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Create Sale -->
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{route('sales.store')}}">
                         @csrf
                         <div class="row form-row">
                             <div class="col-12">
@@ -222,13 +209,13 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Customer ID<span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="customer_id" required="true">
+                                        <label>Name<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="name" required="true">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label>Name<span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="name" required="true">
+                                    <label>Email</label>
+                                    <input class="form-control" type="text" name="email" id="email" required="true">
                                 </div>
                             </div>
                         </div>
@@ -243,21 +230,15 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Email</label>
-                                        <input class="form-control" type="text" name="email" id="email" required="true">
+                                        <label>Address</label>
+                                        <input type="text" name="address" class="form-control" required="true">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="service-fields mb-3">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <input type="text" name="address" class="form-control" required="true">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Due</label>
                                         <input type="text" name="due" class="form-control" required="true">
@@ -283,103 +264,38 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 
     <script>
-
+ 
 
         $(document).ready(function () {
             $('.select2').select2();
         });
-        // tablebtn
+       
+// dynamic add fields..........................................
+    
+$(document).ready(function() {
+    var max_fields      = 100; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button class
+            
+    var x = 1; //initlal text box count
+    $(document).on('click', '#tablebtn .add_field_button', function(e) { //on add input button click
+        
+        if(x < max_fields){ //max input box allowed
+            console.log(e.currentTarget.id);
+            console.log(e.currentTarget.getAttribute('name'));
+            x++; //text box increment
+            $("#rm").remove(); 
 
-        var i=0;
-        $('.add_field_button').click(function() {
-            ++i;
-            $('#input_fields_wrap').append(`
-            <tr id="addfields"><td><input type="text" list="custom_field2_datalist" class="form-control" placeholder="Search Product" name="inputs[`+i+`][product_name]"><datalist id="custom_field2_datalist">@foreach ($products as $product)@if (!empty($product->purchase))  @if (!($product->purchase->quantity <= 0))<option value="{{$product->id}}">{{$product->purchase->product}}</option>@endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></td><td><input type="text" class="form-control" name="inputs[`+i+`][quantity]" placeholder="Quantity"></td><td><input type="text" class="form-control" name="inputs[`+i+`][price]" placeholder="Rate"></td><td><input type="text" class="form-control" name="inputs[`+i+`][total_price]" placeholder="Price"></td><td><a href="javascript:void(0)" class="btn btn-danger font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a>
-            </a></td></tr>
-            `);
+            $(wrapper).append('<div id="addfields" class="add_input_fields"><div class="row"><div class="col-3"><div class="form-group"><input name="product_id" type="text" list="custom_field2_datalist" class="form-control" placeholder="Search product"><datalist id="custom_field2_datalist" >@foreach ($products as $product) @if(!empty($product->purchase)) @if (!($product->purchase->quantity <= 0))<optionvalue="{{$product->id}}">{{$product->purchase->product}}</option> @endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></div></div><div class="col-2"><input type="text" class="form-control" name="" placeholder="Quantity"></div><div class="col-2"><input type="text" class="form-control" name="" placeholder="Rate"></div><div class="col-3"><input type="text" class="form-control" name="" placeholder="Total Price"></div><div class="col-2"><a href="javascript:void(0)" class="text-danger font-18 remove_field" title="Remove"><i class="fa fa-trash"></i></a></div></div></div>'); //add input box
+        }
+    });
 
-        });
-             $(document).on("click", ".remove_field", function () { //user click on remove text
-               $(this).parents('tr').remove();
-            });
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $("#addfields").remove(); x--;
+    })
+});
 
         $(function () {
-            // add new Customer ajax request
-            $("#add_Customer_form").submit(function (e) {
-                e.preventDefault();
-                const fd = new FormData(this);
-                $("#add_Customer_btn").text('Adding...');
-                $.ajax({
-                    url: '{{ route('customer.store') }}',
-                    method: 'post',
-                    data: fd,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.status == 200) {
-                            Swal.fire(
-                                'Added!',
-                                'Customer Added Successfully!',
-                                'success'
-                            )
-                            location.reload();
-                        }
-                        $("#add_Customer_btn").text('Add Customer');
-                        $("#add_Customer_form")[0].reset();
-                        $("#addCustomerModal").modal('hide');
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        // alert(xhr.status);
-                        Swal.fire(
-                            'Add Customer fails!',
-                            thrownError,
-                            'error'
-                        )
-                        // alert(thrownError);
-                    }
-                })
-            });
-
-
-             // add new Customer ajax request
-             $("#add_sale_form").submit(function (e) {
-                e.preventDefault();
-                const fd = new FormData(this);
-                $("#add_sale_btn").text('Adding...');
-                $.ajax({
-                    url: '{{ route('sales.store') }}',
-                    method: 'post',
-                    data: fd,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.status == 200) {
-                            Swal.fire(
-                                'Added!',
-                                'Sales Added Successfully!',
-                                'success'
-                            )
-                            location.reload();
-                        }
-                        $("#add_sale_btn").text('Add Customer');
-                        $("#add_sale_form")[0].reset();
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        // alert(xhr.status);
-                        Swal.fire(
-                            'Sales Add fails!',
-                            thrownError,
-                            'error'
-                        )
-                        // alert(thrownError);
-                    }
-                })
-            });
-
 
             // fetch all product ajax request
             fetchAllProduct();

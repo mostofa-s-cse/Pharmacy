@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Sale;
 use App\Models\Product;
 use App\Models\Purchase;
@@ -13,49 +14,72 @@ use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
-   /*
+     /*
     |--------------------------------------------------------------------------
     | set index page view
     |--------------------------------------------------------------------------
     */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->ajax()){
-            $sales = Sale::all();
-            return DataTables::of($sales)
-                    ->addIndexColumn()
-                    ->addColumn('product',function($sale){
-                        $image = '';
-                        if(!empty($sale->product)){
-                            $image = null;
-                            if(!empty($sale->product->purchase->image)){
-                                $image = '<span class="avatar avatar-sm mr-2">
-                                <img class="avatar-img" src="'.asset("storage/purchases/".$sale->product->purchase->image).'" alt="image">
-                                </span>';
-                            }
-                            return $image . ' ' . $sale->product->purchase->product;
-                        }
-                    })
-                    ->addColumn('total_price',function($sale){
-                        return $sale->total_price;
-                    })
-                    ->addColumn('date',function($row){
-                        return date_format(date_create($row->created_at),'d M, Y');
-                    })
-                    ->addColumn('action', function ($row) {
-                        $editbtn = '<a href="#" id="' . $row->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editSalesModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
-                        $deletebtn = '<a href="#" id="' . $row->id . '" name="' . $row->product   .'" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
-                        $btn = $editbtn.' '.$deletebtn;
-                        return $btn;
-                    })
-                    ->rawColumns(['product','action'])
-                    ->make(true);
-
-        }
         $products = Product::get();
+        $customers = Customer::get();
         return view('admin.pages.sales.index',compact(
-            'products'
+            'products','customers'
         ));
+    }
+   /*
+    |--------------------------------------------------------------------------
+    | fetchAll Product
+    |--------------------------------------------------------------------------
+    */
+    public function fetchAll() {
+		try {
+            $product = Product::all();
+            $output = '';
+            if ($product->count() > 0) {
+                $output .= '<table class="table table-striped table-sm align-middle" id="tablebtn">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Quantity</th>
+                <th>Add to cart</th>
+              </tr>
+            </thead>
+            <tbody>';
+                foreach ($product as $item) {
+                    $output .= '<tr>
+                <td>' . $item->id . '</td>
+                <td class="sorting_1">
+                <h2 class="table-avatar">
+                <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">
+                <span>' . $item->purchase->product . '</span>
+                </h2>
+                </td>
+              
+                <td>' . $item->price . '</td>
+                <td>' . $item->discount . '</td>
+                <td>' . $item->purchase->quantity . '</td>
+                <td>
+                <a href="javascript:void(0)" id="' . $item->id . '" name="' . $item->purchase->product . '" class="btn btn-success font-18 add_field_button"
+                    title="Add"><i class="fa fa-plus"></i> Add To Cart</a>
+                </td>
+                </tr>';
+                }
+                $output .= '</tbody></table>';
+                echo $output;
+
+            } else {
+                echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
+            }
+        } catch (\Exception $e) {
+            // Return Json Response
+            return response()->json([
+                'message' => $e
+            ], 500);
+        }
     }
     /*
     |--------------------------------------------------------------------------
