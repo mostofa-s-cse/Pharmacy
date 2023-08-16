@@ -40,7 +40,6 @@ class SaleController extends Controller
                 $output .= '<table class="table table-striped table-sm align-middle" id="tablebtn">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Product</th>
                 <th>Price</th>
                 <th>Discount</th>
@@ -51,7 +50,6 @@ class SaleController extends Controller
             <tbody>';
                 foreach ($product as $item) {
                     $output .= '<tr>
-                <td>' . $item->id . '</td>
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">
@@ -63,8 +61,8 @@ class SaleController extends Controller
                 <td>' . $item->discount . '</td>
                 <td>' . $item->purchase->quantity . '</td>
                 <td>
-                <a href="javascript:void(0)" id="' . $item->id . '" name="' . $item->purchase->product . '" class="btn btn-success font-18 add_field_button"
-                    title="Add"><i class="fa fa-plus"></i> Add To Cart</a>
+                <a href="javascript:void(0)" id="' . $item->id . '" name="' . $item->purchase->product . '" class="btn btn-success text-white add_field_button"
+                    title="Add"><i class="fa fa-plus"></i> Add</a>
                 </td>
                 </tr>';
                 }
