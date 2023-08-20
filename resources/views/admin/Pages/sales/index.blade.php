@@ -47,114 +47,93 @@
             </div>
             <div class="col-md-7">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="custom_field1">Select customers</label>
-                            <input type="text" list="custom_field1_datalist" class="form-control"
-                                   placeholder="Search customers" name="customer_id">
-                            <datalist id="custom_field1_datalist">
-                                @foreach ($customers as $item)
-                                    <option value="{{$item->customer_id}}">{{$item->name}}</option>
-                                @endforeach
-
-                            </datalist>
-                            <span id="error" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
                     <div class="table-responsive">
-                    <div class="card">
                         <div class="card-body">
-
-                            <div>
-                                <table>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Product Name</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Rate</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <form action="">
-                                            <tbody class="input_fields_wrap" id="input_fields_wrap">
-
-
-                                            </tbody>
-                                        </form>
-                                    </table>
-
-                                </table>
-                                <div class="submit-section" style="margin-top: 15px;">
-                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            <h4 class="text-center">Create Bill</h4>
+                            <hr/>
+                            <form action="" method="POST" id="add_sale_form" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
+                                    <label for="custom_field1">Select customers</label>
+                                    <input type="text" list="custom_field1_datalist" class="form-control"
+                                           placeholder="Search customers" name="customer_id">
+                                    <datalist id="custom_field1_datalist">
+                                        @foreach ($customers as $item)
+                                            <option value="{{$item->customer_id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </datalist>
+                                    <span id="error" class="text-danger"></span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    </div>
-                    <div class="col-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <table>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">item</th>
-                                            <th scope="col">amount</th>
-                                        </tr>
-                                        </thead>
-                                        <form action="">
-                                            <tbody class="total-calculate">
-                                                <tr>
-                                                    <td scope="col">Sub Total:</td>
-                                                    <td scope="col"> <input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Discount %:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Total Discount:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Vat :</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">GST/ Tax Amount% :</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Grand Total:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Recieved Amount:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td scope="col">Change:</td>
-                                                    <td scope="col"><input type="text" id="fname" name="fname" placeholder="00.00"></td>
-                                                </tr>
+                                <div class="table-responsive">
+                                    <table>
+                                        <table class="table">
+                                            <thead class="shadow-sm p-3 mb-5 bg-white rounded">
+                                            <tr>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Rate</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="input_fields_wrap" id="input_fields_wrap">
+                                            <!-- dynamic fields -->
                                             </tbody>
-                                        </form>
-                                    </table>
+                                        </table>
 
-                                </table>
+                                    </table>
+                                    <div class="bill-sumary shadow-sm p-3 mb-5 bg-white rounded">
+                                        <div class="row mx-3">
+                                            <table class="table">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Sub Total :</td>
+                                                    <td><input type="number" id="sub_total" name="sub_total" class="form-control"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Discount :</td>
+                                                    <td><input type="number" value="0" id="discount" name="discount" class="form-control"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total :</td>
+                                                    <td><input type="number" id="total" name="total" class="form-control"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Paid By</td>
+                                                    <td><select class="custom-select form-control" name="paid_by">
+                                                            <option selected>Select Type</option>
+                                                            <option value="cash">Cash</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Amount Paid :</td>
+                                                    <td><input type="number" value="0" id="amount_paid" name="amount_paid" class="form-control"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Due/Return :</td>
+                                                    <td><input type="number" id="due_return" name="due_return" readonly class="form-control"/></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit-section" style="margin-top: 15px;margin-bottom: 10px;">
+                                    <button type="submit" id="add_sale_btn" class="btn btn-primary btn-block">Submit
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    </div>
                 </div>
-                
             </div>
         </div>
-    </div>
 
     </div>
 
@@ -343,33 +322,101 @@
         // tablebtn
 
 
-       // dynamic add fields..........................................
+        // dynamic add fields..........................................
 
-$(document).ready(function () {
+        $(document).ready(function () {
             $('.select2').select2();
         });
         // tablebtn
 
-        var i=0;
-        $(document).on('click', '#tablebtn .add_field_button', function(e) {
-            // $("#id").val(e.currentTarget.id);
-            console.log(e.currentTarget.id);
-            console.log(e.currentTarget.getAttribute('name'));
-            ++i;
-            $('#input_fields_wrap').append(`
-            <tr id="addfields">
-                <td><input type="text" list="custom_field2_datalist" class="form-control" placeholder="Search Product" name="inputs[`+i+`][product_name]"><datalist id="custom_field2_datalist">@foreach ($products as $product)@if (!empty($product->purchase))  @if (!($product->purchase->quantity <= 0))<option value="{{$product->id}}">{{$product->purchase->product}}</option>@endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></td>
-                <td><input type="text" class="form-control" name="inputs[`+i+`][quantity]" placeholder="Quantity"></td>
-                <td><input type="text" class="form-control" name="inputs[`+i+`][price]" placeholder="Rate"></td>
-                <td><input type="text" class="form-control" name="inputs[`+i+`][total_price]" placeholder="Price"></td>
-                <td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a></a></td></tr>
-            `);
+        // var i = 0;
+        {{--$(document).on('click', '#tablebtn .add_field_button', function(e) {--}}
+        {{--    // $("#id").val(e.currentTarget.id);--}}
+        {{--    console.log(e.currentTarget.id);--}}
+        {{--    console.log(e.currentTarget.getAttribute('name'));--}}
+        {{--    ++i;--}}
+        {{--    $('#input_fields_wrap').append(`--}}
+        {{--    <tr id="addfields"><td><input type="text" list="custom_field2_datalist" class="form-control" placeholder="Search Product" name="inputs[`+i+`][product_name]"><datalist id="custom_field2_datalist">@foreach ($products as $product)@if (!empty($product->purchase))  @if (!($product->purchase->quantity <= 0))<option value="{{$product->id}}">{{$product->purchase->product}}</option>@endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></td><td><input type="text" class="form-control" name="inputs[`+i+`][quantity]" placeholder="Quantity"></td><td><input type="text" class="form-control" name="inputs[`+i+`][price]" placeholder="Rate"></td><td><input type="text" class="form-control" name="inputs[`+i+`][total_price]" placeholder="Price"></td><td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a></a></td></tr>--}}
+        {{--    `);--}}
 
-        });
-             $(document).on("click", ".remove_field", function () { //user click on remove text
-               $(this).parents('tr').remove();
+        {{--});--}}
+        {{--     $(document).on("click", ".remove_field", function () { //user click on remove text--}}
+        {{--       $(this).parents('tr').remove();--}}
+        {{--    });--}}
+
+
+        function rowAdd(id) {
+            let name = $('#pro-'+id).attr('name');
+            let price = $('#pro-'+id).attr('price');
+
+            console.log(name)
+
+            $('#input_fields_wrap').prepend(`
+                <tr id="tr-${id}">
+                    <td>${name}</td>
+                    <td>
+                        <input type="text" class="form-control" id="qty-${id}" onkeyup="calcPrice(${id})">
+                    </td>
+                    <td id="rate-${id}">${price}</td>
+                    <td>
+                        <input class="td-price form-control" type="text" readonly id="price-${id}">
+                    </td>
+
+                    <td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" onclick="remove(${id})"><i class="fa fa-trash"></i></a></td>
+                </tr>
+            `)
+
+        }
+
+        function  remove(id){
+            $('#tr-'+id).remove();
+            totalCalc();
+        }
+
+        function calcPrice(id){
+            let qty = $('#qty-'+id).val();
+            let rate = $('#rate-'+id).html();
+
+            let lineTotal = parseFloat(qty) * parseFloat(rate);
+
+            $('#price-'+id).val(lineTotal);
+
+            totalCalc();
+
+        }
+
+        $('#discount ').on('keyup', function (){
+            totalCalc();
+
+        })
+
+        $('#amount_paid ').on('keyup', function (){
+            totalCalc();
+
+        })
+
+        function totalCalc(){
+            var sum = 0;
+            let discount = $('#discount').val();
+
+
+            $('.td-price').each(function(){
+                sum += parseFloat(this.value);
             });
-    
+
+            $('#sub_total').val(sum);
+
+            let total = parseFloat(sum) - parseFloat(discount)
+            $('#total').val(total)
+            // $('#amount_paid').val(total)
+
+            let amount_paid = $('#amount_paid').val();
+
+            let due = total - parseFloat(amount_paid);
+            $('#due_return').val(due);
+
+
+        }
 
 
         $(function () {
@@ -403,6 +450,43 @@ $(document).ready(function () {
                         // alert(xhr.status);
                         Swal.fire(
                             'Add Customer fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
+                    }
+                })
+            });
+
+            // add new sales ajax request
+            $("#add_sale_form").submit(function (e) {
+                e.preventDefault();
+                const fd = new FormData(this);
+                $("#add_sale_btn").text('Adding...');
+                $.ajax({
+                    url: '{{ route('sales.store') }}',
+                    method: 'post',
+                    data: fd,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == 200) {
+                            Swal.fire(
+                                'Added!',
+                                'Sales Added Successfully!',
+                                'success'
+                            )
+                            location.reload();
+                        }
+                        $("#add_sale_btn").text('Add Sale');
+                        $("#add_sale_form")[0].reset();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Sales Add fails!',
                             thrownError,
                             'error'
                         )

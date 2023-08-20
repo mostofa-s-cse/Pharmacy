@@ -56,13 +56,14 @@ class SaleController extends Controller
                 <span>' . $item->purchase->product . '</span>
                 </h2>
                 </td>
-              
+
                 <td>' . $item->price . '</td>
                 <td>' . $item->discount . '</td>
                 <td>' . $item->purchase->quantity . '</td>
                 <td>
-                <a href="javascript:void(0)" id="' . $item->id . '" name="' . $item->purchase->product . '" class="btn btn-success text-white add_field_button"
-                    title="Add"><i class="fa fa-plus"></i> Add</a>
+                <button onclick="rowAdd('.$item->id.')" price="' . $item->price . '" id="pro-'. $item->id . '" name="' . $item->purchase->product . '" class="btn btn-success text-white add_field_button"
+                    title="Add"><i class="fa fa-plus"></i> Add
+                    </button>
                 </td>
                 </tr>';
                 }
@@ -86,6 +87,7 @@ class SaleController extends Controller
     */
     public function store(Request $request)
     {
+        // dd($request);
         $this->validate($request,[
             'product'=>'required',
             'quantity'=>'required|integer|min:1'
@@ -101,7 +103,6 @@ class SaleController extends Controller
             $purchased_item->update([
                 'quantity'=>$new_quantity,
             ]);
-
             /**
              * calcualting item's total price
             **/
