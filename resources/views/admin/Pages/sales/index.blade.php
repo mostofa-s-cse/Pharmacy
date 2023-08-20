@@ -357,7 +357,12 @@ $(document).ready(function () {
             console.log(e.currentTarget.getAttribute('name'));
             ++i;
             $('#input_fields_wrap').append(`
-            <tr id="addfields"><td><input type="text" list="custom_field2_datalist" class="form-control" placeholder="Search Product" name="inputs[`+i+`][product_name]"><datalist id="custom_field2_datalist">@foreach ($products as $product)@if (!empty($product->purchase))  @if (!($product->purchase->quantity <= 0))<option value="{{$product->id}}">{{$product->purchase->product}}</option>@endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></td><td><input type="text" class="form-control" name="inputs[`+i+`][quantity]" placeholder="Quantity"></td><td><input type="text" class="form-control" name="inputs[`+i+`][price]" placeholder="Rate"></td><td><input type="text" class="form-control" name="inputs[`+i+`][total_price]" placeholder="Price"></td><td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a></a></td></tr>
+            <tr id="addfields">
+                <td><input type="text" list="custom_field2_datalist" class="form-control" placeholder="Search Product" name="inputs[`+i+`][product_name]"><datalist id="custom_field2_datalist">@foreach ($products as $product)@if (!empty($product->purchase))  @if (!($product->purchase->quantity <= 0))<option value="{{$product->id}}">{{$product->purchase->product}}</option>@endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></td>
+                <td><input type="text" class="form-control" name="inputs[`+i+`][quantity]" placeholder="Quantity"></td>
+                <td><input type="text" class="form-control" name="inputs[`+i+`][price]" placeholder="Rate"></td>
+                <td><input type="text" class="form-control" name="inputs[`+i+`][total_price]" placeholder="Price"></td>
+                <td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a></a></td></tr>
             `);
 
         });
