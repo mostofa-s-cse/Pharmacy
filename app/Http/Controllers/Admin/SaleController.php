@@ -103,10 +103,10 @@ class SaleController extends Controller
        $product_count = count($request->product_id);
 
        for ($i=0; $i < $product_count; $i++){
-           DB::table('salesdetails')->insert([
+           DB::table('sales_details')->insert([
                'sale_id' => $sale,
                'product_id' => $request->product_id[$i],
-               'qty' => $request->qty[$i],
+               'quantity' => $request->qty[$i],
                'rate' => $request->rate[$i],
                'price' => $request->price[$i],
            ]);

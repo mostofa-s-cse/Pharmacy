@@ -51,7 +51,8 @@
                         <div class="card-body">
                             <h4 class="text-center">Create Bill</h4>
                             <hr/>
-                            <form action="{{route('sales.store')}}" method="POST" id="add_sale_form" enctype="multipart/form-data">
+                            <form action="{{route('sales.store')}}" method="POST" id="add_sale_form"
+                                  enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
                                     <label for="custom_field1">Select customers</label>
@@ -92,15 +93,18 @@
                                                 <tbody>
                                                 <tr>
                                                     <td>Sub Total :</td>
-                                                    <td><input type="number" id="sub_total" name="sub_total" class="form-control"/></td>
+                                                    <td><input type="number" id="sub_total" name="sub_total"
+                                                               class="form-control"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Discount :</td>
-                                                    <td><input type="number" value="0" id="discount" name="discount" class="form-control"/></td>
+                                                    <td><input type="number" value="0" id="discount" name="discount"
+                                                               class="form-control"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Total :</td>
-                                                    <td><input type="number" id="total" name="total" class="form-control"/></td>
+                                                    <td><input type="number" id="total" name="total"
+                                                               class="form-control"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Paid By</td>
@@ -113,12 +117,14 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Amount Paid :</td>
-                                                    <td><input type="number" value="0" id="amount_paid" name="amount_paid" class="form-control"/>
+                                                    <td><input type="number" value="0" id="amount_paid"
+                                                               name="amount_paid" class="form-control"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Due/Return :</td>
-                                                    <td><input type="number" id="due_return" name="due_return" readonly class="form-control"/></td>
+                                                    <td><input type="number" id="due_return" name="due_return" readonly
+                                                               class="form-control"/></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -346,12 +352,16 @@
         {{--    });--}}
 
         var i = 0;
+        var product_arr = [];
+
         function rowAdd(id) {
-            let name = $('#pro-'+id).attr('name');
-            let price = $('#pro-'+id).attr('price');
-            console.log(name)
+            let name = $('#pro-' + id).attr('name');
+            let price = $('#pro-' + id).attr('price');
+            console.log("id", id)
             ++i;
-            $('#input_fields_wrap').prepend(`
+            let isValid = product_arr.includes(id);
+            if (!isValid) {
+                $('#input_fields_wrap').prepend(`
                 <tr id="tr-${id}">
                     <td>${i}</td>
                     <td>${name} <input type="hidden" name="product_id[]" id="product_id" value="${id}"></td>
@@ -366,43 +376,51 @@
                     <td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" onclick="remove(${id})"><i class="fa fa-trash"></i></a></td>
                 </tr>
             `)
+                product_arr.push(id);
+            } else {
+                Swal.fire(
+                    '',
+                    'This product alrady added',
+                    'error'
+                )
+            }
 
         }
 
-        function  remove(id){
-            $('#tr-'+id).remove();
+        function remove(id) {
+            $('#tr-' + id).remove();
             i--
             totalCalc();
         }
 
-        function calcPrice(id){
-            let qty = $('#qty-'+id).val();
-            let rate = $('#rate-'+id).html();
+        function calcPrice(id) {
+            let qty = $('#qty-' + id).val();
+            let rate = $('#rate-' + id).html();
 
             let lineTotal = parseFloat(qty) * parseFloat(rate);
 
-            $('#price-'+id).val(lineTotal);
+            $('#price-' + id).val(lineTotal);
 
             totalCalc();
 
         }
 
-        $('#discount ').on('keyup', function (){
+        $('#discount ').on('keyup', function () {
             totalCalc();
 
         })
 
-        $('#amount_paid ').on('keyup', function (){
+        $('#amount_paid ').on('keyup', function () {
             totalCalc();
 
         })
 
-        function totalCalc(){
+        function totalCalc() {
             var sum = 0;
             let discount = $('#discount').val();
 
 
-            $('.td-price').each(function(){
+            $('.td-price').each(function () {
                 sum += parseFloat(this.value);
             });
 
