@@ -344,21 +344,22 @@
         {{--       $(this).parents('tr').remove();--}}
         {{--    });--}}
 
-        var i = 0;
+
         function rowAdd(id) {
             let name = $('#pro-'+id).attr('name');
             let price = $('#pro-'+id).attr('price');
+
             console.log(name)
-            ++i;
+
             $('#input_fields_wrap').prepend(`
                 <tr id="tr-${id}">
-                    <td>${name} <input type="hidden" name="inputs[`+i+`][product_id]" id="product_id" value="${id}"></td>
+                    <td>${name}</td>
                     <td>
-                        <input type="text" class="form-control" name="inputs[`+i+`][quantity]" id="qty-${id}" onkeyup="calcPrice(${id})">
+                        <input type="text" class="form-control" id="qty-${id}" onkeyup="calcPrice(${id})">
                     </td>
-                    <td id="rate-${id}">${price} <input type="hidden" name="inputs[`+i+`][rate]" id="rate-${id}" value="${price}"></td>
+                    <td id="rate-${id}">${price}</td>
                     <td>
-                        <input class="td-price form-control" type="text" name="inputs[`+i+`][total_price]" readonly name="price-${id}" id="price-${id}">
+                        <input class="td-price form-control" type="text" readonly id="price-${id}">
                     </td>
 
                     <td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" onclick="remove(${id})"><i class="fa fa-trash"></i></a></td>

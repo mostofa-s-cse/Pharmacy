@@ -11,7 +11,7 @@ class Sale extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_id','quantity','rate','total_price'
+        'product_id','quantity','total_price'
     ];
 
     public function product(){
