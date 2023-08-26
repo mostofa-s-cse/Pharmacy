@@ -70,7 +70,6 @@
                                         <table class="table">
                                             <thead class="shadow-sm p-3 mb-5 bg-white rounded">
                                             <tr>
-                                                <th scope="col">S/N</th>
                                                 <th scope="col">Product Name</th>
                                                 <th scope="col">Quantity</th>
                                                 <th scope="col">Rate</th>
@@ -363,7 +362,6 @@
             if (!isValid) {
                 $('#input_fields_wrap').prepend(`
                 <tr id="tr-${id}">
-                    <td>${i}</td>
                     <td>${name} <input type="hidden" name="product_id[]" id="product_id" value="${id}"></td>
                     <td>
                         <input type="text" class="form-control" name="qty[]" id="qty-${id}" onkeyup="calcPrice(${id})">
@@ -389,7 +387,6 @@
 
         function remove(id) {
             $('#tr-' + id).remove();
-            i--
             totalCalc();
         }
 

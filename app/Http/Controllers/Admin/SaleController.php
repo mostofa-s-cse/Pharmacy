@@ -41,8 +41,6 @@ class SaleController extends Controller
             <thead>
               <tr>
                 <th>Product</th>
-                <th>Price</th>
-                <th>Discount</th>
                 <th>Quantity</th>
                 <th>Add to cart</th>
               </tr>
@@ -56,9 +54,6 @@ class SaleController extends Controller
                 <span>' . $item->purchase->product . '</span>
                 </h2>
                 </td>
-
-                <td>' . $item->price . '</td>
-                <td>' . $item->discount . '</td>
                 <td>' . $item->purchase->quantity . '</td>
                 <td>
                 <button onclick="rowAdd('.$item->id.')" price="' . $item->price . '" id="pro-'. $item->id . '" name="' . $item->purchase->product . '" class="btn btn-success text-white add_field_button"
