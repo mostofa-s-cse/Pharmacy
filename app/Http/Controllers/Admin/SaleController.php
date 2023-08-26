@@ -85,44 +85,48 @@ class SaleController extends Controller
     | handle insert a new Sales ajax request
     |--------------------------------------------------------------------------
     */
+
     public function store(Request $request)
     {
-        // dd($request);
-        $this->validate($request,[
-            'product'=>'required',
-            'quantity'=>'required|integer|min:1'
-        ]);
-        $sold_product = Product::find($request->product);
-        /**update quantity of
-            sold item from
-         purchases
-        **/
-        $purchased_item = Purchase::find($sold_product->purchase->id);
-        $new_quantity = ($purchased_item->quantity) - ($request->quantity);
-        if (!($new_quantity < 0)){
-            $purchased_item->update([
-                'quantity'=>$new_quantity,
-            ]);
-            /**
-             * calcualting item's total price
-            **/
-            $total_price = ($request->quantity) * ($sold_product->price);
-            Sale::create([
-                'product_id'=>$request->product,
-                'quantity'=>$request->quantity,
-                'total_price'=>$total_price,
-            ]);
-            session()->flash('success','Product has been sold');
-        }
-        if($new_quantity <=1 && $new_quantity !=0){
-            // send notification
-            $product = Purchase::where('quantity', '<=', 1)->first();
-            event(new PurchaseOutStock($product));
-            // end of notification
-            session()->flash('error','Product is running out of stock!!!');
-        }
-        return redirect()->route('sales.index');
+//       dd($request->input());
+
+       $sale = DB::table('sales')->insertGetId([
+          'customer_id' => $request->customer_id,
+          'sub_total' => $request->sub_total,
+          'discount' => $request->discount,
+          'total' => $request->total,
+          'paid_by' => $request->paid_by,
+          'amount_paid' => $request->amount_paid,
+          'due_return' => $request->due_return,
+       ]);
+
+       $product_count = count($request->product_id);
+
+       for ($i=0; $i < $product_count; $i++){
+           DB::table('salesdetails')->insert([
+               'sale_id' => $sale,
+               'product_id' => $request->product_id[$i],
+               'qty' => $request->qty[$i],
+               'rate' => $request->rate[$i],
+               'price' => $request->price[$i],
+           ]);
+
+//           $product_qty = DB::table('products')->where('id', $request->product_id[$i])->first(['quantity']);
+//
+//           $current_qty = (int) $product_qty->quantity - $request->qty[$i];
+//
+//           DB::table('products')->update([
+//               'quantity' => $current_qty,
+//           ]);
+       }
+
+
+
+
+    //    dd($sale);
+       return redirect()->route('sales.index');
     }
+
     /*
     |--------------------------------------------------------------------------
     | handle edit an Sales
