@@ -85,54 +85,11 @@ class SaleController extends Controller
     | handle insert a new Sales ajax request
     |--------------------------------------------------------------------------
     */
-
     public function store(Request $request)
     {
-//       dd($request->input());
-
-       $sale = DB::table('sales')->insertGetId([
-          'customer_id' => $request->customer_id,
-          'sub_total' => $request->sub_total,
-          'discount' => $request->discount,
-          'total' => $request->total,
-          'paid_by' => $request->paid_by,
-          'amount_paid' => $request->amount_paid,
-          'due_return' => $request->due_return,
-       ]);
-
-       $product_count = count($request->product_id);
-
-       for ($i=0; $i < $product_count; $i++){
-           DB::table('salesdetails')->insert([
-               'sale_id' => $sale,
-               'product_id' => $request->product_id[$i],
-               'qty' => $request->qty[$i],
-               'rate' => $request->rate[$i],
-               'price' => $request->price[$i],
-           ]);
-
-//           $product_qty = DB::table('products')->where('id', $request->product_id[$i])->first(['quantity']);
-//
-//           $current_qty = (int) $product_qty->quantity - $request->qty[$i];
-//
-//           DB::table('products')->update([
-//               'quantity' => $current_qty,
-//           ]);
-       }
-
-
-
-
-       dd($sale);
-
-        return response()->json(['message' => 'Data inserted successfully','data'=>$inputsArray,'customer_id'=>$customer_id]);
-//        return redirect()->route('sales.index');
-    }
-//    public function store(Request $request)
-//    {
 //         dd($request->inputs);
-//        $dataArray = $request->inputs;
-//        $customer_id = $request->customer_id;
+        $dataArray = $request->inputs;
+        $customer_id = $request->customer_id;
 
 //        foreach ($dataArray as $data) {
 //            Sale::create($data);
@@ -141,7 +98,7 @@ class SaleController extends Controller
 //            Sale::create([
 //                'customer_id'=>$request->customer_id,
 //            ]);
-//        return response()->json(['message' => 'Data inserted successfully','data'=>$dataArray,'customer_id'=>$customer_id]);
+        return response()->json(['message' => 'Data inserted successfully','data'=>$dataArray,'customer_id'=>$customer_id]);
 //        $this->validate($request,[
 //            'product'=>'required',
 //            'quantity'=>'required|integer|min:1'
@@ -176,7 +133,7 @@ class SaleController extends Controller
 //            session()->flash('error','Product is running out of stock!!!');
 //        }
 //        return redirect()->route('sales.index');
-//    }
+    }
     /*
     |--------------------------------------------------------------------------
     | handle edit an Sales

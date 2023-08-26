@@ -51,7 +51,7 @@
                         <div class="card-body">
                             <h4 class="text-center">Create Bill</h4>
                             <hr/>
-                            <form action="{{route('sales.store')}}" method="POST" id="add_sale_form" enctype="multipart/form-data">
+                            <form action="" method="POST" id="add_sale_form" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
                                     <label for="custom_field1">Select customers</label>
@@ -69,7 +69,6 @@
                                         <table class="table">
                                             <thead class="shadow-sm p-3 mb-5 bg-white rounded">
                                             <tr>
-                                                <th scope="col">S/N</th>
                                                 <th scope="col">Product Name</th>
                                                 <th scope="col">Quantity</th>
                                                 <th scope="col">Rate</th>
@@ -353,14 +352,13 @@
             ++i;
             $('#input_fields_wrap').prepend(`
                 <tr id="tr-${id}">
-                    <td>${i}</td>
-                    <td>${name} <input type="hidden" name="product_id[]" id="product_id" value="${id}"></td>
+                    <td>${name} <input type="hidden" name="inputs[`+i+`][product_id]" id="product_id" value="${id}"></td>
                     <td>
-                        <input type="text" class="form-control" name="qty[]" id="qty-${id}" onkeyup="calcPrice(${id})">
+                        <input type="text" class="form-control" name="inputs[`+i+`][quantity]" id="qty-${id}" onkeyup="calcPrice(${id})">
                     </td>
-                    <td id="rate-${id}">${price} <input type="hidden" name="rate[]" id="rate-${id}" value="${price}"></td>
+                    <td id="rate-${id}">${price} <input type="hidden" name="inputs[`+i+`][rate]" id="rate-${id}" value="${price}"></td>
                     <td>
-                        <input class="td-price form-control" type="text" name="price[]" readonly name="price-${id}" id="price-${id}">
+                        <input class="td-price form-control" type="text" name="inputs[`+i+`][total_price]" readonly name="price-${id}" id="price-${id}">
                     </td>
 
                     <td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" onclick="remove(${id})"><i class="fa fa-trash"></i></a></td>
@@ -371,7 +369,6 @@
 
         function  remove(id){
             $('#tr-'+id).remove();
-            i--
             totalCalc();
         }
 
@@ -461,41 +458,41 @@
             });
 
             // add new sales ajax request
-            {{--$("#add_sale_form").submit(function (e) {--}}
-            {{--    e.preventDefault();--}}
-            {{--    const fd = new FormData(this);--}}
-            {{--    $("#add_sale_btn").text('Adding...');--}}
-            {{--    $.ajax({--}}
-            {{--        url: '{{ route('sales.store') }}',--}}
-            {{--        method: 'post',--}}
-            {{--        data: fd,--}}
-            {{--        cache: false,--}}
-            {{--        contentType: false,--}}
-            {{--        processData: false,--}}
-            {{--        dataType: 'json',--}}
-            {{--        success: function (response) {--}}
-            {{--            if (response.status == 200) {--}}
-            {{--                Swal.fire(--}}
-            {{--                    'Added!',--}}
-            {{--                    'Sales Added Successfully!',--}}
-            {{--                    'success'--}}
-            {{--                )--}}
-            {{--                location.reload();--}}
-            {{--            }--}}
-            {{--            $("#add_sale_btn").text('Add Sale');--}}
-            {{--            $("#add_sale_form")[0].reset();--}}
-            {{--        },--}}
-            {{--        error: function (xhr, ajaxOptions, thrownError) {--}}
-            {{--            // alert(xhr.status);--}}
-            {{--            Swal.fire(--}}
-            {{--                'Sales Add fails!',--}}
-            {{--                thrownError,--}}
-            {{--                'error'--}}
-            {{--            )--}}
-            {{--            // alert(thrownError);--}}
-            {{--        }--}}
-            {{--    })--}}
-            {{--});--}}
+            $("#add_sale_form").submit(function (e) {
+                e.preventDefault();
+                const fd = new FormData(this);
+                $("#add_sale_btn").text('Adding...');
+                $.ajax({
+                    url: '{{ route('sales.store') }}',
+                    method: 'post',
+                    data: fd,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == 200) {
+                            Swal.fire(
+                                'Added!',
+                                'Sales Added Successfully!',
+                                'success'
+                            )
+                            location.reload();
+                        }
+                        $("#add_sale_btn").text('Add Sale');
+                        $("#add_sale_form")[0].reset();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        Swal.fire(
+                            'Sales Add fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);
+                    }
+                })
+            });
 
             // fetch all product ajax request
             fetchAllProduct();
