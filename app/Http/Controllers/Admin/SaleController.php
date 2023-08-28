@@ -36,18 +36,22 @@ class SaleController extends Controller
 		try {
             $product = Product::all();
             $output = '';
+            $i = 0;
             if ($product->count() > 0) {
                 $output .= '<table class="table table-striped table-sm align-middle" id="tablebtn">
             <thead>
               <tr>
+              <th>S/N</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Add to cart</th>
               </tr>
             </thead>
             <tbody>';
+
                 foreach ($product as $item) {
                     $output .= '<tr>
+                <td>' . ++$i . '</td>
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">

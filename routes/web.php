@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/users-edit', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/users-update', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users-delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::get('/profile', [UserController::class, 'profile'])->name('users.profile');
     /*
     |--------------------------------------------------------------------------
     | All Categories Routes

@@ -22,8 +22,8 @@
                             <li><a href="{{ route('categories.index')}}">All Categories</a></li>
                         </ul>
                     </li>
-                @endif
-
+                @endif 
+                
                 <li class="submenu">
                     <a href="#"><i class="la la-people-carry"></i> <span> Supplier  </span> <span
                             class="menu-arrow"></span></a>
@@ -129,14 +129,14 @@
                     </ul>
                 </li>
 
-                <li class="submenu">
+                <!-- <li class="submenu">
                     <a href="#"><i class="la la-lock"></i> <span> Access Control  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
                         <li><a href="{{ url('admin/products')}}">Permissions</a></li>
                         <li><a href="{{ url('admin/products')}}">Roles</a></li>
                     </ul>
-                </li>
+                </li> -->
 
                 <li class="submenu">
                     <a href="#"><i class="la la-users"></i> <span> User  </span> <span
@@ -150,19 +150,19 @@
                     <a href="#"><i class="la la-user-circle"></i> <span> Profile  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ url('admin/products')}}">Profile Edit</a></li>
-                        <li><a href="{{ url('admin/products')}}"><i class="material-icons" style="font-size:20px;">backup</i>
-                                <span>Backups</span></a></li>
+                        <li><a href="{{ route('users.profile')}}">Profile</a></li>
+                        <!-- <li><a href="{{ url('admin/products')}}"><i class="material-icons" style="font-size:20px;">backup</i>
+                                <span>Backups</span></a></li> -->
                     </ul>
                 </li>
 
-                <li class="submenu">
+                <!-- <li class="submenu">
                     <a href="#"><i class="la la-cog"></i> <span> Settings  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
                         <li><a href="{{ url('admin/products')}}">Settings</a></li>
                     </ul>
-                </li>
+                </li> -->
 
             </ul>
         </div>
