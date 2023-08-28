@@ -23,11 +23,13 @@ class CustomerController extends Controller
         try {
             $Customers = Customer::all();
             $output = '';
+            $i = 0;
             if ($Customers->count() > 0) {
                 $output .= '<table class="table table-striped table-sm text-center align-middle">
             <thead>
               <tr>
                 <th>SN</th>
+                <th>Customer ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -39,6 +41,7 @@ class CustomerController extends Controller
             <tbody>';
                 foreach ($Customers as $customers) {
                     $output .= '<tr>
+                <td>' . ++$i . '</td>
                 <td>' . $customers->customer_id . '</td>
                 <td>' . $customers->name . '</td>
                 <td>' . $customers->email . '</td>

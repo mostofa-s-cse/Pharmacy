@@ -39,6 +39,7 @@
                             <table id="purchase-table"  class="datatable table table-hover table-center mb-0">
                                     <thead>
                                     <tr>
+                                    <th>S/N</th>
                                         <th>Medicine Name</th>
                                         <th>Category</th>
                                         <th>Supplier</th>
@@ -48,9 +49,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($purchases as $item)
+                                    @foreach ($purchases as $index=>$item)
                                         @if (!(empty($item)))
                                             <tr>
+                                            <td>{{$index+1}}</td>
                                                 <td>
                                                     @if (!empty($item->image))
                                                         <span class="avatar avatar-sm mr-2">
@@ -125,6 +127,7 @@
 @endsection
 @section('script')
     <script>
+        var i=0;
             var table = $('#purchase-table').DataTable({
                 "responsive": false,
                 "lengthChange": true,

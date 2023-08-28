@@ -93,6 +93,8 @@ class SaleController extends Controller
           'paid_by' => $request->paid_by,
           'amount_paid' => $request->amount_paid,
           'due_return' => $request->due_return,
+          'created_at' => now(),
+          'updated_at' => now(),
        ]);
 
        $product_count = count($request->product_id);
@@ -104,22 +106,27 @@ class SaleController extends Controller
                'quantity' => $request->qty[$i],
                'rate' => $request->rate[$i],
                'price' => $request->price[$i],
+               'created_at' => now(),
+               'updated_at' => now(),
            ]);
 
-//           $product_qty = DB::table('products')->where('id', $request->product_id[$i])->first(['quantity']);
-//
-//           $current_qty = (int) $product_qty->quantity - $request->qty[$i];
-//
-//           DB::table('products')->update([
-//               'quantity' => $current_qty,
-//           ]);
+          $product_qty = DB::table('purchases')->where('id', $request->product_id[$i])->first(['quantity']);
+
+          $current_qty = (int) $product_qty->quantity - $request->qty[$i];
+
+          DB::table('purchases')->update([
+              'quantity' => $current_qty,
+          ]);
        }
 
 
 
 
     //    dd($sale);
-       return redirect()->route('sales.index');
+    //    return redirect()->route('sales.index');
+       return response()->json([
+        'status' => 200,
+    ]);
     }
 
     /*
