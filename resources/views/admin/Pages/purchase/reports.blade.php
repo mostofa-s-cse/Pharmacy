@@ -125,13 +125,11 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function(){
             var table = $('#purchase-table').DataTable({
                 "responsive": false,
                 "lengthChange": true,
                 "autoWidth": false,
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#purchase-table_wrapper .col-md-6:eq(0)');
-        });
     </script>
 @endsection
