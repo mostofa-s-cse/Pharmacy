@@ -186,7 +186,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input class="form-control" type="text" name="email" id="email" required="true">
+                                        <input class="form-control" type="email" name="email" id="email" required="true">
                                     </div>
                                 </div>
                             </div>

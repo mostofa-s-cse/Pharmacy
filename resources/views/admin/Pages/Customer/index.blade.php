@@ -72,7 +72,7 @@
 						<div class="col-lg-6">
                         <div class="form-group">
                             <label>Email</label>
-                            <input class="form-control" type="text" name="email" id="email" required="true">
+                            <input class="form-control" type="email" name="email" id="email" required="true">
 							</div>
 						</div>
 					</div>
@@ -128,7 +128,7 @@
 						</div>
 						<div class="col-lg-6">
 							<label>Email</label>
-							<input class="form-control" type="text" name="email" id="Email" required="true">
+							<input class="form-control" type="email" name="email" id="Email" required="true">
 						</div>
 					</div>
 				</div>
@@ -340,9 +340,7 @@
                     method: 'get',
                     success: function (response) {
                         $("#show_all_Customer").html(response);
-                        $("table").DataTable({
-                            order: [0, 'desc']
-                        });
+                        $("table").DataTable();
                     }
                 });
             }
