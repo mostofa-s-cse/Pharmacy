@@ -43,7 +43,6 @@ Route::get('admin/dashboard', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('pages.bashboard');
-
     /*
     |--------------------------------------------------------------------------
     | All User Routes
@@ -90,7 +89,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/purchase-edit', [PurchaseController::class, 'edit'])->name('purchase.edit');
     Route::post('/purchase-update', [PurchaseController::class, 'update'])->name('purchase.update');
     Route::delete('/purchase-delete', [PurchaseController::class, 'delete'])->name('purchase.delete');
-
     Route::get('/purchase-reports', [PurchaseController::class, 'reports'])->name('purchase.reports');
     Route::post('/purchase-reports', [PurchaseController::class, 'generateReport'])->name('purchase.generateReport');
     /*
@@ -117,8 +115,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     // Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
     // Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');
     Route::get('/sales_details', [SaleController::class, 'SalesDetails'])->name('sales.details');
+    Route::get('/sales_fetchAllsales', [SaleController::class, 'fetchAllSales'])->name('sales.fetchAllSales');
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
-
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
     Route::post('/sales-reports', [SaleController::class, 'generateReport'])->name('sales.generateReport');
    /*
@@ -133,7 +131,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
    Route::get('/damage/edit', [DamageController ::class, 'edit'])->name('damage.edit');
    Route::post('/damage/update', [DamageController::class, 'update'])->name('damage.update');
    Route::delete('/damage/delete', [DamageController::class, 'destroy'])->name('damage.delete');
-
    Route::get('/damage-reports', [DamageController::class, 'reports'])->name('damage.reports');
     Route::post('/damage-reports', [DamageController::class, 'generateReport'])->name('damage.generateReport');
  
