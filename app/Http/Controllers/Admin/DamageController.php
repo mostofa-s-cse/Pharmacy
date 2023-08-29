@@ -14,44 +14,67 @@ use Illuminate\Support\Facades\DB;
 class DamageController extends Controller
 {
     //
-    public function index(Request $request)
+    public function index()
     {
-        if($request->ajax()){
-            $damages = Damage::all();
-            return DataTables::of($damages)
-                    ->addIndexColumn()
-                    ->addColumn('product',function($damage){
-                        $image = '';
-                        if(!empty($damage->product)){
-                            $image = null;
-                            if(!empty($damage->product->purchase->image)){
-                                $image = '<span class="avatar avatar-sm mr-2">
-                                <img class="avatar-img" src="'.asset("storage/purchases/".$damage->product->purchase->image).'" alt="image">
-                                </span>';
-                            }
-                            return $image . ' ' . $damage->product->purchase->product;
-                        }
-                    })
-                    ->addColumn('total_price',function($damage){
-                        return $damage->total_price;
-                    })
-                    ->addColumn('date',function($row){
-                        return date_format(date_create($row->created_at),'d M, Y');
-                    })
-                    ->addColumn('action', function ($row) {
-                        $editbtn = '<a href="#" id="" ' . $row->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editSalesModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
-                        $deletebtn = '<a href="#" id="  ' . $row->id . '" name="' . $row->product   .'" class="text-danger mx-1 deleteDamageProduct"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
-                        $btn = $editbtn.' '.$deletebtn;
-                        return $btn;
-                    })
-                    ->rawColumns(['product','action'])
-                    ->make(true);
-
-        }
-        $products = Product::get();
+        $products = Product::all();
         return view('admin.pages.damage.index',compact(
-            'products'
-        ));
+                    'products'
+                ));
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | handle fetch all Customer ajax request
+    |--------------------------------------------------------------------------
+    */
+    public function fetchAll()
+    {
+        try {
+            $damage = Damage::all();
+            $output = '';
+            $i = 0;
+            if ($damage->count() > 0) {
+                $output .= '<table class="table table-striped table-sm text-center align-middle">
+            <thead>
+              <tr>
+              <th>S/N</th>
+              <th>Medicine Name</th>
+              <th>Quantity</th>
+              <th>Total Price</th>
+              <th>Date</th>
+              <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>';
+                foreach ($damage as $item) {
+                    $output .= '<tr>
+                <td>' . ++$i . '</td>
+                <td class="sorting_1">
+                <h2 class="table-avatar">
+                <img class="avatar" src="'.asset("storage/purchases/".$item->product->purchase->image).'" alt="product">
+                <a href=""><span>' . $item->product->purchase->product . '</span></a>
+                </h2>
+                </td>
+                <td>' . $item->quantity . '</td>
+                <td>' . $item->total_price . '</td>
+                <td>' . date_format(date_create($item->created_at),'d M, Y') . '</td>
+                <td>
+                  <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editDamageModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
+
+                  <a href="#" id="' . $item->id . '" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
+                </td>
+              </tr>';
+                }
+                $output .= '</tbody></table>';
+                echo $output;
+            } else {
+                echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
+            }
+        } catch (\Exception $e) {
+            // Return Json Response
+            return response()->json([
+                'message' => $e
+            ], 500);
+        }
     }
 
     public function store(Request $request)
@@ -164,7 +187,34 @@ class DamageController extends Controller
         return Damage::findOrFail($request->id)->delete();
     }
     
-
+/*
+    |--------------------------------------------------------------------------
+    | handle an Sales reports view
+    |--------------------------------------------------------------------------
+    */
+    public function reports(){
+        $damage = Damage::get();
+        return view('admin.pages.damage.reports',compact(
+            'damage'
+        ));
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | handle an Sales generateReport reports view
+    |--------------------------------------------------------------------------
+    */
+    public function generateReport(Request $request){
+        // dd($request);
+        $this->validate($request,[
+            'from_date' => 'required',
+            'to_date' => 'required',
+        ]);
+        $damage = Damage::whereBetween(\DB::raw('DATE(created_at)'), array($request->from_date, $request->to_date))->get();
+        // dd($damage);
+        return view('admin.pages.damage.reports',compact(
+            'damage'
+        ));
+    }
      
     
 }

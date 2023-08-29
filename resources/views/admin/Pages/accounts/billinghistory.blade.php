@@ -53,7 +53,7 @@
                                             <td class="text-wrap">{{ $item->product }}</td>
                                             <td class="text-wrap">{{ $item->sub_total }}</td>
                                             <td class="text-wrap">{{ $item->discount }}</td>
-                                            <td class="text-wrap">{{ $item->total }}</td>
+                                            <td class="text-wrap">{{ $item->total_price }}</td>
                                             <td class="text-wrap">{{ $item->paid_by }}</td>
                                             <td class="text-wrap">{{ $item->amount_paid }}</td>
                                             <td class="text-wrap">{{ $item->due_return }}</td>

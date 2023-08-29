@@ -43,10 +43,12 @@ class PurchaseController extends Controller
             //         })->get(['p.*','c.name as category_name','s.name as as supplier_name']);
 
             $output = '';
+            $i = 0;
             if ($purchase->count() > 0) {
                 $output .= '<table class="table table-striped table-sm align-middle">
             <thead>
               <tr>
+              <th>S/N</th>
                 <th>Medicine Name</th>
                 <th>Category</th>
                 <th>Supplier</th>
@@ -59,6 +61,7 @@ class PurchaseController extends Controller
             <tbody>';
                 foreach ($purchase as $item) {
                     $output .= '<tr>
+                <td>' . ++$i . '</td>
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->image).'" alt="product">
@@ -210,7 +213,8 @@ class PurchaseController extends Controller
             'from_date' => 'required',
             'to_date' => 'required',
         ]);
-        $purchases = Purchase::whereBetween(DB::raw('DATE(created_at)'), array($request->from_date, $request->to_date))->get();
+        $purchases = Purchase::whereBetween(\DB::raw('DATE(created_at)'), array($request->from_date, $request->to_date))->get();
+        // dd($purchases);
         return view('admin.pages.purchase.reports',compact(
             'purchases'
         ));

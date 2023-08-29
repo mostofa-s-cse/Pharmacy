@@ -394,9 +394,7 @@
                     method: 'get',
                     success: function (response) {
                         $("#show_all_Purchase").html(response);
-                        $("table").DataTable({
-                            order: [0, 'desc']
-                        });
+                        $("table").DataTable();
                     }
                 });
             }

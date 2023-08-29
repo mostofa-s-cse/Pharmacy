@@ -10,6 +10,7 @@ use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Events\PurchaseOutStock;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
@@ -24,7 +25,7 @@ class SaleController extends Controller
         $products = Product::get();
         $customers = Customer::get();
         return view('admin.pages.sales.index',compact(
-            'products','customers'
+            'products','customers',
         ));
     }
    /*
@@ -36,18 +37,22 @@ class SaleController extends Controller
 		try {
             $product = Product::all();
             $output = '';
+            $i = 0;
             if ($product->count() > 0) {
                 $output .= '<table class="table table-striped table-sm align-middle" id="tablebtn">
             <thead>
               <tr>
+              <th>S/N</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Add to cart</th>
               </tr>
             </thead>
             <tbody>';
+
                 foreach ($product as $item) {
                     $output .= '<tr>
+                <td>' . ++$i . '</td>
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">
@@ -89,10 +94,12 @@ class SaleController extends Controller
           'customer_id' => $request->customer_id,
           'sub_total' => $request->sub_total,
           'discount' => $request->discount,
-          'total' => $request->total,
+          'total_price' => $request->total_price,
           'paid_by' => $request->paid_by,
           'amount_paid' => $request->amount_paid,
           'due_return' => $request->due_return,
+          'created_at' => now(),
+          'updated_at' => now(),
        ]);
 
        $product_count = count($request->product_id);
@@ -104,22 +111,27 @@ class SaleController extends Controller
                'quantity' => $request->qty[$i],
                'rate' => $request->rate[$i],
                'price' => $request->price[$i],
+               'created_at' => now(),
+               'updated_at' => now(),
            ]);
 
-//           $product_qty = DB::table('products')->where('id', $request->product_id[$i])->first(['quantity']);
-//
-//           $current_qty = (int) $product_qty->quantity - $request->qty[$i];
-//
-//           DB::table('products')->update([
-//               'quantity' => $current_qty,
-//           ]);
+          $product_qty = DB::table('purchases')->where('id', $request->product_id[$i])->first(['quantity']);
+
+          $current_qty = (int) $product_qty->quantity - $request->qty[$i];
+
+          DB::table('purchases')->update([
+              'quantity' => $current_qty,
+          ]);
        }
 
 
 
 
     //    dd($sale);
-       return redirect()->route('sales.index');
+    //    return redirect()->route('sales.index');
+       return response()->json([
+        'status' => 200,
+    ]);
     }
 
     /*
@@ -192,6 +204,19 @@ class SaleController extends Controller
     public function destroy(Request $request)
     {
         return Sale::findOrFail($request->id)->delete();
+    }
+
+ /*
+    |--------------------------------------------------------------------------
+    | handle get all an Sales details ajax request
+    |--------------------------------------------------------------------------
+    */
+    public function SalesDetails()
+    {
+        $sales = Sale::get();
+        return view('admin.pages.sales.details',compact(
+            'sales',
+        ));
     }
     /*
     |--------------------------------------------------------------------------

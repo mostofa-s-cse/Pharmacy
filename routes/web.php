@@ -43,6 +43,7 @@ Route::get('admin/dashboard', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('pages.bashboard');
+
     /*
     |--------------------------------------------------------------------------
     | All User Routes
@@ -55,6 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/users-edit', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/users-update', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users-delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::get('/profile', [UserController::class, 'profile'])->name('users.profile');
     /*
     |--------------------------------------------------------------------------
     | All Categories Routes
@@ -90,7 +92,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::delete('/purchase-delete', [PurchaseController::class, 'delete'])->name('purchase.delete');
 
     Route::get('/purchase-reports', [PurchaseController::class, 'reports'])->name('purchase.reports');
-    Route::post('/purchase-reports', [PurchaseController::class, 'generateReport']);
+    Route::post('/purchase-reports', [PurchaseController::class, 'generateReport'])->name('purchase.generateReport');
     /*
     |--------------------------------------------------------------------------
     | All Purchase Routes
@@ -112,23 +114,28 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('sales', [SaleController::class, 'index'])->name('sales.index');
     Route::get('/sales-fetchAll', [SaleController::class, 'fetchAll'])->name('sales.fetchAll');
     Route::post('/sales-store', [SaleController::class, 'store'])->name('sales.store');
-    Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
-    Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');
+    // Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
+    // Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');
+    Route::get('/sales_details', [SaleController::class, 'SalesDetails'])->name('sales.details');
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
-    Route::post('/sales-reports', [SaleController::class, 'generateReport']);
-        /*
+    Route::post('/sales-reports', [SaleController::class, 'generateReport'])->name('sales.generateReport');
+   /*
    |--------------------------------------------------------------------------
    | All Damage Routes
    |--------------------------------------------------------------------------
    */
 
    Route::get('/damage',[DamageController::class, 'index'])->name('damage.index');
+   Route::get('/damage-fetchall', [DamageController::class, 'fetchAll'])->name('damage.fetchAll');
    Route::post('/damage/store', [DamageController::class, 'store'])->name('damage.store');
    Route::get('/damage/edit', [DamageController ::class, 'edit'])->name('damage.edit');
    Route::post('/damage/update', [DamageController::class, 'update'])->name('damage.update');
    Route::delete('/damage/delete', [DamageController::class, 'destroy'])->name('damage.delete');
+
+   Route::get('/damage-reports', [DamageController::class, 'reports'])->name('damage.reports');
+    Route::post('/damage-reports', [DamageController::class, 'generateReport'])->name('damage.generateReport');
  
     /*
     |--------------------------------------------------------------------------
@@ -154,33 +161,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/customer-update', [CustomerController::class, 'update'])->name('customer.update');
     Route::delete('/customer-delete', [CustomerController::class, 'delete'])->name('customer.delete');
 
-    /*
-  |--------------------------------------------------------------------------
-  | All Company Routes
-  |--------------------------------------------------------------------------
-  */
-    Route::get('company', [CompanyController::class, 'index'])->name('company.index');
-
    /*
    |--------------------------------------------------------------------------
    | All Inventories Routes
    |--------------------------------------------------------------------------
    */
-
-   Route::get('/inventories',[InventoryController::class, 'index'])->name('inventory.index');
-   Route::post('/inventories/store', [InventoryController::class, 'store'])->name('inventories.store');
-   Route::get('/inventories/edit/{id}', [InventoryController::class, 'edit'])->name('inventories.edit');
-   Route::put('/inventories/show/{id}', [InventoryController::class, 'show'])->name('inventories.show');
-   Route::put('/inventories/update/{id}', [InventoryController::class, 'update'])->name('inventories.update');
-   Route::get('/inventories/delete/{id}', [InventoryController::class, 'delete'])->name('inventories.delete');
-
-   /*
-   |--------------------------------------------------------------------------
-   | Other Transaction route
-   |--------------------------------------------------------------------------
-   */
-   
-
-
-
+  Route::get('inventories', [InventoryController::class, 'index'])->name('inventory.index');
+  Route::get('/inventories-fetchall', [InventoryController::class, 'fetchAll'])->name('inventory.fetchAll');
+  Route::post('/inventories-store', [InventoryController::class, 'store'])->name('inventory.store');
+  Route::get('/inventories-edit', [InventoryController::class, 'edit'])->name('inventory.edit');
+  Route::post('/inventories-update', [InventoryController::class, 'update'])->name('inventory.update');
+  Route::delete('/inventories-delete', [InventoryController::class, 'delete'])->name('inventory.delete');
 });

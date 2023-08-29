@@ -32,28 +32,17 @@
                             <div class="col-md-12">
 
                               <!--  damage -->
-                              <div class="card">
-                                  <div class="table-responsive">
-                                      <div class="card-body">
-                                              <table id="outstock-product" class=" table table-hover table-center mb-0">
-                                                  <thead>
-                                                      <tr>
-                                                      <th>Medicine Name</th>
-                                                      <th>Quantity</th>
-                                                      <th>Total Price</th>
-                                                      <th>Date</th>
-                                                      <th class="action-btn">Action</th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tbody>
+                             
+                            <div class="card">
+                                <div class="table-responsive">
+                                    <div class="card-body" id="show_all_Damage">
+                                        <h3 class="text-center text-secondary my-5">Loading...</h3>
+                                    </div>
+                                </div>
+                               
+                            </div>
 
-                                                  </tbody>
-                                              </table>
-                                          </div>
-                                      </div>
-                                  </div>
-
-		            <!-- / damage -->
+		                      <!-- / damage -->
                     </div>
                 </div>
 				</div>
@@ -106,11 +95,11 @@
 
             <!-- add end -->
 
-            <div id="editSalesModal" class="modal custom-modal fade" role="dialog">
+            <div id="editDamageModal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Sales</h5>
+                            <h5 class="modal-title">Edit Damage</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -139,7 +128,7 @@
                               <div class="col-12">
                                 <div class="form-group">
                                   <label>Quantity</label>
-                                  <input type="number" class="form-control edit_quantity" id="quantity" name="quantity">
+                                  <input type="number" class="form-control" id="quantity" name="quantity">
                                 </div>
                               </div>
                             </div>
@@ -164,7 +153,8 @@
             serverSide: true,
             ajax: "{{route('damage.index')}}",
             columns: [
-              {data: 'product', name: 'product'},
+                {data: 'S/N', name: 'S/N'},
+                {data: 'product', name: 'product'},
                 {data: 'quantity', name: 'quantity'},
                 {data: 'total_price', name: 'total_price'},
 				        {data: 'date', name: 'date'},
@@ -241,50 +231,63 @@
         });
       });
 
-      // delete sales ajax request
-	   $(document).on('click', '.deleteDamageProduct', function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        let csrf = '{{ csrf_token() }}';
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $.ajax({
-              url: '{{ route('damage.delete') }}',
-              method: 'delete',
-              data: {
-                id: id,
-                _token: csrf
-              },
-              success: function(response) {
-                console.log(response);
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                )
-                window.location.reload();
-              },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    // alert(xhr.status);
-                    Swal.fire(
-                        'Damage Product delete fails!',
-                        thrownError,
-                        'error'
-                    )
-                    // alert(thrownError);
-                }
+       // delete Customer ajax request
+       $(document).on('click', '.deleteIcon', function (e) {
+                e.preventDefault();
+                let id = $(this).attr('id');
+                let csrf = '{{ csrf_token() }}';
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Delete this category?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ route('damage.delete') }}',
+                            method: 'delete',
+                            data: {
+                                id: id,
+                                _token: csrf
+                            },
+                            success: function (response) {
+                                console.log(response);
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                                fetchAllDamage();
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                // alert(xhr.status);
+                                Swal.fire(
+                                    'Damage delete fails!',
+                                    thrownError,
+                                    'error'
+                                )
+                                // alert(thrownError);
+                            }
+                        });
+                    }
+                })
             });
-          }
-        })
-      });
+      // fetch all damage ajax request
+      fetchAllDamage();
+
+      function fetchAllDamage() {
+          $.ajax({
+              url: '{{ route('damage.fetchAll') }}',
+              method: 'get',
+              success: function (response) {
+                  $("#show_all_Damage").html(response);
+                  $("table").DataTable();
+              }
+          });
+      }
 	});
     </script>
 @endsection

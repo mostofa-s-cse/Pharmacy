@@ -38,8 +38,8 @@
                 <span>{{ Auth::user()->name }}</span>
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="profile.html">My Profile</a>
-                <a class="dropdown-item" href="settings.html">Settings</a>
+                <a class="dropdown-item" href="{{ route('users.profile')}}">My Profile</a>
+                <!-- <a class="dropdown-item" href="settings.html">Settings</a> -->
                 <a class="dropdown-item" href="#"
                    onclick="event.preventDefault();document.getElementById('logout-form').submit()">Logout</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
@@ -54,8 +54,8 @@
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i
                 class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="profile.html">My Profile</a>
-            <a class="dropdown-item" href="settings.html">Settings</a>
+            <a class="dropdown-item" href="{{ route('users.profile')}}">My Profile</a>
+            <!-- <a class="dropdown-item" href="settings.html">Settings</a> -->
             <a class="dropdown-item" href="#"
                onclick="event.preventDefault();document.getElementById('logout-form').submit()">Logout</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
