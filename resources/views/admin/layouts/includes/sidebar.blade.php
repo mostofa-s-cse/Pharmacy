@@ -89,7 +89,7 @@
                     <a href="#"><i class="la la-user-alt"></i> <span> Accounts  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{{ route('accounts.index')}}">Accounts Details</a></li>
+                        <li><a href="{{ route('accounts.index')}}">Accounts Statement</a></li>
                         <li><a href="{{ route('billinghistory.index')}}">Billing History</a></li>
                         <li><a href="{{ route('othertransaction.index')}}">Other Transaction</a></li>
                         <li><a href="{{ route('transactionhistory.index')}}">Transaction History</a></li>

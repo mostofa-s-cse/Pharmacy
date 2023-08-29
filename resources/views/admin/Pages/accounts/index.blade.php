@@ -11,30 +11,41 @@
                         <li class="breadcrumb-item active">Accounts</li>
                     </ul>
                 </div>
-                <div class="col-auto float-end ms-auto">
-                    <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addCategoriesModal"><i
-                            class="fa fa-plus"></i> Add Accounts</a>
-                </div>
+                
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
 
-                <!-- Categoriess -->
-{{--                <div class="card">--}}
-{{--                    <div class="table-responsive">--}}
-{{--                        <div class="card-body" id="show_all_Categories">--}}
-{{--                            <h3 class="text-center text-secondary my-5">Loading...</h3>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-                    <!-- /Categoriess-->
+                <!-- account details -->
+                <div class="card">
+                    <div class="table-responsive">
+                        <div class="card-body">
+                            <table  class="table table-striped table-sm text-center align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>Account Head</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        
+                                        
+                                    </tr>
+                                  </thead>
+                                  <tbody >
+                                    
+                                    
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
 
                 </div>
             </div>
         </div>
-    </div>
 
-    </div>
+ </div>
 
 @endsection
 @section('script')

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DamageController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\TransactionController;
 
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -137,6 +138,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('accounts', [AccountsController::class, 'index'])->name('accounts.index');
     Route::get('accounts-billing-history', [AccountsController::class, 'BillingHistoryindex'])->name('billinghistory.index');
     Route::get('accounts-other-transaction', [AccountsController::class, 'OtherTransactionIndex'])->name('othertransaction.index');
+    Route::post('accounts-other-transaction/store', [AccountsController::class, 'store'])->name('other.transection.store');
     Route::get('accounts-transaction-history', [AccountsController::class, 'TransactionHistoryIndex'])->name('transactionhistory.index');
     Route::get('cash-memo', [AccountsController::class, 'CashMemo'])->name('cashmemo.index');
     Route::get('barcode-scanning', [AccountsController::class, 'BarcodeScanning'])->name('barcodescanning.index');
@@ -168,7 +170,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
    Route::get('/inventories',[InventoryController::class, 'index'])->name('inventory.index');
    Route::post('/inventories/store', [InventoryController::class, 'store'])->name('inventories.store');
    Route::get('/inventories/edit/{id}', [InventoryController::class, 'edit'])->name('inventories.edit');
+   Route::put('/inventories/show/{id}', [InventoryController::class, 'show'])->name('inventories.show');
    Route::put('/inventories/update/{id}', [InventoryController::class, 'update'])->name('inventories.update');
    Route::get('/inventories/delete/{id}', [InventoryController::class, 'delete'])->name('inventories.delete');
+
+   /*
+   |--------------------------------------------------------------------------
+   | Other Transaction route
+   |--------------------------------------------------------------------------
+   */
+   
+
+
 
 });

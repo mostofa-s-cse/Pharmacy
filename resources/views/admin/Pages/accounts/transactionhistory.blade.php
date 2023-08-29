@@ -11,37 +11,48 @@
                         <li class="breadcrumb-item active">Accounts</li>
                         <li class="breadcrumb-item active">Transaction History</li>
                     </ul>
-                </div>
-{{--                <div class="col-auto float-end ms-auto">--}}
-{{--                    <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addCategoriesModal"><i--}}
-{{--                            class="fa fa-plus"></i> Add CashMemo</a>--}}
-{{--                </div>--}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-
-                <!-- Categoriess -->
-{{--                <div class="card">--}}
-{{--                    <div class="table-responsive">--}}
-{{--                        <div class="card-body" id="show_all_Categories">--}}
-{{--                            <h3 class="text-center text-secondary my-5">Loading...</h3>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-                    <!-- /Categoriess-->
-
-                </div>
-            </div>
+                
         </div>
     </div>
-
     </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center">Account Statement Over a Specified Period</h2>
+            
+            <form action="/ledger/details">
 
-@endsection
-@section('script')
-    <script>
-        $(function () {
+                  <div class="form-group ">
+                    <label for="datepicker" class="text-dark">From Date</label>
+                    <input type="date" required class="form-control border border-primary" name="from" id="from">
+                  </div>
+                  <div class="form-group">
+                    <label for="datepicker" class="text-dark">To Date</label>
+                    <input type="date" required class="form-control border border-primary" name="to" id="to">
+                  </div>
 
-        });
-    </script>
+
+                  <div class="text-right">
+                    <button type="submit"  class="btn btn-dark" >Report</button>
+                  </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+   
+
+
+<script>
+    $(document).ready(function () {
+    minDate = new DateTime($('#from'), {
+                format: 'YYYY-MM-DD'
+            });
+            maxDate = new DateTime($('#to'), {
+                format: 'YYYY-MM-DD'
+            });
+});
+</script>
 @endsection
