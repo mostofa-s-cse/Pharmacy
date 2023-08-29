@@ -42,6 +42,7 @@ Route::get('admin/dashboard', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('pages.bashboard');
+
     /*
     |--------------------------------------------------------------------------
     | All User Routes
@@ -112,13 +113,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('sales', [SaleController::class, 'index'])->name('sales.index');
     Route::get('/sales-fetchAll', [SaleController::class, 'fetchAll'])->name('sales.fetchAll');
     Route::post('/sales-store', [SaleController::class, 'store'])->name('sales.store');
-    Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
-    Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');
+    // Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
+    // Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');
+    Route::get('/sales_details', [SaleController::class, 'SalesDetails'])->name('sales.details');
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
     Route::post('/sales-reports', [SaleController::class, 'generateReport'])->name('sales.generateReport');
-        /*
+   /*
    |--------------------------------------------------------------------------
    | All Damage Routes
    |--------------------------------------------------------------------------
