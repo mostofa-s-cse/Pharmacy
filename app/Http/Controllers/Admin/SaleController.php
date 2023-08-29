@@ -213,10 +213,58 @@ class SaleController extends Controller
     */
     public function SalesDetails()
     {
-        $sales = Sale::get();
-        return view('admin.pages.sales.details',compact(
-            'sales',
-        ));
+        return view('admin.pages.sales.details');
+    }
+      /*
+    |--------------------------------------------------------------------------
+    | fetchAllsales 
+    |--------------------------------------------------------------------------
+    */
+    public function fetchAllSales() {
+		try {
+            $sales = Sale::all();
+            $output = '';
+            $i = 0;
+            if ($sales->count() > 0) {
+                $output .= '<table class="table table-striped table-sm align-middle" id="tablebtn">
+            <thead>
+              <tr>
+              <th>S/N</th>
+              <th>Customer ID</th>
+              <th>Sub Total</th>
+              <th>Discount</th>
+              <th>Total Price</th>
+              <th>Paid By</th>
+              <th>Amount Paid</th>
+              <th>Due/Return</th>
+              </tr>
+            </thead>
+            <tbody>';
+
+                foreach ($sales as $item) {
+                    $output .= '<tr>
+                <td>' . ++$i . '</td>
+                <td>' . $item->customer_id . '</td>
+                <td>' . $item->sub_total . '</td>
+                <td>' . $item->discount . '</td>
+                <td>' . $item->total_price . '</td>
+                <td>' . $item->paid_by . '</td>
+                <td>' . $item->amount_paid . '</td>
+                <td>' . $item->due_return . '</td>
+                </tr>';
+                }
+                $output .= '</tbody></table>';
+                echo $output;
+
+            } else {
+                echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
+            }
+        } catch (\Exception $e) {
+            // Return Json Response
+            return response()->json([
+                'message' => $e
+            ], 500);
+        }
     }
     /*
     |--------------------------------------------------------------------------

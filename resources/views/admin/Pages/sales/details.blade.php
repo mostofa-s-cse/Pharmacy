@@ -30,45 +30,16 @@
         @endif
         <div class="row">
             <div class="col-md-12">
+                <!-- products -->
                 <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-
-                            <table id="sales-table" class="datatable table table-hover table-center mb-0">
-                                <thead>
-                                <tr>
-                                    <th>Medicine Name</th>
-                                    <th>Quantity</th>
-                                    <th>Total Price</th>
-                                    <th>Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($sales as $sale)
-                                    @if (!(empty($sale->product->purchase)))
-                                        <tr>
-                                            <td>
-                                                @if (!empty($sale->product->purchase->image))
-                                                    <span class="avatar avatar-sm mr-2">
-                                                    <img class="avatar-img"
-                                                         src="{{asset("storage/purchases/".$sale->product->purchase->image)}}"
-                                                         alt="image">
-                                                    </span>
-                                                @endif
-                                                {{$sale->product->purchase->product}}
-                                            </td>
-                                            <td>{{$sale->quantity}}</td>
-                                            <td>{{($sale->total_price)}}</td>
-                                            <td>{{date_format(date_create($sale->created_at),"d M, Y")}}</td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-                                </tbody>
-                            </table>
+                    <div class="table-responsive">
+                        <div class="card-body" id="show_all_Sales">
+                            <h3 class="text-center text-secondary my-5">Loading...</h3>
                         </div>
                     </div>
+
                 </div>
-                <!-- / sales Details -->
+                <!-- /products-->
             </div>
         </div>
     </div>
@@ -82,11 +53,24 @@
 @endsection
 @section('script')
     <script>
-            var table = $('#sales-table').DataTable({
-                "responsive": false,
-                "lengthChange": true,
-                "autoWidth": false,
-                "buttons": ["csv", "excel", "pdf", "print"]
-            }).buttons().container().appendTo('#purchase-table_wrapper .col-md-6:eq(0)');
+            // var table = $('#sales-table').DataTable({
+            //     "responsive": false,
+            //     "lengthChange": true,
+            //     "autoWidth": false,
+            //     "buttons": ["csv", "excel", "pdf", "print"]
+            // }).buttons().container().appendTo('#purchase-table_wrapper .col-md-6:eq(0)');
+            // fetch all product ajax request
+            fetchAllProduct();
+
+            function fetchAllProduct() {
+                $.ajax({
+                    url: '{{ route('sales.fetchAllSales') }}',
+                    method: 'get',
+                    success: function (response) {
+                        $("#show_all_Sales").html(response);
+                        $("table").DataTable({});
+                    }
+                });
+            }
     </script>
 @endsection

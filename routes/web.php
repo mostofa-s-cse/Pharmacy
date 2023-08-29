@@ -116,6 +116,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     // Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
     // Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');
     Route::get('/sales_details', [SaleController::class, 'SalesDetails'])->name('sales.details');
+    Route::get('/sales_fetchAllsales', [SaleController::class, 'fetchAllSales'])->name('sales.fetchAllSales');
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');

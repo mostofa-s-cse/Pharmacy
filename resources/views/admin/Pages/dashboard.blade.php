@@ -109,32 +109,25 @@
                             <table id="sales-table" class="datatable table table-hover table-center mb-0">
                                 <thead>
                                 <tr>
-                                    <th>Medicine</th>
-                                    <th>Quantity</th>
-                                    <th>Total Price</th>
-                                    <th>Date</th>
+                                <th>Customer ID</th>
+                                <th>Discount</th>
+                                <th>Total Price</th>
+                                <th>Paid By</th>
+                                <th>Amount Paid</th>
+                                <th>Due/Return</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 
                                 @foreach ($latest_sales as $sale)
-                                    @if (!(empty($sale->product->purchase)))
                                         <tr>
-                                            <td>
-                                                @if (!empty($sale->product->purchase->image))
-                                                    <span class="avatar avatar-sm mr-2">
-                                                    <img class="avatar-img"
-                                                         src="{{asset("storage/purchases/".$sale->product->purchase->image)}}"
-                                                         alt="image">
-                                                    </span>
-                                                @endif
-                                                {{$sale->product->purchase->product}}
-                                            </td>
-                                            <td>{{$sale->quantity}}</td>
+                                            <td>{{$sale->customer_id}}</td>
+                                            <td>{{($sale->discount)}}</td>
                                             <td>{{($sale->total_price)}}</td>
-                                            <td>{{date_format(date_create($sale->created_at),"d M, Y")}}</td>
+                                            <td>{{($sale->paid_by)}}</td>
+                                            <td>{{($sale->amount_paid)}}</td>
+                                            <td>{{($sale->due_return)}}</td>
                                         </tr>
-                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
