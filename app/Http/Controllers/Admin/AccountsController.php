@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class AccountsController extends Controller
 {
 
@@ -16,7 +16,11 @@ class AccountsController extends Controller
     // BillingHistoryindex index view.........................
     public function BillingHistoryindex()
     {
-        return view('admin.pages.accounts.billinghistory');
+       $accounts = DB::table('sales')
+       ->join('sales_details','sales.customer_id','=','sales_details.sale_id')
+       ->get();
+
+       return $accounts;
     }
 
 
