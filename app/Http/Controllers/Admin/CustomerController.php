@@ -28,7 +28,7 @@ class CustomerController extends Controller
                 $output .= '<table class="table table-striped table-sm text-center align-middle">
             <thead>
               <tr>
-                <th>SN</th>
+                <th>S/N</th>
                 <th>Customer ID</th>
                 <th>Name</th>
                 <th>Email</th>

@@ -74,6 +74,7 @@
                     <ul style="display: none;">
                         <li><a href="{{ route('sales.reports')}}">Sale Report</a></li>
                         <li><a href="{{ route('purchase.reports')}}">Purchase Report</a></li>
+                        <li><a href="{{ route('damage.reports')}}">Damage Report</a></li>
                     </ul>
                 </li>
 

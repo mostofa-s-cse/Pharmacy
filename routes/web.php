@@ -90,7 +90,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::delete('/purchase-delete', [PurchaseController::class, 'delete'])->name('purchase.delete');
 
     Route::get('/purchase-reports', [PurchaseController::class, 'reports'])->name('purchase.reports');
-    Route::post('/purchase-reports', [PurchaseController::class, 'generateReport']);
+    Route::post('/purchase-reports', [PurchaseController::class, 'generateReport'])->name('purchase.generateReport');
     /*
     |--------------------------------------------------------------------------
     | All Purchase Routes
@@ -117,7 +117,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
 
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
-    Route::post('/sales-reports', [SaleController::class, 'generateReport']);
+    Route::post('/sales-reports', [SaleController::class, 'generateReport'])->name('sales.generateReport');
         /*
    |--------------------------------------------------------------------------
    | All Damage Routes
@@ -125,10 +125,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
    */
 
    Route::get('/damage',[DamageController::class, 'index'])->name('damage.index');
+   Route::get('/damage-fetchall', [DamageController::class, 'fetchAll'])->name('damage.fetchAll');
    Route::post('/damage/store', [DamageController::class, 'store'])->name('damage.store');
    Route::get('/damage/edit', [DamageController ::class, 'edit'])->name('damage.edit');
    Route::post('/damage/update', [DamageController::class, 'update'])->name('damage.update');
    Route::delete('/damage/delete', [DamageController::class, 'destroy'])->name('damage.delete');
+
+   Route::get('/damage-reports', [DamageController::class, 'reports'])->name('damage.reports');
+    Route::post('/damage-reports', [DamageController::class, 'generateReport'])->name('damage.generateReport');
  
     /*
     |--------------------------------------------------------------------------
