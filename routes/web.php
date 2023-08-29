@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/users-edit', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/users-update', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users-delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::get('/profile', [UserController::class, 'profile'])->name('users.profile');
     /*
     |--------------------------------------------------------------------------
     | All Categories Routes
@@ -152,23 +153,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/customer-update', [CustomerController::class, 'update'])->name('customer.update');
     Route::delete('/customer-delete', [CustomerController::class, 'delete'])->name('customer.delete');
 
-    /*
-  |--------------------------------------------------------------------------
-  | All Company Routes
-  |--------------------------------------------------------------------------
-  */
-    Route::get('company', [CompanyController::class, 'index'])->name('company.index');
-
    /*
    |--------------------------------------------------------------------------
    | All Inventories Routes
    |--------------------------------------------------------------------------
    */
-
-   Route::get('/inventories',[InventoryController::class, 'index'])->name('inventory.index');
-   Route::post('/inventories/store', [InventoryController::class, 'store'])->name('inventories.store');
-   Route::get('/inventories/edit/{id}', [InventoryController::class, 'edit'])->name('inventories.edit');
-   Route::put('/inventories/update/{id}', [InventoryController::class, 'update'])->name('inventories.update');
-   Route::get('/inventories/delete/{id}', [InventoryController::class, 'delete'])->name('inventories.delete');
-
+  Route::get('inventories', [InventoryController::class, 'index'])->name('inventory.index');
+  Route::get('/inventories-fetchall', [InventoryController::class, 'fetchAll'])->name('inventory.fetchAll');
+  Route::post('/inventories-store', [InventoryController::class, 'store'])->name('inventory.store');
+  Route::get('/inventories-edit', [InventoryController::class, 'edit'])->name('inventory.edit');
+  Route::post('/inventories-update', [InventoryController::class, 'update'])->name('inventory.update');
+  Route::delete('/inventories-delete', [InventoryController::class, 'delete'])->name('inventory.delete');
 });

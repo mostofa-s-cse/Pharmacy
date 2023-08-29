@@ -162,4 +162,16 @@ class UserController extends Controller
              ], 500);
          }
      }
+
+
+      /*
+    |--------------------------------------------------------------------------
+    | handle profile an User ajax request
+    |--------------------------------------------------------------------------
+    */
+ 
+    public function profile(Request $request)
+    {
+        return view('admin.pages.users.profile');
+    }
 }

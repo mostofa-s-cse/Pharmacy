@@ -23,4 +23,5 @@ class Sale extends Model
     public function purchase(){
         return $this->belongsTo(Purchase::class);
     }
+    public $timestamps = true;
 }

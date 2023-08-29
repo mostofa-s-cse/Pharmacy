@@ -51,13 +51,13 @@
                         <div class="card-body">
                             <h4 class="text-center">Create Bill</h4>
                             <hr/>
-                            <form action="{{route('sales.store')}}" method="POST" id="add_sale_form"
+                            <form action="#" method="POST" id="add_sale_form"
                                   enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
                                     <label for="custom_field1">Select customers</label>
                                     <input type="text" list="custom_field1_datalist" class="form-control"
-                                           placeholder="Search customers" name="customer_id">
+                                           placeholder="Search customers" name="customer_id" required="true">
                                     <datalist id="custom_field1_datalist">
                                         @foreach ($customers as $item)
                                             <option value="{{$item->customer_id}}">{{$item->name}}</option>
@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="submit-section" style="margin-top: 15px;margin-bottom: 10px;">
+                                <div class="submit-section" style="margin-top: 15px;margin-bottom: 20px;">
                                     <button type="submit" id="add_sale_btn" class="btn btn-primary btn-block">Submit
                                     </button>
                                 </div>
@@ -146,101 +146,6 @@
     </div>
     </div>
 
-    </div>
-    <div id="addSalesModal" class="modal custom-modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Sales</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Create Sale -->
-                    <form method="POST" action="{{route('sales.store')}}">
-                        @csrf
-                        <div class="row form-row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Product <span class="text-danger">*</span></label>
-                                    <select class="select2 form-select form-control" name="product">
-                                        <option disabled selected> Select Product</option>
-                                        @foreach ($products as $product)
-                                            @if (!empty($product->purchase))
-                                                @if (!($product->purchase->quantity <= 0))
-                                                    <option
-                                                        value="{{$product->id}}">{{$product->purchase->product}}</option>
-                                                @endif
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Quantity</label>
-                                    <input type="number" value="1" class="form-control" name="quantity">
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-                    </form>
-                    <!--/ Create Sale -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- add end -->
-
-    <div id="editSalesModal" class="modal custom-modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Sales</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Edit Sale -->
-                    <form method="post" enctype="multipart/form-data" id="edit_sales_form" autocomplete="off">
-                        @csrf
-                        @method("POST")
-                        <input type="hidden" name="id" id="id" value="id">
-                        <div class="row form-row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Product <span class="text-danger">*</span></label>
-                                    <select class="select2 form-select form-control" id="product_id" name="product">
-                                        @foreach ($products as $product)
-                                            @if (!empty($product->purchase))
-                                                @if (!($product->purchase->quantity <= 0))
-                                                    <option
-                                                        value="{{$product->id}}">{{$product->purchase->product}}</option>
-                                                @endif
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Quantity</label>
-                                    <input type="number" class="form-control edit_quantity" id="quantity"
-                                           name="quantity">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="submit-section">
-                            <button class="btn btn-primary submit-btn" id="edit_sales_btn" type="submit">Submit</button>
-                        </div>
-                    </form>
-                    <!--/ Edit Sale -->
-                </div>
-            </div>
-        </div>
     </div>
     <!-- add customer modal -->
     <div id="addCustomerModal" class="modal custom-modal fade" role="dialog">
@@ -335,20 +240,6 @@
         });
         // tablebtn
 
-        // var i = 0;
-        {{--$(document).on('click', '#tablebtn .add_field_button', function(e) {--}}
-        {{--    // $("#id").val(e.currentTarget.id);--}}
-        {{--    console.log(e.currentTarget.id);--}}
-        {{--    console.log(e.currentTarget.getAttribute('name'));--}}
-        {{--    ++i;--}}
-        {{--    $('#input_fields_wrap').append(`--}}
-        {{--    <tr id="addfields"><td><input type="text" list="custom_field2_datalist" class="form-control" placeholder="Search Product" name="inputs[`+i+`][product_name]"><datalist id="custom_field2_datalist">@foreach ($products as $product)@if (!empty($product->purchase))  @if (!($product->purchase->quantity <= 0))<option value="{{$product->id}}">{{$product->purchase->product}}</option>@endif @endif @endforeach</datalist><span id="error" class="text-danger"></span></td><td><input type="text" class="form-control" name="inputs[`+i+`][quantity]" placeholder="Quantity"></td><td><input type="text" class="form-control" name="inputs[`+i+`][price]" placeholder="Rate"></td><td><input type="text" class="form-control" name="inputs[`+i+`][total_price]" placeholder="Price"></td><td><a href="javascript:void(0)" class="btn btn-danger text-white font-18 remove_field" id="rm" title="Remove"><i class="fa fa-trash"></i></a></a></td></tr>--}}
-        {{--    `);--}}
-
-        {{--});--}}
-        {{--     $(document).on("click", ".remove_field", function () { //user click on remove text--}}
-        {{--       $(this).parents('tr').remove();--}}
-        {{--    });--}}
 
         var i = 0;
         var product_arr = [];
@@ -476,41 +367,42 @@
             });
 
             // add new sales ajax request
-            {{--$("#add_sale_form").submit(function (e) {--}}
-            {{--    e.preventDefault();--}}
-            {{--    const fd = new FormData(this);--}}
-            {{--    $("#add_sale_btn").text('Adding...');--}}
-            {{--    $.ajax({--}}
-            {{--        url: '{{ route('sales.store') }}',--}}
-            {{--        method: 'post',--}}
-            {{--        data: fd,--}}
-            {{--        cache: false,--}}
-            {{--        contentType: false,--}}
-            {{--        processData: false,--}}
-            {{--        dataType: 'json',--}}
-            {{--        success: function (response) {--}}
-            {{--            if (response.status == 200) {--}}
-            {{--                Swal.fire(--}}
-            {{--                    'Added!',--}}
-            {{--                    'Sales Added Successfully!',--}}
-            {{--                    'success'--}}
-            {{--                )--}}
-            {{--                location.reload();--}}
-            {{--            }--}}
-            {{--            $("#add_sale_btn").text('Add Sale');--}}
-            {{--            $("#add_sale_form")[0].reset();--}}
-            {{--        },--}}
-            {{--        error: function (xhr, ajaxOptions, thrownError) {--}}
-            {{--            // alert(xhr.status);--}}
-            {{--            Swal.fire(--}}
-            {{--                'Sales Add fails!',--}}
-            {{--                thrownError,--}}
-            {{--                'error'--}}
-            {{--            )--}}
-            {{--            // alert(thrownError);--}}
-            {{--        }--}}
-            {{--    })--}}
-            {{--});--}}
+           $("#add_sale_form").submit(function (e) {
+                e.preventDefault();
+               const fd = new FormData(this);
+                $("#add_sale_btn").text('Adding...');
+                $.ajax({
+                   url: '{{ route('sales.store') }}',
+                    method: 'post',
+                    data: fd,
+                cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == 200) {
+                            Swal.fire(
+                                'Added!',
+                                'Sales Added Successfully!',
+                                'success'
+                            )
+                            location.reload();
+                        }
+                        $("#add_sale_btn").text('Add Sale');
+                        $("#add_sale_form")[0].reset();
+                    },
+                error: function (xhr, ajaxOptions, thrownError) {
+                       // alert(xhr.status);--}}
+                        Swal.fire(
+                            'Sales Add fails!',
+                            thrownError,
+                            'error'
+                        )
+                        // alert(thrownError);--}}
+                    }
+                });
+            });
+            
 
             // fetch all product ajax request
             fetchAllProduct();

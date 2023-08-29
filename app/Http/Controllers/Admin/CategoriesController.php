@@ -24,14 +24,17 @@ class CategoriesController extends Controller
     */
      public function fetchAll()
      {
+        
          try {
              $Categorys = Category::all();
+             
              $output = '';
+             $i = 0;
              if ($Categorys->count() > 0) {
                  $output .= '<table class="table table-striped table-sm text-center align-middle">
              <thead>
                <tr>
-                 <th>ID</th>
+                 <th>S/N</th>
                  <th>Name</th>
                  <th>Action</th>
                </tr>
@@ -39,7 +42,7 @@ class CategoriesController extends Controller
              <tbody>';
                  foreach ($Categorys as $category) {
                      $output .= '<tr>
-                 <td>' . $category->id . '</td>
+                 <td>' . ++$i. '</td>
                  <td>' . $category->name . '</td>
                  <td>
                    <a href="#" id="' . $category->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
