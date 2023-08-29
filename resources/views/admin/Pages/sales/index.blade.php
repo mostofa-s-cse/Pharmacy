@@ -102,7 +102,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Total :</td>
-                                                    <td><input type="number" id="total" name="total"
+                                                    <td><input type="number" id="total_price" name="total_price"
                                                                class="form-control"/></td>
                                                 </tr>
                                                 <tr>
@@ -314,13 +314,13 @@
 
             $('#sub_total').val(sum);
 
-            let total = parseFloat(sum) - parseFloat(discount)
-            $('#total').val(total)
+            let total_price = parseFloat(sum) - parseFloat(discount)
+            $('#total_price').val(total_price)
             // $('#amount_paid').val(total)
 
             let amount_paid = $('#amount_paid').val();
 
-            let due = total - parseFloat(amount_paid);
+            let due = total_price - parseFloat(amount_paid);
             $('#due_return').val(due);
 
 

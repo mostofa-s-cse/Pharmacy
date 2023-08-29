@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('customer_id');
             $table->decimal('sub_total');
             $table->decimal('discount');
-            $table->decimal('total');
+            $table->decimal('total_price');
             $table->string('paid_by');
             $table->decimal('amount_paid');
             $table->decimal('due_return');

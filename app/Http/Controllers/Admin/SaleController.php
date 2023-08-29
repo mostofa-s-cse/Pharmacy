@@ -10,6 +10,7 @@ use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Events\PurchaseOutStock;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
@@ -24,7 +25,7 @@ class SaleController extends Controller
         $products = Product::get();
         $customers = Customer::get();
         return view('admin.pages.sales.index',compact(
-            'products','customers'
+            'products','customers',
         ));
     }
    /*
@@ -93,7 +94,7 @@ class SaleController extends Controller
           'customer_id' => $request->customer_id,
           'sub_total' => $request->sub_total,
           'discount' => $request->discount,
-          'total' => $request->total,
+          'total_price' => $request->total_price,
           'paid_by' => $request->paid_by,
           'amount_paid' => $request->amount_paid,
           'due_return' => $request->due_return,
@@ -203,6 +204,19 @@ class SaleController extends Controller
     public function destroy(Request $request)
     {
         return Sale::findOrFail($request->id)->delete();
+    }
+
+ /*
+    |--------------------------------------------------------------------------
+    | handle get all an Sales details ajax request
+    |--------------------------------------------------------------------------
+    */
+    public function SalesDetails()
+    {
+        $sales = Sale::get();
+        return view('admin.pages.sales.details',compact(
+            'sales',
+        ));
     }
     /*
     |--------------------------------------------------------------------------
