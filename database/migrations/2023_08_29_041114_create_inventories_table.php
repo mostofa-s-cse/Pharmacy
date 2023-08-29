@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('shope_name');
             $table->string('quantity');
             $table->string('amount');
-            $table->datetime('purchase_date');
+            $table->string('purchase_date');
             $table->timestamps();
         });
     }

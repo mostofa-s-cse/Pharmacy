@@ -104,13 +104,6 @@
                     </ul>
                 </li>
 
-                <!-- <li class="submenu">
-                    <a href="#"><i class="la la-city"></i> <span> Company  </span> <span
-                            class="menu-arrow"></span></a>
-                    <ul style="display: none;">
-                        <li><a href="{{ route('company.index')}}">Company Details</a></li>
-                    </ul>
-                </li> -->
 
                 <li class="submenu">
                     <a href="#"><i class="la la-city"></i> <span> Inventory  </span> <span
