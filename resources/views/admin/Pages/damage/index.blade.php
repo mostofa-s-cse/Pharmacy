@@ -95,7 +95,7 @@
 
             <!-- add end -->
 
-            <div id="editDamageModal" class="modal custom-modal fade" role="dialog">
+            <!-- <div id="editDamageModal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -105,7 +105,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                              <!-- Edit Damage -->
+                              
                               <form method="post" enctype="multipart/form-data" id="edit_sales_form" autocomplete="off">
                           @csrf
                           @method("POST")
@@ -136,11 +136,11 @@
                             <button class="btn btn-primary submit-btn" id="edit_sales_btn" type="submit" >Submit</button>
                           </div>
                           </form>
-                                  <!--/ Edit damage -->
+                                
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 @endsection
 @section('script')
@@ -165,71 +165,71 @@
     });
 
     // edit sales ajax request
-    $(document).on('click', '.editIcon', function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        $.ajax({
-          url: '{{ route('damage.edit') }}',
-          method: 'get',
-          data: {
-            id: id,
-            _token: '{{ csrf_token() }}'
-          },
-          success: function(response) {
-            $("#id").val(response.id);
-            $("#product_id").val(response.product_id).change();
-            $("#quantity").val(response.quantity);
-          },
-            error: function (xhr, ajaxOptions, thrownError) {
-                // alert(xhr.status);
-                Swal.fire(
-                    'Damage edit fails!',
-                    thrownError,
-                    'error'
-                )
-                // alert(thrownError);
-            }
-        });
-      });
+    // $(document).on('click', '.editIcon', function(e) {
+    //     e.preventDefault();
+    //     let id = $(this).attr('id');
+    //     $.ajax({
+    //       url: '{{ route('damage.edit') }}',
+    //       method: 'get',
+    //       data: {
+    //         id: id,
+    //         _token: '{{ csrf_token() }}'
+    //       },
+    //       success: function(response) {
+    //         $("#id").val(response.id);
+    //         $("#product_id").val(response.product_id).change();
+    //         $("#quantity").val(response.quantity);
+    //       },
+    //         error: function (xhr, ajaxOptions, thrownError) {
+    //             // alert(xhr.status);
+    //             Swal.fire(
+    //                 'Damage edit fails!',
+    //                 thrownError,
+    //                 'error'
+    //             )
+    //             // alert(thrownError);
+    //         }
+    //     });
+    //   });
 
       // update sales ajax request
-      $("#edit_sales_form").submit(function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        const fd = new FormData(this);
-        $("#edit_Purchase_btn").text('Updating...');
-        $.ajax({
-          url: '{{ route('damage.update') }}',
-          method: 'post',
-          data: fd,
-          cache: false,
-          contentType: false,
-          processData: false,
-          dataType: 'json',
-          success: function(response) {
-            if (response.status == 200) {
-              Swal.fire(
-                'Updated!',
-                'Damage Product Updated Successfully!',
-                'success'
-              )
-              window.location.reload();
-            }
-            $("#edit_sales_btn").text('Update sales');
-            $("#edit_sales_form")[0].reset();
-            $("#editSalesModal").modal('hide');
-          },
-            error: function (xhr, ajaxOptions, thrownError) {
-                // alert(xhr.status);
-                Swal.fire(
-                    'Damage Product update fails!',
-                    thrownError,
-                    'error'
-                )
-                // alert(thrownError);
-            }
-        });
-      });
+    //   $("#edit_sales_form").submit(function(e) {
+    //     e.preventDefault();
+    //     let id = $(this).attr('id');
+    //     const fd = new FormData(this);
+    //     $("#edit_Purchase_btn").text('Updating...');
+    //     $.ajax({
+    //       url: '{{ route('damage.update') }}',
+    //       method: 'post',
+    //       data: fd,
+    //       cache: false,
+    //       contentType: false,
+    //       processData: false,
+    //       dataType: 'json',
+    //       success: function(response) {
+    //         if (response.status == 200) {
+    //           Swal.fire(
+    //             'Updated!',
+    //             'Damage Product Updated Successfully!',
+    //             'success'
+    //           )
+    //           window.location.reload();
+    //         }
+    //         $("#edit_sales_btn").text('Update sales');
+    //         $("#edit_sales_form")[0].reset();
+    //         $("#editSalesModal").modal('hide');
+    //       },
+    //         error: function (xhr, ajaxOptions, thrownError) {
+    //             // alert(xhr.status);
+    //             Swal.fire(
+    //                 'Damage Product update fails!',
+    //                 thrownError,
+    //                 'error'
+    //             )
+    //             // alert(thrownError);
+    //         }
+    //     });
+    //   });
 
        // delete Customer ajax request
        $(document).on('click', '.deleteIcon', function (e) {

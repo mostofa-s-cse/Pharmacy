@@ -12,16 +12,20 @@
                         <li class="breadcrumb-item active">Other Transaction Details</li>
                     </ul>
                 </div>
+                <div class="col-auto float-end ms-auto">
+                    <a href="#" class="btn btn-primary" type="button" value="Print 1st Div" onclick="javascript:printDiv('printablediv')"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+                </div>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-body">
+            </form>
+            <div class="card-body" id="printablediv">
                 <h2 class="text-center text-decoration-underline">Account Statement</h2>
                 <div class="col-sm-10">
-                    {{-- <a href=""  target="_blank" class="btn btn-primary mb-2"><i class="fa fa-print"></i></a> --}}
+                <!-- <input type="button" value="Print this page" onClick="window.print()"> -->
                 </div>
-                <table class="table table-bordered">
+                <table class="datatable table table-hover table-center mb-0" id="OtherTransaction-table">
                     <thead class="thead-dark">
                         <th>No</th>
                         <th>Date</th>
@@ -117,6 +121,23 @@
 
  </div>
 
-    
+@endsection
+@section('script')
+    <script>
+        function printDiv(divID) {
+        //Get the HTML of div
+        var divElements = document.getElementById(divID).innerHTML;
+        //Get the HTML of whole page
+        var oldPage = document.body.innerHTML;
+        //Reset the page's HTML with div's HTML only
+        document.body.innerHTML = 
+          "<html><head><title></title></head><body>" + 
+          divElements + "</body>";
+        //Print Page
+        window.print();
+        //Restore orignal HTML
+        document.body.innerHTML = oldPage;
 
+    }   
+    </script>
 @endsection

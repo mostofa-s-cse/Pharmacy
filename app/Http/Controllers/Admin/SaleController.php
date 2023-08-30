@@ -142,72 +142,72 @@ class SaleController extends Controller
     | handle edit an Sales
     |--------------------------------------------------------------------------
     */
-    public function edit(Request $request)
-     {
-       $id = $request->id;
-       $sale = Sale::find($id);
-       return response()->json($sale);
-     }
+    // public function edit(Request $request)
+    //  {
+    //    $id = $request->id;
+    //    $sale = Sale::find($id);
+    //    return response()->json($sale);
+    //  }
      /*
     |--------------------------------------------------------------------------
     | handle update an Sales ajax request
     |--------------------------------------------------------------------------
     */
 
-    public function update(Request $request ,Sale $sale)
-    {
-        $this->validate($request,[
-            'product'=>'required',
-            'quantity'=>'required|integer|min:1'
-        ]);
-        $sold_product = Product::find($request->product);
-        /**
-         * update quantity of sold item from purchases
-        **/
-        $purchased_item = Purchase::find($sold_product->purchase->id);
-        if(!empty($request->quantity)){
-            $new_quantity = ($purchased_item->quantity) - ($request->quantity);
-        }
-        $new_quantity = $sale->quantity;
-        if (!($new_quantity < 0)){
-            $purchased_item->update([
-                'quantity'=>$new_quantity,
-            ]);
-            /**
-             * calcualting item's total price
-            **/
-            if(!empty($request->quantity)){
-                $total_price = ($request->quantity) * ($sold_product->price);
-            }
-            $total_price = $sale->total_price;
-            $sale->update([
-                'product_id'=>$request->product,
-                'quantity'=>$request->quantity,
-                'total_price'=>$total_price,
-            ]);
+    // public function update(Request $request ,Sale $sale)
+    // {
+    //     $this->validate($request,[
+    //         'product'=>'required',
+    //         'quantity'=>'required|integer|min:1'
+    //     ]);
+    //     $sold_product = Product::find($request->product);
+    //     /**
+    //      * update quantity of sold item from purchases
+    //     **/
+    //     $purchased_item = Purchase::find($sold_product->purchase->id);
+    //     if(!empty($request->quantity)){
+    //         $new_quantity = ($purchased_item->quantity) - ($request->quantity);
+    //     }
+    //     $new_quantity = $sale->quantity;
+    //     if (!($new_quantity < 0)){
+    //         $purchased_item->update([
+    //             'quantity'=>$new_quantity,
+    //         ]);
+    //         /**
+    //          * calcualting item's total price
+    //         **/
+    //         if(!empty($request->quantity)){
+    //             $total_price = ($request->quantity) * ($sold_product->price);
+    //         }
+    //         $total_price = $sale->total_price;
+    //         $sale->update([
+    //             'product_id'=>$request->product,
+    //             'quantity'=>$request->quantity,
+    //             'total_price'=>$total_price,
+    //         ]);
 
-            session()->flash('success','Product has been updated');
-        }
-        if($new_quantity <=1 && $new_quantity !=0){
-            // send notification
-            $product = Purchase::where('quantity', '<=', 1)->first();
-            event(new PurchaseOutStock($product));
-            // end of notification
-            session()->flash('error','Product is running out of stock!!!');
+    //         session()->flash('success','Product has been updated');
+    //     }
+    //     if($new_quantity <=1 && $new_quantity !=0){
+    //         // send notification
+    //         $product = Purchase::where('quantity', '<=', 1)->first();
+    //         event(new PurchaseOutStock($product));
+    //         // end of notification
+    //         session()->flash('error','Product is running out of stock!!!');
 
-        }
-        return redirect()->route('sales.index');
-    }
+    //     }
+    //     return redirect()->route('sales.index');
+    // }
 
      /*
     |--------------------------------------------------------------------------
     | handle delete an Sales ajax request
     |--------------------------------------------------------------------------
     */
-    public function destroy(Request $request)
-    {
-        return Sale::findOrFail($request->id)->delete();
-    }
+    // public function destroy(Request $request)
+    // {
+    //     return Sale::findOrFail($request->id)->delete();
+    // }
 
  /*
     |--------------------------------------------------------------------------
@@ -290,7 +290,7 @@ class SaleController extends Controller
             'from_date' => 'required',
             'to_date' => 'required',
         ]);
-        $sales = Sale::whereBetween(DB::raw('DATE(created_at)'), array($request->from_date, $request->to_date))->get();
+        $sales = Sale::whereBetween(\DB::raw('DATE(created_at)'), array($request->from_date, $request->to_date))->get();
         return view('admin.pages.sales.reports',compact(
             'sales'
         ));
