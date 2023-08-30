@@ -140,9 +140,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     |--------------------------------------------------------------------------
     */
     Route::get('accounts', [AccountsController::class, 'index'])->name('accounts.index');
+    Route::get('accounts/search', [AccountsController::class, 'searchtransaction'])->name('accounts.search');
     Route::get('accounts-billing-history', [AccountsController::class, 'BillingHistoryindex'])->name('billinghistory.index');
     Route::get('accounts-other-transaction', [AccountsController::class, 'OtherTransactionIndex'])->name('othertransaction.index');
     Route::post('accounts-other-transaction/store', [AccountsController::class, 'store'])->name('other.transection.store');
+    Route::get('accounts-other-transaction/ledger/details', [AccountsController::class, 'ledgerdetails'])->name('other.transection.ledgerdetails');
     Route::get('accounts-transaction-history', [AccountsController::class, 'TransactionHistoryIndex'])->name('transactionhistory.index');
     Route::get('cash-memo', [AccountsController::class, 'CashMemo'])->name('cashmemo.index');
     Route::get('barcode-scanning', [AccountsController::class, 'BarcodeScanning'])->name('barcodescanning.index');

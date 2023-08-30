@@ -18,7 +18,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="text-center">Other Transaction</h4>
-                <form  method="POST" class="mt-5" id="othertrans" enctype="multipart/form-data">
+                <form  method="POST" class="mt-5" id="othertrans" enctype="multipart/form-data" >
                     @csrf
                     <div class="form-group row">
                         <label for="name" class="col-sm-4 col-form-label">Account Head<span
