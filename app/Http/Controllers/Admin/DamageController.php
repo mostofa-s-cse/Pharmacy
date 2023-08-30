@@ -152,7 +152,7 @@ class DamageController extends Controller
              * calcualting item's total price
             **/
             if(!empty($request->quantity)){
-                $total_price = ($request->quantity) * ($sold_product->price);
+                // $total_price = ($request->quantity) * ($sold_product->price);
             }
             $total_price = $damage->total_price;
             $damage->update([
@@ -184,7 +184,24 @@ class DamageController extends Controller
     */
     public function destroy(Request $request)
     {
-        return Damage::findOrFail($request->id)->delete();
+        try {
+            $id = $request->id;
+            $damage_product = Damage::find($request->id); 
+            $product_qty = \DB::table('purchases')->where('id', $damage_product->product_id)->first(['quantity']);
+            // dd("quantity",$damage_product->quantity);
+            // dd("product_qty",$product_qty);
+
+            $new_quantity =(int) $damage_product->quantity + $product_qty->quantity;
+            DB::table('purchases')->update([
+                'quantity' => $new_quantity,
+            ]);
+            Damage::destroy($id);
+        } catch (\Exception $e) {
+            // Return Json Response
+            return response()->json([
+                'message' => $e
+            ], 500);
+        }
     }
     
 /*

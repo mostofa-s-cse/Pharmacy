@@ -101,8 +101,8 @@
         <div class="row">
             <div class="col-md-12 col-lg-6">
                 <div class="card card-table p-3">
-                    <div class="card-header">
-                        <h4 class="card-title ">Today Sales</h4>
+                    <div class="card-header text-center" style="margin-bottom:5px">
+                        <h4 class="">Today Sales</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

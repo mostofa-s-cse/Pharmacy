@@ -157,7 +157,7 @@
                 {data: 'product', name: 'product'},
                 {data: 'quantity', name: 'quantity'},
                 {data: 'total_price', name: 'total_price'},
-				        {data: 'date', name: 'date'},
+				{data: 'date', name: 'date'},
                 {data: 'action', name: 'action',  orderable: false, searchable: false},
             ]
         });

@@ -132,7 +132,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
    Route::post('/damage/update', [DamageController::class, 'update'])->name('damage.update');
    Route::delete('/damage/delete', [DamageController::class, 'destroy'])->name('damage.delete');
    Route::get('/damage-reports', [DamageController::class, 'reports'])->name('damage.reports');
-    Route::post('/damage-reports', [DamageController::class, 'generateReport'])->name('damage.generateReport');
+   Route::post('/damage-reports', [DamageController::class, 'generateReport'])->name('damage.generateReport');
  
     /*
     |--------------------------------------------------------------------------
