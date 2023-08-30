@@ -109,9 +109,10 @@
                                                     <td>Paid By</td>
                                                     <td><select class="custom-select form-control" name="paid_by">
                                                             <option selected>Select Type</option>
-                                                            <option value="cash">Cash</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            <option value="Cash">Cash</option>
+                                                            <option value="Card">Card</option>
+                                                            <option value="Bkash">Bkash</option>
+                                                            <option value="Nogod">Nogod</option>
                                                         </select></td>
                                                 </tr>
                                                 <tr>

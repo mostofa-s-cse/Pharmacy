@@ -296,6 +296,7 @@
                                 'success'
                             )
                             fetchAllUser();
+                            location.reload();
                         }
                         $("#edit_User_btn").text('Update User');
                         $("#edit_User_form")[0].reset();
