@@ -20,7 +20,7 @@
         <div class="card-body">
             <h2 class="text-center">Account Statement Over a Specified Period</h2>
             
-            <form action="/ledger/details">
+            <form action={{route('other.transection.ledgerdetails')}}>
 
                   <div class="form-group ">
                     <label for="datepicker" class="text-dark">From Date</label>
@@ -33,7 +33,7 @@
 
 
                   <div class="text-right">
-                    <button type="submit"  class="btn btn-dark" >Report</button>
+                    <button  type="submit"  class="btn btn-dark" >Report</button>
                   </div>
 
             </form>
