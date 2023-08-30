@@ -119,9 +119,12 @@ class SaleController extends Controller
 
           $current_qty = (int) $product_qty->quantity - $request->qty[$i];
 
-          DB::table('purchases')->update([
-              'quantity' => $current_qty,
-          ]);
+        //   DB::table('purchases')->update([
+        //       'quantity' => $current_qty,
+        //   ]);
+        DB::table('purchases')
+            ->where('id', $request->product_id[$i])
+            ->update(['quantity' =>  $current_qty]);
        }
 
 

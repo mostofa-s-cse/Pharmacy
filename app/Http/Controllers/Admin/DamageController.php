@@ -190,11 +190,16 @@ class DamageController extends Controller
             $product_qty = \DB::table('purchases')->where('id', $damage_product->product_id)->first(['quantity']);
             // dd("quantity",$damage_product->quantity);
             // dd("product_qty",$product_qty);
-
+            // $product_id = \DB::table('purchases')->where('id', $damage_product->product_id);
             $new_quantity =(int) $damage_product->quantity + $product_qty->quantity;
-            DB::table('purchases')->update([
-                'quantity' => $new_quantity,
-            ]);
+
+            DB::table('purchases')
+            ->where('id', $damage_product->product_id)
+            ->update(['quantity' => $new_quantity]);
+
+            // DB::table('purchases')->update([
+            //     'quantity' => $new_quantity,
+            // ]);
             Damage::destroy($id);
         } catch (\Exception $e) {
             // Return Json Response
