@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="table-responsive">
                         <div class="card-body">
-                            <table  class="table data-table table-striped table-sm text-center align-middle">
+                            <table id="datatable" class="table-striped table table-hover table-center mb-0">
                                 <thead>
                                     <tr>
                                         <th>S/N</th>
@@ -57,7 +57,27 @@
 
 @endsection
 @section('script')
-    <script>
-        
-    </script>
+<script>
+    $(document).ready(function() {
+        $('#datatable').DataTable();
+        $(function() {
+            $('#status').change(function() {
+                let status = $(this).prop('checked') == true ? 1 : 0;
+                let id = $(this).data('id');
+                $.ajax({
+                    type: 'GET',
+                    dataType: "json",
+                    url: '/baby',
+                    data: {
+                        'status': status,
+                        'id': id
+                    },
+                    success: function(data) {
+                        console.log('Success');
+                    }
+                })
+            })
+        })
+    });
+</script>
 @endsection
