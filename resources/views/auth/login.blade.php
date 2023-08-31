@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="col-auto">
                                         @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link" href="{{ route('forget.password.show') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif

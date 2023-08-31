@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\OutStockPurchaseController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -173,3 +174,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
   Route::post('/inventories-update', [InventoryController::class, 'update'])->name('inventory.update');
   Route::delete('/inventories-delete', [InventoryController::class, 'delete'])->name('inventory.delete');
 });
+
+
+//forget and reset password
+Route::get('/forgetpassword',[ForgetPasswordManager::class, 'forgetPassword'])->name('forget.password.show');
+Route::post('/forgetpassword',[ForgetPasswordManager::class, 'forgetPasswordPost'])->name('forget.post.password');
+Route::get('/resetpassword/{token}',[ForgetPasswordManager::class, 'resetPassword'])->name('reset.password');
+Route::post('/resetpassword',[ForgetPasswordManager::class, 'resetPasswordPost'])->name('reset.password.post');

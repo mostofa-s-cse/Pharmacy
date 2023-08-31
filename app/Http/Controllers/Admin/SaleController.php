@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Sale;
 use App\Models\Product;
+use App\Models\Payment;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Events\PurchaseOutStock;
@@ -102,6 +103,7 @@ class SaleController extends Controller
           'created_at' => now(),
           'updated_at' => now(),
        ]);
+       
 
        $product_count = count($request->product_id);
 
@@ -128,7 +130,7 @@ class SaleController extends Controller
             ->update(['quantity' =>  $current_qty]);
        }
 
-
+      
 
 
     //    dd($sale);
