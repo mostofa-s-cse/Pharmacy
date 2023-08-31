@@ -13,8 +13,8 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DamageController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\OutStockPurchaseController;
 use App\Http\Controllers\Admin\TransactionController;
-
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -90,6 +90,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/purchase-update', [PurchaseController::class, 'update'])->name('purchase.update');
     Route::delete('/purchase-delete', [PurchaseController::class, 'delete'])->name('purchase.delete');
     Route::get('/purchase-reports', [PurchaseController::class, 'reports'])->name('purchase.reports');
+    Route::get('purchase/outstock', [OutStockPurchaseController::class, 'outstock'])->name('purchase.outstock');
     Route::post('/purchase-reports', [PurchaseController::class, 'generateReport'])->name('purchase.generateReport');
     /*
     |--------------------------------------------------------------------------
@@ -102,7 +103,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/product-edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product-update', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product-delete', [ProductController::class, 'delete'])->name('product.delete');
-    Route::get('products/outstock', [OutStockProductController::class, 'outstock'])->name('outstock');
+    Route::get('products/outstock', [OutStockProductController::class, 'outstock'])->name('product.outstock');
     Route::get('products/expired', [ExpiredProductController::class, 'expired'])->name('expired');
     /*
    |--------------------------------------------------------------------------

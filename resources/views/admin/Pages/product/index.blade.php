@@ -49,7 +49,7 @@
                         <div class="service-fields mb-3">
                             <div class="row">
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Product <span class="text-danger">*</span></label>
                                         <select class="select2 form-select form-control" name="product">
@@ -57,6 +57,12 @@
                                                 <option value="{{$purchase->id}}">{{$purchase->product}}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Quantity<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="quantity">
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +130,7 @@
                         <input type="hidden" name="id" id="id" value="id">
                         <div class="service-fields mb-3">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Product <span class="text-danger">*</span></label>
                                         <select class="select2 form-select form-control" id="purchase_id" name="product">
@@ -134,6 +140,12 @@
                                                 @endforeach
                                             @endif
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                <div class="form-group">
+                                        <label>Quantity<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="quantity">
                                     </div>
                                 </div>
                             </div>

@@ -86,10 +86,11 @@ class DamageController extends Controller
             damag item from
          purchases
         **/
-        $purchased_item = Purchase::find($sold_product->purchase->id);
-        $new_quantity = ($purchased_item->quantity) - ($request->quantity);
+        $product_item = Product::find($sold_product->purchase_id);
+        // dd($product_item->quantity);
+        $new_quantity = ($product_item->quantity) - ($request->quantity);
         if (!($new_quantity < 0)){
-            $purchased_item->update([
+            $product_item->update([
                 'quantity'=>$new_quantity,
             ]);
 
@@ -190,13 +191,13 @@ class DamageController extends Controller
         try {
             $id = $request->id;
             $damage_product = Damage::find($request->id); 
-            $product_qty = \DB::table('purchases')->where('id', $damage_product->product_id)->first(['quantity']);
+            $product_qty = \DB::table('products')->where('id', $damage_product->product_id)->first(['quantity']);
             // dd("quantity",$damage_product->quantity);
             // dd("product_qty",$product_qty);
             // $product_id = \DB::table('purchases')->where('id', $damage_product->product_id);
             $new_quantity =(int) $damage_product->quantity + $product_qty->quantity;
 
-            DB::table('purchases')
+            DB::table('products')
             ->where('id', $damage_product->product_id)
             ->update(['quantity' => $new_quantity]);
 

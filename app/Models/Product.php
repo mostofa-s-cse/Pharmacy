@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory,SoftDeletes;
+    // use HasFactory,SoftDeletes;
     protected $fillable = [
         'purchase_id','price',
-        'discount','description',
+        'discount','description','quantity'
     ];
 
     public function purchase(){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -67,7 +68,7 @@ class ProductController extends Controller
                 <td>' . $item->purchase->category->name . '</td>
                 <td>' . $item->price . '</td>
                 <td>' . $item->discount . '</td>
-                <td>' . $item->purchase->quantity . '</td>
+                <td>' . $item->quantity . '</td>
                 <td>' . date_format(date_create($item->purchase->expiry_date),'d M, Y'). '</td>
                 <td>
                   <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editProductModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
@@ -102,14 +103,22 @@ class ProductController extends Controller
             'discount'=>'nullable',
             'description'=>'nullable|max:255',
         ]);
+        $sold_product = Purchase::find($request->product);
         $price = $request->price;
         if($request->discount >0){
             $price = $request->price * (1 - $request->discount / 100);
         }
+        $purchased_item = Purchase::find($sold_product->id);
+        $new_quantity = ($purchased_item->quantity) - ($request->quantity);
+        if (!($new_quantity < 0)){
+            $purchased_item->update([
+                'quantity'=>$new_quantity,
+            ]);}
         Product::create([
             'purchase_id'=>$request->product,
             'price'=>$price,
             'discount'=>$request->discount,
+            'quantity'=>$request->quantity,
             'description'=>$request->description,
         ]);
         // $notifications = notify("Product has been added");
@@ -147,10 +156,22 @@ class ProductController extends Controller
         if($request->discount >0){
            $price = $request->discount * $request->price;
         }
+        $sold_product = Purchase::find($request->product);
+        $purchased_item = Purchase::find($sold_product->id);
+        $new_quantity = ($purchased_item->quantity) - ($request->quantity);
+        if (!($new_quantity < 0)){
+            $purchased_item->update([
+                'quantity'=>$new_quantity,
+            ]);}
+        $product_item = Product::find($products->id);
+        // dd($product_item->quantity);
+        
+        $newquantity = $product_item->quantity + $request->quantity;
        $products->update([
             'purchase_id'=>$request->product,
             'price'=>$price,
             'discount'=>$request->discount,
+            'quantity'=>$newquantity,
             'description'=>$request->description,
         ]);
         return response()->json([
@@ -165,7 +186,16 @@ class ProductController extends Controller
     public function delete(Request $request)
     {
         try {
+            
             $id = $request->id;
+            $product = Product::find($request->id); 
+            // dd($product->purchase_id);
+            $product_qty = \DB::table('purchases')->where('id', $product->purchase_id)->first(['quantity']);
+            $new_quantity =(int) $product->quantity + $product_qty->quantity;
+
+            DB::table('purchases')
+            ->where('id', $product->purchase_id)
+            ->update(['quantity' => $new_quantity]);
             Product::destroy($id);
         } catch (\Exception $e) {
             // Return Json Response

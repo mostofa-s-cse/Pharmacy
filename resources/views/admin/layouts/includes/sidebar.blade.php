@@ -37,6 +37,7 @@
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
                         <li><a href="{{ route('purchase.index')}}">Purchase Details</a></li>
+                        <li><a href="{{ route('purchase.outstock')}}">Out-Stock</a></li>
                     </ul>
                 </li>
 
@@ -45,7 +46,7 @@
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
                         <li><a href="{{ route('product.index')}}">All Product</a></li>
-                        <li><a href="{{ route('outstock')}}">Out-Stock</a></li>
+                        <li><a href="{{ route('product.outstock')}}">Out-Stock</a></li>
                         <li><a href="{{ route('expired')}}">Expired</a></li>
                     </ul>
                 </li>

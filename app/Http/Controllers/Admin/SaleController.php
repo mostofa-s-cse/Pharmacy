@@ -35,7 +35,8 @@ class SaleController extends Controller
     */
     public function fetchAll() {
 		try {
-            $product = Product::all();
+            $product = Product::where('quantity', '>', '0')->get();
+            // dd($product);
             $output = '';
             $i = 0;
             if ($product->count() > 0) {
@@ -59,7 +60,7 @@ class SaleController extends Controller
                 <span>' . $item->purchase->product . '</span>
                 </h2>
                 </td>
-                <td>' . $item->purchase->quantity . '</td>
+                <td>' . $item->quantity . '</td>
                 <td>
                 <button onclick="rowAdd('.$item->id.')" price="' . $item->price . '" id="pro-'. $item->id . '" name="' . $item->purchase->product . '" class="btn btn-success text-white add_field_button"
                     title="Add"><i class="fa fa-plus"></i> Add
@@ -115,14 +116,14 @@ class SaleController extends Controller
                'updated_at' => now(),
            ]);
 
-          $product_qty = DB::table('purchases')->where('id', $request->product_id[$i])->first(['quantity']);
+          $product_qty = DB::table('products')->where('id', $request->product_id[$i])->first(['quantity']);
 
           $current_qty = (int) $product_qty->quantity - $request->qty[$i];
 
         //   DB::table('purchases')->update([
         //       'quantity' => $current_qty,
         //   ]);
-        DB::table('purchases')
+        DB::table('products')
             ->where('id', $request->product_id[$i])
             ->update(['quantity' =>  $current_qty]);
        }

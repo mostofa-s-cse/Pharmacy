@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId('purchase_id');
             $table->decimal('price');
+            $table->string('quantity');
             $table->decimal('discount')->default(0);
             $table->text('description')->nullable();
             $table->softDeletes();
