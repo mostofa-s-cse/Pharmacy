@@ -99,13 +99,13 @@
                     </ul>
                 </li>
 
-                <li class="submenu">
+                <!-- <li class="submenu">
                     <a href="#"><i class="la la-file-invoice-dollar"></i> <span> Cash Memo  </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
                         <li><a href="{{ route('cashmemo.index')}}">Cash Memo</a></li>
                     </ul>
-                </li>
+                </li> -->
 
 
                 <li class="submenu">
