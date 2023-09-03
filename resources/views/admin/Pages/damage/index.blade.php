@@ -70,7 +70,7 @@
                 <option disabled selected > Select Product</option>
 									@foreach ($products as $product)
 										@if (!empty($product->purchase))
-											@if (!($product->purchase->quantity <= 0))
+											@if (!($product->quantity <= 0))
 												<option value="{{$product->id}}">{{$product->purchase->product}}</option>
 											@endif
 										@endif

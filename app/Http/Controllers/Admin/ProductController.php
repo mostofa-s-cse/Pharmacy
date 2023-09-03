@@ -47,6 +47,7 @@ class ProductController extends Controller
                 $output .= '<table class="table table-striped table-sm align-middle">
             <thead>
               <tr>
+              <th>ID</th>
                 <th>Product</th>
                 <th>Category</th>
                 <th>Price</th>
@@ -59,6 +60,7 @@ class ProductController extends Controller
             <tbody>';
                 foreach ($product as $item) {
                     $output .= '<tr>
+                <td>' . $item->id . '</td>
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">

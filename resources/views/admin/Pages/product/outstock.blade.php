@@ -189,7 +189,7 @@
                                 'Product Updated Successfully!',
                                 'success'
                             )
-                            fetchAllProduct();
+                            location.reload();
                         }
                         $("#edit_product_btn").text('Update product');
                         $("#edit_product_form")[0].reset();
@@ -207,50 +207,6 @@
                 });
             });
 
-        // delete Purchase ajax request
-         // delete product ajax request
-         $(document).on('click', '.deleteIcon', function(e) {
-                e.preventDefault();
-                let id = $(this).attr('id');
-                let csrf = '{{ csrf_token() }}';
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "Delete this product",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '{{ route('product.delete') }}',
-                            method: 'delete',
-                            data: {
-                                id: id,
-                                _token: csrf
-                            },
-                            success: function(response) {
-                                console.log(response);
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
-                                fetchAllProduct();
-                            },
-                            error: function (xhr, ajaxOptions, thrownError) {
-                                // alert(xhr.status);
-                                Swal.fire(
-                                    'Product delete fails!',
-                                    thrownError,
-                                    'error'
-                                )
-                                // alert(thrownError);
-                            }
-                        });
-                    }
-                })
-            });
+        
     </script>
 @endsection

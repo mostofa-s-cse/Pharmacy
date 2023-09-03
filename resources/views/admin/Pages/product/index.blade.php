@@ -354,9 +354,7 @@
                     method: 'get',
                     success: function(response) {
                         $("#show_all_product").html(response);
-                        $("table").DataTable({
-                            order: [0, 'desc']
-                        });
+                        $("table").DataTable();
                     }
                 });
             }

@@ -17,10 +17,9 @@ class OutStockProductController extends Controller
     */
 
     public function outstock(Request $request){
-        $category = DB::table('categories')->get();
-        $supplier = DB::table('suppliers')->get();
-        $categories ['categories'] = $category;
-        $suppliers ['suppliers'] = $supplier;
+
+        $purchase = DB::table('purchases')->get();
+        $purchases ['purchases'] = $purchase;
         if($request->ajax()){
             $products = Product::where('quantity', '<=', 0)->get();
             return DataTables::of($products)
@@ -63,13 +62,12 @@ class OutStockProductController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $editbtn = '<a href="#" id="' . $row->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editProductModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
-                    $deletebtn = '<a href="#" id="' . $row->id . '" name="' . $row->product   .'" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
-                    $btn = $editbtn.' '.$deletebtn;
+                    $btn = $editbtn;
                     return $btn;
                 })
                 ->rawColumns(['product','action'])
                 ->make(true);
         }      
-        return view('admin.pages.product.outstock', $categories,$suppliers);
+        return view('admin.pages.product.outstock',$purchases);
     }
 }
