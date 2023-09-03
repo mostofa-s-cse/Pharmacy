@@ -57,7 +57,16 @@
     @include('sweetalert::alert')
     @yield('user-not-login')
     <div class="main-wrapper">
-
+        <div id="loader-wrapper">
+        <div id="loader">
+        <div class="loader-ellips">
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+        </div>
+        </div>
+        </div>
         @if(session()->has('error'))
             <div id="alert" class="float-end" style="width:30rem; margin:20px;margin-top: 68px;">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert" data-auto-dismiss="4000">
