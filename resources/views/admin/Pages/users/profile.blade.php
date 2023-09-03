@@ -31,7 +31,7 @@
                   </div>
                   <div class="flex-grow-1 ms-3 mt-5">
                     <h5 class="mb-1">Name : {{ Auth::user()->name }}</h5>
-                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Role : {{ Auth::user()->role_id }}</p>
+                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Role : {{ Auth::user()->role }}</p>
                   </div>
                 </div>
               </div>
