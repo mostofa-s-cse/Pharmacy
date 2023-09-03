@@ -28,7 +28,7 @@
                         <div class="dash-widget-info">
                             <h6 class="text-muted">Today Sales Cash</h6>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-primary w-50"></div>
+                                <div class="progress-bar bg-primary w-{{$today_sales}}"></div>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
 
                             <h6 class="text-muted">Product Categories</h6>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-success w-50"></div>
+                                <div class="progress-bar bg-success w-{{$total_categories}}"></div>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
 
                             <h6 class="text-muted">Expired Products</h6>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-danger w-50"></div>
+                                <div class="progress-bar bg-danger w-{{$total_expired_products}}"></div>
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
 
                             <h6 class="text-muted">System Users</h6>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-warning w-50"></div>
+                                <div class="progress-bar bg-warning w-{{\DB::table('users')->count()}}"></div>
                             </div>
                         </div>
                     </div>

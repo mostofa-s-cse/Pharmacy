@@ -14,7 +14,7 @@
                     </ul>
                 </li>
 
-                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                @if (Auth::user()->role == 'admin')
                     <li class="submenu">
                         <a href="#"><i class="la la-layer-group"></i> <span> Categories </span> <span
                                 class="menu-arrow"></span></a>
@@ -22,7 +22,7 @@
                             <li><a href="{{ route('categories.index')}}">All Categories</a></li>
                         </ul>
                     </li>
-                @endif 
+              
                 
                 <li class="submenu">
                     <a href="#"><i class="la la-people-carry"></i> <span> Supplier  </span> <span
@@ -141,7 +141,7 @@
                         <li><a href="{{ route('users.index')}}">All Users</a></li>
                     </ul>
                 </li>
-
+                @endif
                 <li class="submenu">
                     <a href="#"><i class="la la-user-circle"></i> <span> Profile  </span> <span
                             class="menu-arrow"></span></a>

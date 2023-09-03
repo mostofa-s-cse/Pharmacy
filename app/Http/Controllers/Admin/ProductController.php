@@ -43,6 +43,7 @@ class ProductController extends Controller
             //         })->get(['p.*','c.name as category_name','s.name as as supplier_name']);
 
             $output = '';
+            $i = 0;
             if ($product->count() > 0) {
                 $output .= '<table class="table table-striped table-sm align-middle">
             <thead>
@@ -60,7 +61,7 @@ class ProductController extends Controller
             <tbody>';
                 foreach ($product as $item) {
                     $output .= '<tr>
-                <td>' . $item->id . '</td>
+                <td>' . ++$i . '</td>
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">
