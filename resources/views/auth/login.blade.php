@@ -8,7 +8,7 @@
                     <div class="account-logo">
                         <a href="{{ route('login') }}"
                             ><img
-                                src="{{ asset ('frontend/images/logo2.png')}}"
+                                src="{{ asset ('frontend/images/logo5.png')}}"
                                 alt="logo"
                         /></a>
                     </div>

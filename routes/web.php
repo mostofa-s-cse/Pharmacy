@@ -38,10 +38,6 @@ Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('admin/dashboard', function () {
-    return view('pages.dashboard');
-});
-
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('pages.bashboard');
     /*
