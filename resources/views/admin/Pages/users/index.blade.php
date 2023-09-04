@@ -294,7 +294,7 @@
                                 'success'
                             )
                             fetchAllUser();
-                            // location.reload();
+                            location.reload();
                         }
                         $("#edit_User_btn").text('Update User');
                         $("#edit_User_form")[0].reset();
@@ -342,6 +342,7 @@
                                     'Your file has been deleted.',
                                     'success'
                                 )
+                                location.reload();
                                 fetchAllUser();
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
@@ -367,9 +368,7 @@
                     method: 'get',
                     success: function (response) {
                         $("#show_all_User").html(response);
-                        $("table").DataTable({
-                            order: [0, 'desc']
-                        });
+                        $("table").DataTable();
                     }
                 });
             }

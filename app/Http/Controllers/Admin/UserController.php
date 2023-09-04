@@ -26,6 +26,7 @@ class UserController extends Controller
          try {
              $users = User::all();
              $output = '';
+             $i = 0;
              if ($users->count() > 0) {
                  $output .= '<table class="table table-striped table-sm text-center align-middle">
              <thead>
@@ -42,7 +43,7 @@ class UserController extends Controller
              <tbody>';
                  foreach ($users as $item) {
                      $output .= '<tr>
-                 <td>' . $item->id . '</td>
+                     <td>' . ++$i. '</td>
                  <td>' . $item->name . '</td>
                  <td>' . $item->email . '</td>
                  <td>' . $item->phone . '</td>
