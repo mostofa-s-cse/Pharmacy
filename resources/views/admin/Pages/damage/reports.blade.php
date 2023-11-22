@@ -34,7 +34,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
 
-                            <table id="damage-table" class="datatable table table-hover table-center mb-0">
+                            <table id="damage-table" class="table table-hover table-center mb-0">
                                 <thead>
                                 <tr>
                                     <th>S/N</th>
