@@ -54,7 +54,7 @@
                             <form action="#" method="POST" id="add_sale_form"
                                   enctype="multipart/form-data">
                                 @csrf
-                                <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
+                                {{-- <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
                                     <label for="custom_field1">Select customers</label>
                                     <input type="text" list="custom_field1_datalist" class="form-control"
                                            placeholder="Search customers" name="customer_id" required="true">
@@ -64,7 +64,19 @@
                                         @endforeach
                                     </datalist>
                                     <span id="error" class="text-danger"></span>
+                                </div> --}}
+
+                                <div class="col-md-12">
+                                    <label for="custo_id">Select Customer:</label>
+                                    <input list="custo_id" name="custo_id" type="text" class="form-control w-100" id="customerInput" placeholder="Search customers" required>
+                                    <datalist id="custo_id">
+                                        @foreach ($customers->sortByDesc('id') as $item)
+                                            <option value="{{ $item->customer_id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </datalist>
+                                    <div id="customerNotFound" style="color: red; display: none;" class="mt-2">Customer not found</div>
                                 </div>
+
                                 <div class="table-responsive">
                                     <table>
                                         <table class="table">
@@ -107,13 +119,15 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Paid By</td>
-                                                    <td><select class="custom-select form-control" name="paid_by">
-                                                            <option selected>Select Type</option>
+                                                    <td>
+                                                        <select class="form-control" name="paid_by" id="paid_by" required="true">
+                                                            <option disabled selected value="">Select Type</option>
                                                             <option value="Cash">Cash</option>
                                                             <option value="Card">Card</option>
                                                             <option value="Bkash">Bkash</option>
                                                             <option value="Nogod">Nogod</option>
-                                                        </select></td>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Amount Paid :</td>
@@ -419,6 +433,22 @@
                 });
             }
 
+        });
+    </script>
+    <script>
+        document.getElementById('customerInput').addEventListener('input', function () {
+            var input = this.value;
+            var options = document.getElementById('custo_id').getElementsByTagName('option');
+            var customerNotFound = document.getElementById('customerNotFound');
+    
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].value.startsWith(input)) {
+                    customerNotFound.style.display = 'none';
+                    return;
+                }
+            }
+    
+            customerNotFound.style.display = 'block';
         });
     </script>
 @endsection

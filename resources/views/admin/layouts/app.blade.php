@@ -43,7 +43,7 @@
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
 
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
     <!-- {{--    datatables js--}} -->
     <!-- <script src="{{asset('frontend/datatables/js/bootstrap.bundle.min.js')}}"></script> -->
     <!-- <script src="{{asset('frontend/datatables/js/jquery-3.6.0.min.js')}}"></script> -->

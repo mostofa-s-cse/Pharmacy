@@ -26,11 +26,11 @@ class CategoriesController extends Controller
      {
         
          try {
-             $Categorys = Category::all();
+            $categories = Category::orderBy('id', 'DESC')->get();
              
              $output = '';
              $i = 0;
-             if ($Categorys->count() > 0) {
+             if ($categories->count() > 0) {
                  $output .= '<table class="table table-striped table-sm text-center align-middle">
              <thead>
                <tr>
@@ -40,7 +40,7 @@ class CategoriesController extends Controller
                </tr>
              </thead>
              <tbody>';
-                 foreach ($Categorys as $category) {
+                 foreach ($categories as $category) {
                      $output .= '<tr>
                  <td>' . ++$i. '</td>
                  <td>' . $category->name . '</td>

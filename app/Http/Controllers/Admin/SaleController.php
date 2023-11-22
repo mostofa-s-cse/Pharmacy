@@ -90,19 +90,25 @@ class SaleController extends Controller
 
     public function store(Request $request)
     {
-//       dd($request->input());
+    //   dd($request->custo_id);
+    $customer = DB::table('customers')->where('customer_id', $request->custo_id)->first();
 
-       $sale = DB::table('sales')->insertGetId([
-          'customer_id' => $request->customer_id,
-          'sub_total' => $request->sub_total,
-          'discount' => $request->discount,
-          'total_price' => $request->total_price,
-          'paid_by' => $request->paid_by,
-          'amount_paid' => $request->amount_paid,
-          'due_return' => $request->due_return,
-          'created_at' => now(),
-          'updated_at' => now(),
-       ]);
+    if (!$customer) {
+        // Customer not found
+        session()->flash('error', 'Customer not found');
+    } else {
+        // Customer found, proceed with the sale insertion
+        $sale = DB::table('sales')->insertGetId([
+            'customer_id' => $request->custo_id,
+            'sub_total' => $request->sub_total,
+            'discount' => $request->discount,
+            'total_price' => $request->total_price,
+            'paid_by' => $request->paid_by,
+            'amount_paid' => $request->amount_paid,
+            'due_return' => $request->due_return,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
        
 
        $product_count = count($request->product_id);
@@ -129,7 +135,6 @@ class SaleController extends Controller
             ->where('id', $request->product_id[$i])
             ->update(['quantity' =>  $current_qty]);
        }
-
       
 
 
@@ -138,7 +143,7 @@ class SaleController extends Controller
        return response()->json([
         'status' => 200,
     ]);
-    }
+    }}
 
     /*
     |--------------------------------------------------------------------------
@@ -228,7 +233,7 @@ class SaleController extends Controller
     */
     public function fetchAllSales() {
 		try {
-            $sales = Sale::all();
+            $sales = Sale::orderBy('id', 'DESC')->get();
             $output = '';
             $i = 0;
             if ($sales->count() > 0) {
