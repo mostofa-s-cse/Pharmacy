@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExpiredProductController;
+use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\OutStockProductController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PurchaseController;
@@ -144,7 +145,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('accounts-other-transaction/store', [AccountsController::class, 'store'])->name('other.transection.store');
     Route::get('accounts-other-transaction/ledger/details', [AccountsController::class, 'ledgerdetails'])->name('other.transection.ledgerdetails');
     Route::get('accounts-transaction-history', [AccountsController::class, 'TransactionHistoryIndex'])->name('transactionhistory.index');
-    Route::get('cash-memo', [AccountsController::class, 'CashMemo'])->name('cashmemo.index');
+    Route::get('cash-memo', [InvoiceController::class, 'index'])->name('cashmemo.index');
     Route::get('barcode-scanning', [AccountsController::class, 'BarcodeScanning'])->name('barcodescanning.index');
     /*
   |--------------------------------------------------------------------------

@@ -3243,7 +3243,7 @@ input[type=file].form-control {
 .table th {
   white-space: nowrap;
   border-top: 1px solid #e2e5e8;
-  padding: 1rem 0.75rem;
+  padding: 0.5rem 0.75rem;
 }
 .table td {
   border-top: 1px solid #e2e5e8;
