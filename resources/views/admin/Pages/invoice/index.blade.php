@@ -4,7 +4,7 @@
 <div class="content container-fluid">
 
     <div class="card">
-  <div class="card-body">
+  <div class="card-body" id="printableContent">
     <div class="mb-5 mt-3">
       <div class="px-4">
         <div class="col-md-12">
@@ -101,7 +101,7 @@
                 </div>
                 <div class="d-print-none mt-4">
                 <div class="float-end">
-                <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
+                <a href="javascript:window.print()" onclick="printContent()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
                 <a href="#" class="btn btn-primary w-md">Send</a>
                 </div>
                 </div>
@@ -128,5 +128,20 @@
 
 </div>
 
+@endsection
+@section('script')
+<script>
+  function printContent() {
+      var contentToPrint = document.getElementById('printableContent').innerHTML;
+      var originalContent = document.body.innerHTML;
+
+      document.body.innerHTML = contentToPrint;
+
+      window.print();
+
+      // Restore the original content
+      document.body.innerHTML = originalContent;
+  }
+</script>
 @endsection
 
