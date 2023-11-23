@@ -101,8 +101,8 @@
                 </div>
                 <div class="d-print-none mt-4">
                 <div class="float-end">
-                <a href="javascript:window.print()" onclick="printContent()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
-                <a href="#" class="btn btn-primary w-md">Send</a>
+                <a href="javascript:window.print()" onclick="printContent()" class="btn btn-success me-1" id="print"><i class="fa fa-print"></i> Print</a>
+                <button id="download-pdf" class="btn btn-success me-1"><i class="fa fa-download"></i> Download PDF</button>
                 </div>
                 </div>
                 </div>
@@ -130,6 +130,8 @@
 
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
 <script>
   function printContent() {
       var contentToPrint = document.getElementById('printableContent').innerHTML;
@@ -142,6 +144,35 @@
       // Restore the original content
       document.body.innerHTML = originalContent;
   }
+</script>
+<script>
+  window.onload = function () {
+    document.getElementById("download-pdf")
+        .addEventListener("click", () => {
+            const printableContent = this.document.getElementById("printableContent");
+            console.log(printableContent);
+            console.log(window);
+            var opt = {
+                margin: 0.2,
+                filename: 'invoice.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            // html2pdf().from(printableContent).set(opt).save();
+
+            html2pdf().from(printableContent).set(opt).outputPdf().then(function(pdf) {
+              html2pdf().from(printableContent).set(opt).save();
+          // Hide the button after the PDF is generated and saved
+          document.getElementById("download-pdf").style.display = "none";
+          document.getElementById("print").style.display = "none";
+          setTimeout(function () {
+            location.reload();
+      }, 500);
+        });
+        
+        })
+}
 </script>
 @endsection
 
