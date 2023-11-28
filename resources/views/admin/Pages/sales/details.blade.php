@@ -33,8 +33,22 @@
                 <!-- products -->
                 <div class="card">
                     <div class="table-responsive">
-                        <div class="card-body" id="show_all_Sales">
-                            <h3 class="text-center text-secondary my-5">Loading...</h3>
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped data-table">
+                                <thead>
+                                <tr class="" style="text-align:center; ">
+                                    <th style="width: 7%">SL</th>
+                                    <th style="width: 25%">Customer Id</th>
+                                    <th style="width: 35%">Sub Total</th>
+                                    <th style="width: 35%">Discount</th>
+                                    <th style="width: 35%">Total Price</th>
+                                    <th style="width: 35%">Paid by</th>
+                                    <th style="width: 35%">Amount Paid</th>
+                                    <th style="width: 35%">Due Return</th>
+                                    <th style="width: 10%">Action</th>
+                                </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
 
@@ -52,25 +66,42 @@
     <!-- /Generate Modal -->
 @endsection
 @section('script')
-    <script>
-            // var table = $('#sales-table').DataTable({
-            //     "responsive": false,
-            //     "lengthChange": true,
-            //     "autoWidth": false,
-            //     "buttons": ["csv", "excel", "pdf", "print"]
-            // }).buttons().container().appendTo('#purchase-table_wrapper .col-md-6:eq(0)');
-            // fetch all product ajax request
-            fetchAllProduct();
+<script>
+    var datatable = $('.data-table').DataTable({
+        order: [],
+        lengthMenu: [[10, 20, 30, 50, 100, -1], [10, 20, 30, 50, 100, "All"]],
+        processing: true,
+        responsive: true,
+        serverSide: true,
+        language: {
+            processing: '<i class="ace-icon fa fa-spinner fa-spin bigger-500" style="font-size:60px;"></i>'
+        },
+        scroller: {
+            loadingIndicator: false
+        },
+        pagingType: "full_numbers",
 
-            function fetchAllProduct() {
-                $.ajax({
-                    url: '{{ route('sales.fetchAllSales') }}',
-                    method: 'get',
-                    success: function (response) {
-                        $("#show_all_Sales").html(response);
-                        $("table").DataTable({});
-                    }
-                });
-            }
-    </script>
+        ajax: {
+            url: "{{route('sales.fetchAllSales')}}",
+            type: "get",
+        },
+
+        columns: [
+            {data: "DT_RowIndex", name: "DT_RowIndex", orderable: false,},
+            {data: 'customer_id', name: 'customer_id', orderable: true,},
+            {data: 'sub_total', name: 'sub_total', orderable: true},
+
+            {data: 'discount', name: 'discount', orderable: true,},
+            {data: 'total_price', name: 'total_price', orderable: true},
+
+            {data: 'paid_by', name: 'paid_by', orderable: true,},
+            {data: 'amount_paid', name: 'amount_paid', orderable: true},
+            {data: 'due_return', name: 'due_return', orderable: true},
+
+            {data: 'action', searchable: false, orderable: false}
+
+            //only those have manage_user permission will get access
+        ],
+    });
+</script>
 @endsection

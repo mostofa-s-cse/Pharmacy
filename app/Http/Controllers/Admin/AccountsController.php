@@ -22,9 +22,9 @@ class AccountsController extends Controller
     {
         // $accounts = Sale::all();
        $accounts = DB::table('sales')
-       ->join('sales_details','sales.id','=','sales_details.sale_id')
+       ->join('sale_details','sales.id','=','sale_details.sale_id')
        ->join('customers','sales.customer_id','customers.customer_id')
-       ->join('purchases','sales_details.product_id','purchases.id')
+       ->join('purchases','sale_details.product_id','purchases.id')
        ->get();
 
         return view('admin.Pages.accounts.billinghistory',compact('accounts'));

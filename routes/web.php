@@ -113,7 +113,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/sales-store', [SaleController::class, 'store'])->name('sales.store');
     // Route::get('/sales-edit', [SaleController::class, 'edit'])->name('sales.edit');
     // Route::post('/sales-update/{id}', [SaleController::class, 'update'])->name('sales.update');
-    Route::get('/sales_details', [SaleController::class, 'SalesDetails'])->name('sales.details');
+    Route::get('/sale_details', [SaleController::class, 'SalesDetails'])->name('sales.details');
     Route::get('/sales_fetchAllsales', [SaleController::class, 'fetchAllSales'])->name('sales.fetchAllSales');
     Route::delete('/sales-delete', [SaleController::class, 'destroy'])->name('sales.delete');
     Route::get('/sales-reports', [SaleController::class, 'reports'])->name('sales.reports');
@@ -145,7 +145,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('accounts-other-transaction/store', [AccountsController::class, 'store'])->name('other.transection.store');
     Route::get('accounts-other-transaction/ledger/details', [AccountsController::class, 'ledgerdetails'])->name('other.transection.ledgerdetails');
     Route::get('accounts-transaction-history', [AccountsController::class, 'TransactionHistoryIndex'])->name('transactionhistory.index');
-    Route::get('cash-memo', [InvoiceController::class, 'index'])->name('cashmemo.index');
+    Route::get('cash-memo/{id}/{saleId}', [InvoiceController::class, 'index'])->name('cashmemo.index');
     Route::get('barcode-scanning', [AccountsController::class, 'BarcodeScanning'])->name('barcodescanning.index');
     /*
   |--------------------------------------------------------------------------

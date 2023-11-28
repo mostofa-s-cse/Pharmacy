@@ -114,7 +114,7 @@ class SaleController extends Controller
        $product_count = count($request->product_id);
 
        for ($i=0; $i < $product_count; $i++){
-           DB::table('sales_details')->insert([
+           DB::table('sale_details')->insert([
                'sale_id' => $sale,
                'product_id' => $request->product_id[$i],
                'quantity' => $request->qty[$i],
@@ -231,50 +231,55 @@ class SaleController extends Controller
     | fetchAllsales 
     |--------------------------------------------------------------------------
     */
-    public function fetchAllSales() {
-		try {
-            $sales = Sale::orderBy('id', 'DESC')->get();
-            $output = '';
-            $i = 0;
-            if ($sales->count() > 0) {
-                $output .= '<table class="table table-striped table-sm align-middle" id="tablebtn">
-            <thead>
-              <tr>
-              <th>S/N</th>
-              <th>Customer ID</th>
-              <th>Sub Total</th>
-              <th>Discount</th>
-              <th>Total Price</th>
-              <th>Paid By</th>
-              <th>Amount Paid</th>
-              <th>Due/Return</th>
-              </tr>
-            </thead>
-            <tbody>';
 
-                foreach ($sales as $item) {
-                    $output .= '<tr>
-                <td>' . ++$i . '</td>
-                <td>' . $item->customer_id . '</td>
-                <td>' . $item->sub_total . '</td>
-                <td>' . $item->discount . '</td>
-                <td>' . $item->total_price . '</td>
-                <td>' . $item->paid_by . '</td>
-                <td>' . $item->amount_paid . '</td>
-                <td>' . $item->due_return . '</td>
-                </tr>';
-                }
-                $output .= '</tbody></table>';
-                echo $output;
+    public function fetchAllSales(Request $request)
+    {
+        try {
+            if ($request->ajax()) {
+                $data = Sale::orderBy('id', 'DESC')->get();
 
-            } else {
-                echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
+                return DataTables::of($data)
+
+                    ->addIndexColumn()
+                    ->addColumn('customer_id', function ($data) {
+                        return $data->customer_id;
+                    })
+                    ->addColumn('sub_total', function ($data) {
+                        return $data->sub_total;
+                    })
+                    ->addColumn('discount', function ($data) {
+                        return $data->discount;
+                    })
+                    ->addColumn('total_price', function ($data) {
+                        return $data->total_price;
+                    })
+                    ->addColumn('paid_by', function ($data) {
+                        return $data->paid_by;
+                    })
+
+                    ->addColumn('amount_paid', function ($data) {
+                        return $data->amount_paid;
+                    })
+                    ->addColumn('due_return', function ($data) {
+                        return $data->due_return;
+                    })
+
+                    ->addColumn('action', function ($data) {
+                        return '<div class="" role="group">' .
+                            '<a id="" ' .
+                            'href="' . route('cashmemo.index', ['id' => $data->customer_id, 'saleId' => $data->id]) . '" ' .
+                            'class="btn btn-sm btn-success" style="cursor:pointer" title="Edit">' .
+                            '<i class="fa fa-download"> Cash Memo</i>' .
+                            '</a>' .
+                            '</div>';
+                    })
+                    
+                    ->rawColumns(['customer_id', 'sub_total','discount','total_price','paid_by','amount_paid','due_return', 'action'])
+                    ->make(true);
             }
-        } catch (\Exception $e) {
-            // Return Json Response
-            return response()->json([
-                'message' => $e
-            ], 500);
+            return view('back-end.pages.counter.index');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
     /*
