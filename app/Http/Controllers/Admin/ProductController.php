@@ -103,8 +103,8 @@ class ProductController extends Controller
         $this->validate($request,[
             'product'=>'required|max:200',
             'price'=>'required|min:1',
-            'discount'=>'nullable',
-            'description'=>'nullable|max:255',
+            'discount'=>'required',
+            'quantity'=>'required',
         ]);
         $sold_product = Purchase::find($request->product);
         $price = $request->price;
@@ -113,17 +113,25 @@ class ProductController extends Controller
         }
         $purchased_item = Purchase::find($sold_product->id);
         $new_quantity = ($purchased_item->quantity) - ($request->quantity);
-        if (!($new_quantity < 0)){
+
+        $newQuantity = $request->quantity;
+
+        if ($newQuantity > 0 && $newQuantity <= $purchased_item->quantity) {
             $purchased_item->update([
-                'quantity'=>$new_quantity,
-            ]);}
-        Product::create([
-            'purchase_id'=>$request->product,
-            'price'=>$price,
-            'discount'=>$request->discount,
-            'quantity'=>$request->quantity,
-            'description'=>$request->description,
-        ]);
+                        'quantity'=>$new_quantity,
+                    ]);
+                    Product::create([
+                            'purchase_id'=>$request->product,
+                            'price'=>$price,
+                            'discount'=>$request->discount,
+                            'quantity'=>$request->quantity,
+                            'description'=>$request->description,
+                        ]);
+        } else {
+            // Code to execute when the condition is not met
+            dd("Failed: The new quantity is invalid");
+        }
+        
         // $notifications = notify("Product has been added");
         return response()->json([
             'status' => 200,
