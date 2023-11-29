@@ -91,6 +91,27 @@ class SaleController extends Controller
     public function store(Request $request)
     {
     //   dd($request->custo_id);
+
+
+//     $productqty = $request->qty;
+//     $productIds = $request->product_id;
+
+//     foreach ($productIds as $productId) {
+//         // Find the product by ID
+//         $product = Product::find($productId);
+// // dd($product->quantity);
+
+//         // Check if the product exists and has a quantity greater than 0
+//         if ($product->quantity > $productqty) {
+//             // Success: Product exists, quantity is greater than 0
+//             dd("Success");
+//         } else {
+//             // Error: Product doesn't exist or quantity is invalid
+//             dd("Failed");
+//         }
+//     }
+
+
     $customer = DB::table('customers')->where('customer_id', $request->custo_id)->first();
 
     if (!$customer) {

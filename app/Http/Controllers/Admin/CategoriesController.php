@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Purchase;
+use DB;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -139,8 +141,20 @@ class CategoriesController extends Controller
      public function delete(Request $request)
      {
          try {
-             $id = $request->id;
-             Category::destroy($id);
+            $id = $request->id;
+
+                $check = DB::table('purchases')
+                    ->where('category_id', $id)
+                    ->first();
+
+                if ($check && $check->category_id == $id) {
+                    return response()->json([
+                        'message' => "Not Delete this Category"
+                    ], 500);
+                } else {
+                    Category::destroy($id);
+                }
+             
          } catch (\Exception $e) {
              // Return Json Response
              return response()->json([
