@@ -5,13 +5,15 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="page-title">Welcome {{ Auth::user()->name }} !</h3>
+                    <h3 class="page-title">Welcome {{ Auth::user()->name }}!</h3>
+                    <p class="text-black mt-4">Today is {{ now()->format('l, F j, Y') }}</p>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ul>
                 </div>
             </div>
         </div>
+        
 
         <div class="row">
             <div class="col-xl-3 col-sm-6 col-12">
