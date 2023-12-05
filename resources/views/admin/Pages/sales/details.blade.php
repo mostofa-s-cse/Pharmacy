@@ -67,6 +67,12 @@
 @endsection
 @section('script')
 <script>
+    $(document).ready(function () {
+        $(".sidebar-sales").addClass('active');
+        $(".sidebar-sales_details").addClass('active');
+    });
+  </script>
+<script>
     var datatable = $('.data-table').DataTable({
         order: [],
         lengthMenu: [[10, 20, 30, 50, 100, -1], [10, 20, 30, 50, 100, "All"]],

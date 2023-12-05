@@ -58,6 +58,12 @@
 @endsection
 @section('script')
 <script>
+    $(document).ready(function () {
+        $(".sidebar-accounts").addClass('active');
+        $(".sidebar-accounts_index").addClass('active');
+    });
+  </script>
+<script>
     $(document).ready(function() {
         $('#datatable').DataTable();
         $(function() {

@@ -10,7 +10,7 @@
         <div class="col-md-12">
           <div class="text-center">
           <h2>Pharmacy Medicine Corner,Uttara</h2>
-            <p class="pt-0">Road-2, Sector-3, Uttara, Dhaka</p>
+            <p>Road-2, Sector-3, Uttara, Dhaka</p>
             <p>Mob No : 0172XXXXXXXX</p>
             <h2>Cash Memo</h2>
           </div>

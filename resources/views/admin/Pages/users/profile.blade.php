@@ -43,5 +43,11 @@
     </div>
 
     </div>
-   
+  @endsection
+    @section('script')
+    <script>
+        $(document).ready(function () {
+            $(".sidebar-users_profile").addClass('active');
+        });
+      </script>
 @endsection

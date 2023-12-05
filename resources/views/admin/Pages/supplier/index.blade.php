@@ -187,6 +187,11 @@
 @endsection
 @section('script')
 <script>
+      $(document).ready(function () {
+       $(".sidebar-supplier").addClass('active');
+    });    
+</script>
+<script>
 	$(function()
 	{
 		// add new supplier ajax request

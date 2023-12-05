@@ -56,3 +56,11 @@
 });
 </script>
 @endsection
+@section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-accounts").addClass('active');
+        $(".sidebar-transactionhistory").addClass('active');
+    });
+  </script>
+@endsection

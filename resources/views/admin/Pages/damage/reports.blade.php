@@ -83,7 +83,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Damage</h5>
+                    <h5 class="modal-title">Damage Report</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -121,6 +121,12 @@
     <!-- /Generate Modal -->
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-reports").addClass('active');
+        $(".sidebar-damage_reports").addClass('active');
+    });
+  </script>
     <script>
         
             var table = $('#damage-table').DataTable({

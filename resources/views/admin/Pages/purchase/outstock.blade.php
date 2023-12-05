@@ -140,6 +140,12 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-purchase").addClass('active');
+        $(".sidebar-purchase_outstock").addClass('active');
+    });
+  </script>
     <script>
         $(document).ready(function () {
             var table = $('#outstock-product').DataTable({

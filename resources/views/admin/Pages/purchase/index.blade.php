@@ -228,6 +228,12 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-purchase").addClass('active');
+        $(".sidebar-purchase_index").addClass('active');
+    });
+  </script>
     <script>
         $(function () {
 // add new Purchase ajax request

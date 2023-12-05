@@ -170,6 +170,11 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+     $(".sidebar-inventory").addClass('active');
+  });    
+</script>
     <script>
         $(function () {
             // add new Inventory ajax request

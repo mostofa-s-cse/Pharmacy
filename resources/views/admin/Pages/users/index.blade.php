@@ -190,7 +190,11 @@
 
 @endsection
 @section('script')
-
+<script>
+    $(document).ready(function () {
+        $(".sidebar-users").addClass('active');
+    });
+  </script>
     <script>
         function myFunction() {
   var x = document.getElementById("myInput");

@@ -103,6 +103,11 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-categories").addClass('active');
+    });    
+</script>
     <script>
         $(function () {
             // add new Categories ajax request
@@ -235,21 +240,32 @@
                                 _token: csrf
                             },
                             success: function (response) {
-                                console.log(response);
+                                // console.log('success',response);
+                                if(response.status == 'error'){
+                                    // console.log("test");
+                                    Swal.fire(
+                                    'Category delete fails!',
+                                    response.message,
+                                    'error'
+                                )
+                                }else{
+                                    // console.log("test2");
                                 Swal.fire(
                                     'Deleted!',
                                     'Your file has been deleted.',
                                     'success'
-                                )
+                                )}
                                 fetchAllCategories();
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
+                                // console.log('error',error);
                                 // alert(xhr.status);
                                 Swal.fire(
                                     'Category delete fails!',
                                     thrownError,
                                     'error'
                                 )
+                                
                                 // alert(thrownError);
                             }
                         });

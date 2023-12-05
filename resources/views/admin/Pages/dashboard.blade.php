@@ -155,24 +155,11 @@
     </div>
 @endsection
 @section('script')
+
 <script>
-    $(function () {
-    // $(document).ready(function() {
-    //     var table = $('#sales-table').DataTable({
-    //         processing: true,
-    //         serverSide: true,
-    //         ajax: "{{route('sales.fetchAll')}}",
-    //         columns: [
-    //             {data: 'product', name: 'product'},
-    //             {data: 'quantity', name: 'quantity'},
-    //             {data: 'total_price', name: 'total_price'},
-	// 			{data: 'date', name: 'date'},
-    //         ]
-    //     });
-        
-    // });
-    
-    });
+    $(document).ready(function () {
+        $(".sidebar-dashboard").addClass('active');
+    });    
 </script> 
 <script src="{{asset('frontend/chart.js/Chart.bundle.min.js')}}"></script>
 @endsection

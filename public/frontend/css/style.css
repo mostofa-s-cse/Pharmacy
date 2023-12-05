@@ -3099,7 +3099,7 @@ input[type=file].form-control {
 
 .submit-section {
   text-align: center;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   float: left;
   width: 100%;
 }
@@ -8704,7 +8704,9 @@ button.close {
     float: right;
   }
 }
-
+.sidebar-menu ul li .active{
+  background-color: #000;
+}
 /* .input_fields_wrap input{
   margin: 5px 0;
 }

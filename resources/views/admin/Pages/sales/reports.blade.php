@@ -81,7 +81,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit sales</h5>
+                    <h5 class="modal-title">Sales Report</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -119,6 +119,12 @@
     <!-- /Generate Modal -->
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-reports").addClass('active');
+        $(".sidebar-sales_reports").addClass('active');
+    });
+  </script>
     <script>
         var table = $('#sales-table').DataTable({
                 "responsive": false,

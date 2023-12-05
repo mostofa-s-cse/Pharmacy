@@ -70,6 +70,12 @@
 @endsection
 @section('script')
 <script>
+    $(document).ready(function () {
+        $(".sidebar-accounts").addClass('active');
+        $(".sidebar-othertransaction").addClass('active');
+    });
+  </script>
+<script>
     $('#othertrans').on('submit', function(e) {
             e.preventDefault();
             $.ajaxSetup({

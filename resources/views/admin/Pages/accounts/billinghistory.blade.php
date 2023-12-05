@@ -76,6 +76,12 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-accounts").addClass('active');
+        $(".sidebar-billinghistory").addClass('active');
+    });
+  </script>
     <script>
         $(document).ready(function() {
         $('#datatable').DataTable();

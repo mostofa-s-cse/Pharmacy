@@ -191,6 +191,12 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-product").addClass('active');
+        $(".sidebar-product_index").addClass('active');
+    });
+  </script>
     <script>
         $(function()
         {

@@ -179,6 +179,11 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+     $(".sidebar-customer").addClass('active');
+  });    
+</script>
     <script>
         $(function () {
             // add new Customer ajax request
