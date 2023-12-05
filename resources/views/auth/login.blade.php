@@ -3,7 +3,7 @@
 @section('user-not-login')
 <div class="account-page">
         <div class="main-wrapper">
-            <div class="account-content">
+            <div class="account-content" style="padding: 0px;margin-top:8%">
                 <div class="container">
                     <div class="account-logo">
                         <a href="{{ route('login') }}"
