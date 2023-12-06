@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Purchase;
+use DB;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -26,11 +28,11 @@ class CategoriesController extends Controller
      {
         
          try {
-             $Categorys = Category::all();
+            $categories = Category::orderBy('id', 'DESC')->get();
              
              $output = '';
              $i = 0;
-             if ($Categorys->count() > 0) {
+             if ($categories->count() > 0) {
                  $output .= '<table class="table table-striped table-sm text-center align-middle">
              <thead>
                <tr>
@@ -40,7 +42,7 @@ class CategoriesController extends Controller
                </tr>
              </thead>
              <tbody>';
-                 foreach ($Categorys as $category) {
+                 foreach ($categories as $category) {
                      $output .= '<tr>
                  <td>' . ++$i. '</td>
                  <td>' . $category->name . '</td>
@@ -139,8 +141,21 @@ class CategoriesController extends Controller
      public function delete(Request $request)
      {
          try {
-             $id = $request->id;
-             Category::destroy($id);
+            $id = $request->id;
+
+                $check = DB::table('purchases')
+                    ->where('category_id', $id)
+                    ->first();
+
+                if ($check && $check->category_id == $id) {
+                    return response()->json([
+                        'status'=>'error',
+                        'message' => 'This Category used Purchase'
+                    ], 200);
+                } else {
+                    Category::destroy($id);
+                }
+             
          } catch (\Exception $e) {
              // Return Json Response
              return response()->json([

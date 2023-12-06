@@ -8,7 +8,7 @@
                 <div class="col">
                     <h3 class="page-title">Sales</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Sales</li>
                     </ul>
                 </div>
@@ -54,7 +54,7 @@
                             <form action="#" method="POST" id="add_sale_form"
                                   enctype="multipart/form-data">
                                 @csrf
-                                <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
+                                {{-- <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
                                     <label for="custom_field1">Select customers</label>
                                     <input type="text" list="custom_field1_datalist" class="form-control"
                                            placeholder="Search customers" name="customer_id" required="true">
@@ -64,7 +64,19 @@
                                         @endforeach
                                     </datalist>
                                     <span id="error" class="text-danger"></span>
+                                </div> --}}
+
+                                <div class="col-md-12">
+                                    <label for="custo_id">Select Customer:</label>
+                                    <input list="custo_id" name="custo_id" type="text" class="form-control w-100" id="customerInput" placeholder="Search customers" required>
+                                    <datalist id="custo_id">
+                                        @foreach ($customers->sortByDesc('id') as $item)
+                                            <option value="{{ $item->customer_id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </datalist>
+                                    <div id="customerNotFound" style="color: red; display: none;" class="mt-2">Customer not found</div>
                                 </div>
+
                                 <div class="table-responsive">
                                     <table>
                                         <table class="table">
@@ -93,37 +105,40 @@
                                                 <tr>
                                                     <td>Sub Total :</td>
                                                     <td><input type="number" id="sub_total" name="sub_total"
-                                                               class="form-control"/></td>
+                                                               class="form-control" step="0.01"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Discount :</td>
                                                     <td><input type="number" value="0" id="discount" name="discount"
-                                                               class="form-control"/></td>
+                                                               class="form-control" step="0.01"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Total :</td>
                                                     <td><input type="number" id="total_price" name="total_price"
-                                                               class="form-control"/></td>
+                                                               class="form-control" step="0.01"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Paid By</td>
-                                                    <td><select class="custom-select form-control" name="paid_by">
-                                                            <option selected>Select Type</option>
-                                                            <option value="cash">Cash</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select></td>
+                                                    <td>
+                                                        <select class="form-control" name="paid_by" id="paid_by" required="true">
+                                                            <option disabled selected value="">Select Type</option>
+                                                            <option value="Cash">Cash</option>
+                                                            <option value="Card">Card</option>
+                                                            <option value="Bkash">Bkash</option>
+                                                            <option value="Nogod">Nogod</option>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Amount Paid :</td>
                                                     <td><input type="number" value="0" id="amount_paid"
-                                                               name="amount_paid" class="form-control"/>
+                                                               name="amount_paid" class="form-control" step="0.01"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Due/Return :</td>
                                                     <td><input type="number" id="due_return" name="due_return" readonly
-                                                               class="form-control"/></td>
+                                                               class="form-control" step="0.01"/></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -221,6 +236,12 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-sales").addClass('active');
+        $(".sidebar-sales_index").addClass('active');
+    });
+  </script>
     <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 
@@ -418,6 +439,22 @@
                 });
             }
 
+        });
+    </script>
+    <script>
+        document.getElementById('customerInput').addEventListener('input', function () {
+            var input = this.value;
+            var options = document.getElementById('custo_id').getElementsByTagName('option');
+            var customerNotFound = document.getElementById('customerNotFound');
+    
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].value.startsWith(input)) {
+                    customerNotFound.style.display = 'none';
+                    return;
+                }
+            }
+    
+            customerNotFound.style.display = 'block';
         });
     </script>
 @endsection

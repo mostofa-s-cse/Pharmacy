@@ -5,13 +5,15 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="page-title">Welcome {{ Auth::user()->name }} !</h3>
+                    <h3 class="page-title">Welcome {{ Auth::user()->name }}!</h3>
+                    <p class="text-black mt-4">Today is {{ now()->format('l, F j, Y') }}</p>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ul>
                 </div>
             </div>
         </div>
+        
 
         <div class="row">
             <div class="col-xl-3 col-sm-6 col-12">
@@ -28,7 +30,7 @@
                         <div class="dash-widget-info">
                             <h6 class="text-muted">Today Sales Cash</h6>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-primary w-50"></div>
+                                <div class="progress-bar bg-primary w-{{$today_sales}}"></div>
                             </div>
                         </div>
                     </div>
@@ -49,7 +51,7 @@
 
                             <h6 class="text-muted">Product Categories</h6>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-success w-50"></div>
+                                <div class="progress-bar bg-success w-{{$total_categories}}"></div>
                             </div>
                         </div>
                     </div>
@@ -70,7 +72,7 @@
 
                             <h6 class="text-muted">Expired Products</h6>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-danger w-50"></div>
+                                <div class="progress-bar bg-danger w-{{$total_expired_products}}"></div>
                             </div>
                         </div>
                     </div>
@@ -91,7 +93,7 @@
 
                             <h6 class="text-muted">System Users</h6>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-warning w-50"></div>
+                                <div class="progress-bar bg-warning w-{{\DB::table('users')->count()}}"></div>
                             </div>
                         </div>
                     </div>
@@ -101,8 +103,8 @@
         <div class="row">
             <div class="col-md-12 col-lg-6">
                 <div class="card card-table p-3">
-                    <div class="card-header">
-                        <h4 class="card-title ">Today Sales</h4>
+                    <div class="card-header text-center" style="margin-bottom:5px">
+                        <h4 class="">Today Sales</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -155,24 +157,11 @@
     </div>
 @endsection
 @section('script')
+
 <script>
-    $(function () {
-    // $(document).ready(function() {
-    //     var table = $('#sales-table').DataTable({
-    //         processing: true,
-    //         serverSide: true,
-    //         ajax: "{{route('sales.fetchAll')}}",
-    //         columns: [
-    //             {data: 'product', name: 'product'},
-    //             {data: 'quantity', name: 'quantity'},
-    //             {data: 'total_price', name: 'total_price'},
-	// 			{data: 'date', name: 'date'},
-    //         ]
-    //     });
-        
-    // });
-    
-    });
+    $(document).ready(function () {
+        $(".sidebar-dashboard").addClass('active');
+    });    
 </script> 
 <script src="{{asset('frontend/chart.js/Chart.bundle.min.js')}}"></script>
 @endsection

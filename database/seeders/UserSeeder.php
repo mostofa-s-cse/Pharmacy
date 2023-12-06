@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'phone' => "01728839989",
             'email' => "mostofa@admin.com",
             'password' => Hash::make('test@123'),
-            'role_id'=>'1'
+            'role'=>'admin'
         ]);
     }
 }

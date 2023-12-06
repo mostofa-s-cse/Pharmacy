@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Users</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Users</li>
                     </ul>
                 </div>
@@ -73,11 +73,10 @@
                                     <div class="form-group">
                                         <label>Role</label>
                                         <div class="form-group">
-                                            <select class="select2 form-select form-control" name="role_id">
+                                            <select class="select2 form-select form-control" name="role">
                                                 <option selected>Select Role</option>
-                                                <option value="1">Super Admin</option>
-                                                <option value="2">Admin</option>
-                                                <option value="3">User</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="user">User</option>
                                             </select>
                                         </div>
                                     </div>
@@ -152,11 +151,10 @@
                                     <div class="form-group">
                                         <label>Role</label>
                                         <div class="form-group">
-                                            <select class="select2 form-select form-control" name="role_id" id="role_id">
+                                            <select class="select2 form-select form-control" name="role" id="role">
                                                 <option selected>Select Role</option>
-                                                <option value="1">Super Admin</option>
-                                                <option value="2">Admin</option>
-                                                <option value="3">User</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="user">User</option>
                                             </select>
                                         </div>
                                     </div>
@@ -165,18 +163,18 @@
                         </div>
                         <div class="service-fields">
                             <div class="row">
-                                <div class="col-lg-6">
+                           
                                     
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                 <input class="form-control" type="password" name="password" id="myInput" required="true">
                                     <span class="fa fa-eye-slash mt-2" onclick="myFunction()" style="cursor: pointer;"> <span class="ml-2">Show Password</span></span>
                                     </div>
-                                    </div>
+                                    </div> -->
                       
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Picture</label>
-                                        <input type="file" name="avatar" class="form-control" id="avatar" required="true">
+                                        <input type="file" name="avatar" class="form-control" id="avatar">
                                  </div>
                                 </div>
                             </div>
@@ -192,7 +190,11 @@
 
 @endsection
 @section('script')
-
+<script>
+    $(document).ready(function () {
+        $(".sidebar-users").addClass('active');
+    });
+  </script>
     <script>
         function myFunction() {
   var x = document.getElementById("myInput");
@@ -258,7 +260,7 @@
                         $("#name").val(response.name);
                         $("#phone").val(response.phone);
                         $("#Email").val(response.email);
-                        $("#role_id").val(response.role_id).change();
+                        $("#role").val(response.role).change();
                         $("#avatar").val(response.avatar);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
@@ -296,6 +298,7 @@
                                 'success'
                             )
                             fetchAllUser();
+                            location.reload();
                         }
                         $("#edit_User_btn").text('Update User');
                         $("#edit_User_form")[0].reset();
@@ -343,6 +346,7 @@
                                     'Your file has been deleted.',
                                     'success'
                                 )
+                                location.reload();
                                 fetchAllUser();
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
@@ -368,9 +372,7 @@
                     method: 'get',
                     success: function (response) {
                         $("#show_all_User").html(response);
-                        $("table").DataTable({
-                            order: [0, 'desc']
-                        });
+                        $("table").DataTable();
                     }
                 });
             }

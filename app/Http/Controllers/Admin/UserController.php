@@ -26,6 +26,7 @@ class UserController extends Controller
          try {
              $users = User::all();
              $output = '';
+             $i = 0;
              if ($users->count() > 0) {
                  $output .= '<table class="table table-striped table-sm text-center align-middle">
              <thead>
@@ -42,7 +43,7 @@ class UserController extends Controller
              <tbody>';
                  foreach ($users as $item) {
                      $output .= '<tr>
-                 <td>' . $item->id . '</td>
+                     <td>' . ++$i. '</td>
                  <td>' . $item->name . '</td>
                  <td>' . $item->email . '</td>
                  <td>' . $item->phone . '</td>
@@ -78,7 +79,7 @@ class UserController extends Controller
             'phone'=>'required',
             'email'=>'required|min:1',
             'password'=>'required|min:1',
-            'role'=>'role_id',
+            'role'=>'required',
         ]);
         $imageName = null;
         if ($request->hasFile('avatar')) {
@@ -90,7 +91,7 @@ class UserController extends Controller
             'phone'=>$request->phone,
             'email'=>$request->email,
             'password'=>$request->password,
-            'role_id'=>$request->role_id,
+            'role'=>$request->role,
             'avatar'=>$imageName,
         ]);
         // $notifications = notify("Purchase has been added");
@@ -118,13 +119,13 @@ class UserController extends Controller
  
      public function update(Request $request)
      {
+        // dd($request->role);
         $users = User::find($request->id);
         $this->validate($request,[
             'name'=>'required|max:200',
             'phone'=>'required',
             'email'=>'required|min:1',
-            'password'=>'required|min:1',
-            'role'=>'role_id',
+            'role'=>'required',
         ]);
         $imageName = $users->image;
         if ($request->hasFile('avatar')) {
@@ -135,8 +136,7 @@ class UserController extends Controller
             'name'=>$request->name,
             'phone'=>$request->phone,
             'email'=>$request->email,
-            'password'=>$request->password,
-            'role_id'=>$request->role_id,
+            'role'=>$request->role,
             'avatar'=>$imageName,
         ]);
        return response()->json([

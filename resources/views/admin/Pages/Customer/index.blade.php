@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Customer</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Customer</li>
                     </ul>
                 </div>
@@ -121,14 +121,16 @@
                         <div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-lg-6">
-							<div class="form-group">
-								<label>Name<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="name" id="name" required="true">
+                        <div class="form-group">
+								<label>Customer ID<span class="text-danger">*</span></label>
+								<input class="form-control" type="text" name="customer_id" id="customer_id" required="true">
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<label>Email</label>
-							<input class="form-control" type="email" name="email" id="Email" required="true">
+                        <div class="form-group">
+								<label>Name<span class="text-danger">*</span></label>
+								<input class="form-control" type="text" name="name" id="name" required="true">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -136,22 +138,26 @@
 				<div class="service-fields mb-3">
 					<div class="row">
 						<div class="col-lg-6">
-							<div class="form-group">
-								<label>Phone<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="phone" id="phone" required="true">
-							</div>
+                        <label>Email</label>
+							<input class="form-control" type="email" name="email" id="Email" required="true">
 						</div>
 						<div class="col-lg-6">
                         <div class="form-group">
-								<label>Address</label>
-								<input type="text" name="address" class="form-control" id="address" required="true">
+								<label>Phone<span class="text-danger">*</span></label>
+								<input class="form-control" type="text" name="phone" id="phone" required="true">
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="service-fields mb-3">
 					<div class="row">
-						<div class="col-12">
+						<div class="col-6">
+                        <div class="form-group">
+								<label>Address</label>
+								<input type="text" name="address" class="form-control" id="address" required="true">
+							</div>
+						</div>
+                        <div class="col-6">
                         <div class="form-group">
 								<label>Due</label>
 								<input type="text" name="due" class="form-control" id="due" required="true">
@@ -173,6 +179,11 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+     $(".sidebar-customer").addClass('active');
+  });    
+</script>
     <script>
         $(function () {
             // add new Customer ajax request
@@ -227,6 +238,7 @@
                     },
                     success: function (response) {
                         $("#id").val(response.id);
+                        $("#customer_id").val(response.customer_id);
                         $("#name").val(response.name);
                         $("#phone").val(response.phone);
                         $("#Email").val(response.email);

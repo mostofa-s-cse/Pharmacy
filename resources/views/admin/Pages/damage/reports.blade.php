@@ -8,7 +8,7 @@
                 <div class="col">
                     <h3 class="page-title">Damage Report</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Damage Report</li>
                     </ul>
                 </div>
@@ -34,7 +34,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
 
-                            <table id="damage-table" class="datatable table table-hover table-center mb-0">
+                            <table id="damage-table" class="table table-hover table-center mb-0">
                                 <thead>
                                 <tr>
                                     <th>S/N</th>
@@ -83,7 +83,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Damage</h5>
+                    <h5 class="modal-title">Damage Report</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -121,6 +121,12 @@
     <!-- /Generate Modal -->
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-reports").addClass('active');
+        $(".sidebar-damage_reports").addClass('active');
+    });
+  </script>
     <script>
         
             var table = $('#damage-table').DataTable({

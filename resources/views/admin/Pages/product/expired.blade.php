@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Products Expired</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Product Expired</li>
                     </ul>
                 </div>
@@ -138,6 +138,12 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-product").addClass('active');
+        $(".sidebar-expired").addClass('active');
+    });
+  </script>
     <script>
         $(document).ready(function() {
             var table = $('#outstock-product').DataTable({

@@ -3099,7 +3099,7 @@ input[type=file].form-control {
 
 .submit-section {
   text-align: center;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   float: left;
   width: 100%;
 }
@@ -3243,7 +3243,7 @@ input[type=file].form-control {
 .table th {
   white-space: nowrap;
   border-top: 1px solid #e2e5e8;
-  padding: 1rem 0.75rem;
+  padding: 0.5rem 0.75rem;
 }
 .table td {
   border-top: 1px solid #e2e5e8;
@@ -8704,7 +8704,9 @@ button.close {
     float: right;
   }
 }
-
+.sidebar-menu ul li .active{
+  background-color: #000;
+}
 /* .input_fields_wrap input{
   margin: 5px 0;
 }

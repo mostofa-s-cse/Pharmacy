@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Purchase</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Purchase</li>
                     </ul>
                 </div>
@@ -228,6 +228,12 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-purchase").addClass('active');
+        $(".sidebar-purchase_index").addClass('active');
+    });
+  </script>
     <script>
         $(function () {
 // add new Purchase ajax request

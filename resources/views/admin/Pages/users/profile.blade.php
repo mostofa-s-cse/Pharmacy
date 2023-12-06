@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Profile</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Profile</li>
                     </ul>
                 </div>
@@ -31,7 +31,7 @@
                   </div>
                   <div class="flex-grow-1 ms-3 mt-5">
                     <h5 class="mb-1">Name : {{ Auth::user()->name }}</h5>
-                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Role : {{ Auth::user()->role_id }}</p>
+                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Role : {{ Auth::user()->role }}</p>
                   </div>
                 </div>
               </div>
@@ -43,5 +43,11 @@
     </div>
 
     </div>
-   
+  @endsection
+    @section('script')
+    <script>
+        $(document).ready(function () {
+            $(".sidebar-users_profile").addClass('active');
+        });
+      </script>
 @endsection

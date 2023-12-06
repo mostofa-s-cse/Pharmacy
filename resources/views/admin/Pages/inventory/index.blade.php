@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Inventory</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Inventory</li>
                     </ul>
                 </div>
@@ -170,6 +170,11 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+     $(".sidebar-inventory").addClass('active');
+  });    
+</script>
     <script>
         $(function () {
             // add new Inventory ajax request

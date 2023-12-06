@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -42,10 +43,12 @@ class ProductController extends Controller
             //         })->get(['p.*','c.name as category_name','s.name as as supplier_name']);
 
             $output = '';
+            $i = 0;
             if ($product->count() > 0) {
                 $output .= '<table class="table table-striped table-sm align-middle">
             <thead>
               <tr>
+              <th>ID</th>
                 <th>Product</th>
                 <th>Category</th>
                 <th>Price</th>
@@ -58,6 +61,7 @@ class ProductController extends Controller
             <tbody>';
                 foreach ($product as $item) {
                     $output .= '<tr>
+                <td>' . ++$i . '</td>
                 <td class="sorting_1">
                 <h2 class="table-avatar">
                 <img class="avatar" src="'.asset("storage/purchases/".$item->purchase->image).'" alt="product">
@@ -67,7 +71,7 @@ class ProductController extends Controller
                 <td>' . $item->purchase->category->name . '</td>
                 <td>' . $item->price . '</td>
                 <td>' . $item->discount . '</td>
-                <td>' . $item->purchase->quantity . '</td>
+                <td>' . $item->quantity . '</td>
                 <td>' . date_format(date_create($item->purchase->expiry_date),'d M, Y'). '</td>
                 <td>
                   <a href="#" id="' . $item->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editProductModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>
@@ -99,19 +103,39 @@ class ProductController extends Controller
         $this->validate($request,[
             'product'=>'required|max:200',
             'price'=>'required|min:1',
-            'discount'=>'nullable',
-            'description'=>'nullable|max:255',
+            'discount'=>'required',
+            'quantity'=>'required',
         ]);
+        $sold_product = Purchase::find($request->product);
         $price = $request->price;
         if($request->discount >0){
             $price = $request->price * (1 - $request->discount / 100);
         }
-        Product::create([
-            'purchase_id'=>$request->product,
-            'price'=>$price,
-            'discount'=>$request->discount,
-            'description'=>$request->description,
-        ]);
+        $purchased_item = Purchase::find($sold_product->id);
+        $new_quantity = ($purchased_item->quantity) - ($request->quantity);
+
+        $newQuantity = $request->quantity;
+
+        if ($newQuantity > 0 && $newQuantity <= $purchased_item->quantity) {
+            $purchased_item->update([
+                        'quantity'=>$new_quantity,
+                    ]);
+                    Product::create([
+                            'purchase_id'=>$request->product,
+                            'price'=>$price,
+                            'discount'=>$request->discount,
+                            'quantity'=>$request->quantity,
+                            'description'=>$request->description,
+                        ]);
+        } else {
+            // Code to execute when the condition is not met
+            // dd("Failed: The new quantity is invalid");
+            return response()->json([
+                'status'=>'error',
+                'message' => 'The new quantity is invalid'
+            ], 200);
+        }
+        
         // $notifications = notify("Product has been added");
         return response()->json([
             'status' => 200,
@@ -147,10 +171,22 @@ class ProductController extends Controller
         if($request->discount >0){
            $price = $request->discount * $request->price;
         }
+        $sold_product = Purchase::find($request->product);
+        $purchased_item = Purchase::find($sold_product->id);
+        $new_quantity = ($purchased_item->quantity) - ($request->quantity);
+        if (!($new_quantity < 0)){
+            $purchased_item->update([
+                'quantity'=>$new_quantity,
+            ]);}
+        $product_item = Product::find($products->id);
+        // dd($product_item->quantity);
+        
+        $newquantity = $product_item->quantity + $request->quantity;
        $products->update([
             'purchase_id'=>$request->product,
             'price'=>$price,
             'discount'=>$request->discount,
+            'quantity'=>$newquantity,
             'description'=>$request->description,
         ]);
         return response()->json([
@@ -165,7 +201,16 @@ class ProductController extends Controller
     public function delete(Request $request)
     {
         try {
+            
             $id = $request->id;
+            $product = Product::find($request->id); 
+            // dd($product->purchase_id);
+            $product_qty = \DB::table('purchases')->where('id', $product->purchase_id)->first(['quantity']);
+            $new_quantity =(int) $product->quantity + $product_qty->quantity;
+
+            DB::table('purchases')
+            ->where('id', $product->purchase_id)
+            ->update(['quantity' => $new_quantity]);
             Product::destroy($id);
         } catch (\Exception $e) {
             // Return Json Response

@@ -1,7 +1,7 @@
 <div class="header">
     <div class="header-left">
 
-        <a href="{{ url('admin/dashboard')}}" class="logo">
+        <a href="{{ url('dashboard')}}" class="logo">
             <img src="{{asset('frontend/images/logo4.png')}}" width="120" height="90" alt>
         </a>
     </div>
@@ -13,7 +13,7 @@
                 </span>
     </a>
     <div class="page-title-box">
-        <a href="{{ url('admin/dashboard')}}"><h3>Pharmacy</h3></a>
+        <a href="{{ url('dashboard')}}"><h3>Pharmacy</h3></a>
     </div>
     <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
 

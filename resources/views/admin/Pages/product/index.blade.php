@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Products</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Product</li>
                     </ul>
                 </div>
@@ -49,7 +49,7 @@
                         <div class="service-fields mb-3">
                             <div class="row">
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Product <span class="text-danger">*</span></label>
                                         <select class="select2 form-select form-control" name="product">
@@ -57,6 +57,12 @@
                                                 <option value="{{$purchase->id}}">{{$purchase->product}}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Quantity<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="quantity">
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +130,7 @@
                         <input type="hidden" name="id" id="id" value="id">
                         <div class="service-fields mb-3">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Product <span class="text-danger">*</span></label>
                                         <select class="select2 form-select form-control" id="purchase_id" name="product">
@@ -134,6 +140,12 @@
                                                 @endforeach
                                             @endif
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                <div class="form-group">
+                                        <label>Quantity<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="quantity">
                                     </div>
                                 </div>
                             </div>
@@ -179,6 +191,12 @@
 
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-product").addClass('active');
+        $(".sidebar-product_index").addClass('active');
+    });
+  </script>
     <script>
         $(function()
         {
@@ -196,7 +214,13 @@
                     processData: false,
                     dataType: 'json',
                     success: function(response) {
-                        if (response.status == 200) {
+                        if (response.status == 'error') {
+                            Swal.fire(
+                                    'Product Added fails!',
+                                    response.message,
+                                    'error'
+                                )
+                                }else{
                             Swal.fire(
                                 'Added!',
                                 'Product Added Successfully!',
@@ -204,6 +228,7 @@
                             )
                             fetchAllProduct();
                         }
+                        
                         $("#add_product_btn").text('Add product');
                         $("#add_product_form")[0].reset();
                         $("#addProductModal").modal('hide');
@@ -342,9 +367,7 @@
                     method: 'get',
                     success: function(response) {
                         $("#show_all_product").html(response);
-                        $("table").DataTable({
-                            order: [0, 'desc']
-                        });
+                        $("table").DataTable();
                     }
                 });
             }

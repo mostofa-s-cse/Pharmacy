@@ -43,7 +43,7 @@
     <script src="{{asset('frontend/js/select2.min.js')}}"></script>
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
 
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
     <!-- {{--    datatables js--}} -->
     <!-- <script src="{{asset('frontend/datatables/js/bootstrap.bundle.min.js')}}"></script> -->
     <!-- <script src="{{asset('frontend/datatables/js/jquery-3.6.0.min.js')}}"></script> -->
@@ -57,7 +57,16 @@
     @include('sweetalert::alert')
     @yield('user-not-login')
     <div class="main-wrapper">
-
+        <div id="loader-wrapper">
+        <div id="loader">
+        <div class="loader-ellips">
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+        </div>
+        </div>
+        </div>
         @if(session()->has('error'))
             <div id="alert" class="float-end" style="width:30rem; margin:20px;margin-top: 68px;">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert" data-auto-dismiss="4000">
@@ -79,7 +88,7 @@
         @endif
 
 
-        @if (Request::is('admin*'))
+        @if (Auth::user())
             @include('admin.layouts.includes.sidebar')
             @include('admin.layouts.includes.header')
         @endif

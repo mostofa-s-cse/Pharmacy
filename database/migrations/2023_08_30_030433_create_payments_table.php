@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->string('customer_id')->unique();
-            $table->string('name');
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->decimal('due')->nullable();
+        Schema::create('payments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->enum('type',['Income','Expense','Pending'])->nullable();
+            $table->string('account_head')->nullable();
+            $table->string('amount')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('payments');
     }
 };

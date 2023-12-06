@@ -21,10 +21,10 @@ class CustomerController extends Controller
     public function fetchAll()
     {
         try {
-            $Customers = Customer::all();
+            $customers = Customer::orderBy('id', 'DESC')->get();
             $output = '';
             $i = 0;
-            if ($Customers->count() > 0) {
+            if ($customers->count() > 0) {
                 $output .= '<table class="table table-striped table-sm text-center align-middle">
             <thead>
               <tr>
@@ -39,7 +39,7 @@ class CustomerController extends Controller
               </tr>
             </thead>
             <tbody>';
-                foreach ($Customers as $customers) {
+                foreach ($customers as $customers) {
                     $output .= '<tr>
                 <td>' . ++$i . '</td>
                 <td>' . $customers->customer_id . '</td>

@@ -9,7 +9,7 @@
                 <div class="col">
                     <h3 class="page-title">Purchase Report</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Purchase Report</li>
                     </ul>
                 </div>
@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="purchase-table"  class="datatable table table-hover table-center mb-0">
+                            <table id="purchase-table"  class="table table-hover table-center mb-0">
                                     <thead>
                                     <tr>
                                     <th>S/N</th>
@@ -88,7 +88,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Purchase</h5>
+                    <h5 class="modal-title">Purchase Report</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -126,6 +126,12 @@
     <!-- /Generate Modal -->
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        $(".sidebar-reports").addClass('active');
+        $(".sidebar-purchase_reports").addClass('active');
+    });
+  </script>
     <script>
         var table = $('#purchase-table').DataTable({
                 "responsive": false,

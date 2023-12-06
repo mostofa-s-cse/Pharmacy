@@ -7,7 +7,7 @@
                         <div class="col">
                             <h3 class="page-title">Supplier</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Supplier</li>
                             </ul>
                         </div>
@@ -186,6 +186,11 @@
 
 @endsection
 @section('script')
+<script>
+      $(document).ready(function () {
+       $(".sidebar-supplier").addClass('active');
+    });    
+</script>
 <script>
 	$(function()
 	{

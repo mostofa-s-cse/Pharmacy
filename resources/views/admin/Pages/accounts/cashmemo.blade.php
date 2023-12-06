@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Cash Memo</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Cash Memo</li>
                     </ul>
                 </div>

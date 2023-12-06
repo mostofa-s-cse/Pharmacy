@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,37 +17,36 @@ class OutStockProductController extends Controller
     */
 
     public function outstock(Request $request){
-        $category = DB::table('categories')->get();
-        $supplier = DB::table('suppliers')->get();
-        $categories ['categories'] = $category;
-        $suppliers ['suppliers'] = $supplier;
+
+        $purchase = DB::table('purchases')->get();
+        $purchases ['purchases'] = $purchase;
         if($request->ajax()){
-            $products = Purchase::where('quantity', '<=', 0)->get();
+            $products = Product::where('quantity', '<=', 0)->get();
             return DataTables::of($products)
                 ->addColumn('product',function($product){
                     $image = '';
-                    if(!empty($product->image)){
+                    if(!empty($product->purchase)){
                         $image = null;
-                        if(!empty($product->image)){
+                        if(!empty($product->purchase->image)){
                             $image = '<span class="avatar avatar-sm mr-2">
-                            <img class="avatar-img" src="'.asset("storage/purchases/".$product->image).'" alt="image">
+                            <img class="avatar-img" src="'.asset("storage/purchases/".$product->purchase->image).'" alt="image">
                             </span>';
                         }
-                        return $image .' ' . $product->product;
+                        return $image .' ' . $product->purchase->product;
                     }                 
                 })
                 
                 ->addColumn('category',function($product){
                     $category = null;
-                    if(!empty($product->category)){
-                        $category = $product->category->name;
+                    if(!empty($product->purchase->category->name)){
+                        $category = $product->purchase->category->name;
                     }
                     return $category;
                 })
                 ->addColumn('cost_price',function($product){
                     $cost_price = null;
-                    if(!empty($product->cost_price)){
-                        $cost_price = $product->cost_price;
+                    if(!empty($product->price)){
+                        $cost_price = $product->price;
                     }
                     return $cost_price;                 
                 })
@@ -56,19 +56,18 @@ class OutStockProductController extends Controller
                     }
                 })
                 ->addColumn('expiry_date',function($product){
-                    if(!empty($product->expiry_date)){
-                        return date_format(date_create($product->expiry_date),'d M, Y');
+                    if(!empty($product->purchase)){
+                        return date_format(date_create($product->purchase->expiry_date),'d M, Y');
                     }
                 })
                 ->addColumn('action', function ($row) {
-                    $editbtn = '<a href="#" id="' . $row->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editPurchaseModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
-                    $deletebtn = '<a href="#" id="' . $row->id . '" name="' . $row->product   .'" class="text-danger mx-1 deleteIcon"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>';
-                    $btn = $editbtn.' '.$deletebtn;
+                    $editbtn = '<a href="#" id="' . $row->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editProductModal"><button class="btn btn-primary"><i class="fas fa-edit"></i></button></a>';
+                    $btn = $editbtn;
                     return $btn;
                 })
                 ->rawColumns(['product','action'])
                 ->make(true);
         }      
-        return view('admin.pages.product.outstock', $categories,$suppliers);
+        return view('admin.pages.product.outstock',$purchases);
     }
 }
