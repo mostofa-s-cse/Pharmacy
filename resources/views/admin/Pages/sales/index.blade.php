@@ -105,17 +105,17 @@
                                                 <tr>
                                                     <td>Sub Total :</td>
                                                     <td><input type="number" id="sub_total" name="sub_total"
-                                                               class="form-control"/></td>
+                                                               class="form-control" step="0.01"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Discount :</td>
                                                     <td><input type="number" value="0" id="discount" name="discount"
-                                                               class="form-control"/></td>
+                                                               class="form-control" step="0.01"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Total :</td>
                                                     <td><input type="number" id="total_price" name="total_price"
-                                                               class="form-control"/></td>
+                                                               class="form-control" step="0.01"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Paid By</td>
@@ -132,13 +132,13 @@
                                                 <tr>
                                                     <td>Amount Paid :</td>
                                                     <td><input type="number" value="0" id="amount_paid"
-                                                               name="amount_paid" class="form-control"/>
+                                                               name="amount_paid" class="form-control" step="0.01"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Due/Return :</td>
                                                     <td><input type="number" id="due_return" name="due_return" readonly
-                                                               class="form-control"/></td>
+                                                               class="form-control" step="0.01"/></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

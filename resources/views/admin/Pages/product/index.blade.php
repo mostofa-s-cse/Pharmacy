@@ -214,7 +214,13 @@
                     processData: false,
                     dataType: 'json',
                     success: function(response) {
-                        if (response.status == 200) {
+                        if (response.status == 'error') {
+                            Swal.fire(
+                                    'Product Added fails!',
+                                    response.message,
+                                    'error'
+                                )
+                                }else{
                             Swal.fire(
                                 'Added!',
                                 'Product Added Successfully!',
@@ -222,6 +228,7 @@
                             )
                             fetchAllProduct();
                         }
+                        
                         $("#add_product_btn").text('Add product');
                         $("#add_product_form")[0].reset();
                         $("#addProductModal").modal('hide');

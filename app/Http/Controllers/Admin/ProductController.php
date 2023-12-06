@@ -129,7 +129,11 @@ class ProductController extends Controller
                         ]);
         } else {
             // Code to execute when the condition is not met
-            dd("Failed: The new quantity is invalid");
+            // dd("Failed: The new quantity is invalid");
+            return response()->json([
+                'status'=>'error',
+                'message' => 'The new quantity is invalid'
+            ], 200);
         }
         
         // $notifications = notify("Product has been added");
