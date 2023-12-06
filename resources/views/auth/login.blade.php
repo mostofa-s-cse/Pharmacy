@@ -42,9 +42,9 @@
                                         </div>
                                         <div class="col-auto">
                                         @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('forget.password.show') }}">
+                                    {{-- <a class="btn btn-link" href="{{ route('forget.password.show') }}">
                                         {{ __('Forgot Your Password?') }}
-                                    </a>
+                                    </a> --}}
                                 @endif
                                         </div>
                                     </div>
@@ -71,14 +71,14 @@
                                         Login
                                     </button>
                                 </div>
-                                <div class="account-footer">
+                                {{-- <div class="account-footer">
                                     <p>
                                         Don't have an account yet?
                                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
                         @endif
                                     </p>
-                                </div>
+                                </div> --}}
                             </form>
                         </div>
                     </div>

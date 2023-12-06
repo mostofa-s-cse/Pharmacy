@@ -150,7 +150,7 @@ class CategoriesController extends Controller
                 if ($check && $check->category_id == $id) {
                     return response()->json([
                         'status'=>'error',
-                        'message' => 'This Category used Purchase!'
+                        'message' => 'This Category used Purchase'
                     ], 200);
                 } else {
                     Category::destroy($id);
